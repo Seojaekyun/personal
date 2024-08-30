@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.jk.dao.ReserveDao">
+	<select id="getRooms" resultType="kr.co.jk.dto.RoomDto">
+		select title, id from room order by price asc
+	</select>
+	<select id="getRoom" resultType="kr.co.jk.dto.RoomDto">
+		select * from room where id=#{param}
+	</select>
+	<select id="getJumuncode" resultType="Integer">
+		select ifnull(max(right(jumuncode, 3)), 0)
+		from reserve where jumuncode like concat(#{param}, '%')
+	</select>
+	<insert id="reserveOk" parameterType="kr.co.jk.dto.ReserveDto">
+		insert into reserve
+		(inday,outday,suk,inwon,bbq,chacol,chgprice,userid,rid,jumuncode,writeday)
+		values
+		(#{inday},#{outday},#{suk},#{inwon},#{bbq},#{chacol},#{chgprice},#{userid},#{rid},#{jumuncode},now())
+	</insert>
+	<select id="reserveView" resultType="kr.co.jk.dto.ReserveDto">
+		select * from reserve where jumuncode=#{param}
+	</select>
+	<select id="isCheck" resultType="Boolean">
+		<![CDATA[
+		select count(*) from reserve
+		where inday <= #{param1} and outday > #{param1}
+		and rid=#{param2}
+		]]>
+	</select>
+</mapper>

@@ -2,16 +2,15 @@ package kr.co.jk.controller;
 
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kr.co.pension.dao.GongjiDao;
-import kr.co.pension.dto.GongjiDto;
+import jakarta.servlet.http.HttpServletRequest;
+import kr.co.jk.dao.GongjiDao;
+import kr.co.jk.dto.GongjiDto;
 
 @Controller
 public class GongjiController {

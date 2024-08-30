@@ -75,7 +75,7 @@
     <div id="first">  
       <!-- <span onclick="moveLeft()"> ◀ </span> -->
       <span onclick="move(-1)"> ◀ </span>
-      <img src="../resources/room/${rdto.rimg}" id="mImg" width="500" height="300" valign="middle">
+      <img src="../static/resources/room/${rdto.rimg}" id="mImg" width="500" height="300" valign="middle">
       <span onclick="move(1)"> ▶ </span>
       <!-- <span onclick="moveRight()"> ▶ </span>   -->
     </div> <!-- 사진 -->

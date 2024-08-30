@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.jk.dao.BoardDao">
+  <select id="list" resultType="kr.co.jk.dto.BoardDto">
+    select * from board
+    order by id desc
+  </select>
+  
+  <insert id="writeOk" parameterType="kr.co.jk.dto.BoardDto">
+    insert into board(title,content,userid,writeday)
+    values(#{title},#{content},#{userid},now())
+  </insert>
+  
+  <update id="readnum">
+    update board set readnum=readnum+1
+    where id=#{param1} and userid != #{param2}
+  </update>
+  
+  <select id="content" resultType="kr.co.jk.dto.BoardDto">
+    select * from board
+    where id=#{param}
+  </select>
+  
+  <select id="getName" resultType="String">
+    select name from member
+    where userid=#{param}
+  </select>
+  
+  <delete id="delete">
+    delete from board
+    where id=#{param}
+  </delete>
+  
+  <update id="updateOk"  parameterType="kr.co.jk.dto.BoardDto">
+    update board set title=#{title}, content=#{content}
+    where id=#{id}
+  </update>
+  
+  <select id="isWriter" resultType="Boolean">
+     select count(*) from board
+     where id=#{param1} and userid=#{param2}
+  </select>
+</mapper>
+
+
+
+
+
+
+
+
+

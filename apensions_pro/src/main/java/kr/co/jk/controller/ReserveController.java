@@ -4,19 +4,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kr.co.pension.dao.ReserveDao;
-import kr.co.pension.dto.ReserveDto;
-import kr.co.pension.dto.RoomDto;
-import kr.co.pension.util.Utils;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import kr.co.jk.dao.ReserveDao;
+import kr.co.jk.dto.ReserveDto;
+import kr.co.jk.dto.RoomDto;
+import kr.co.jk.util.Utils;
 
 @Controller
 public class ReserveController {

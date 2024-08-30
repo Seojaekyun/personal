@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page import="kr.co.pension.util.Utils" %>
+<%@page import="kr.co.jk.util.Utils" %>
 <% Utils.getRooms(request); %>  
 <!DOCTYPE html>
 <html>
@@ -232,7 +231,9 @@
 		}
 	}
 </script>
- <decorator:head/>
+
+<sitemesh:write property="head"/>
+
 </head>
 <body> <!-- index.jsp -->
 	<div id="outer">
@@ -242,7 +243,7 @@
 		</div>
 	</div>
 	<header> 
-		<div id="left"> <a href="../main/index"> <img src="../resources/Alogo.png" width="30%" valign="middle"> </a> </div>
+		<div id="left"> <a href="../main/index"> <img src="../static/resources/Alogo.png" width="30%" valign="middle"> </a> </div>
 		<div id="right"> 
 			<c:if test="${userid==null}">  
 				<a href="../member/login"> 로그인 </a> | 
@@ -335,13 +336,14 @@
 		</ul>
 	</nav>
 	</c:if>
- <decorator:body/>
+ 
+ <sitemesh:write property="body"/>
 	
 	<footer>
 		<table width="1000" align="center">
 			<tr>
 				<td rowspan="5" width="200"></td>
-				<td rowspan="5"><img alt="logo" src="../resources/Alogo.png" width="90" align="middle"></td>
+				<td rowspan="5"><img alt="logo" src="../static/resources/Alogo.png" width="90" align="middle"></td>
 				<td> 상호명 : 어펜션스 </td>
 				<td> 365고객센터 </td>
 			</tr>

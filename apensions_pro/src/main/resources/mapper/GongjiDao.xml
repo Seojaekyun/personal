@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.jk.dao.GongjiDao">
+	<select id="list" resultType="kr.co.jk.dto.GongjiDto">
+		select * from gongji order by state desc , id desc
+	</select>
+	<insert id="writeOk" parameterType="kr.co.jk.dto.GongjiDto">
+		insert into gongji(title,content,state,writeday)
+		values(#{title},#{content},#{state},now())
+	</insert>
+	<update id="readnum">
+		update gongji set readnum=readnum+1 where id=#{param}
+	</update>
+	<select id="content" resultType="kr.co.jk.dto.GongjiDto">
+		select * from gongji where id=#{param}
+	</select>
+	<delete id="delete">
+		delete from gongji where id=#{param}
+	</delete>
+	<update id="updateOk" parameterType="kr.co.jk.dto.GongjiDto">
+		update gongji
+		set title=#{title} , content=#{content} , state=#{state}
+		where id=#{id}
+	</update>
+</mapper>
+
+
+
+
+

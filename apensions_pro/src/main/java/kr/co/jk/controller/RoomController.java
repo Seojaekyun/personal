@@ -1,16 +1,15 @@
 package kr.co.jk.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kr.co.pension.dao.RoomDao;
-import kr.co.pension.dto.RoomDto;
-import kr.co.pension.util.Utils;
+import jakarta.servlet.http.HttpServletRequest;
+import kr.co.jk.dao.RoomDao;
+import kr.co.jk.dto.RoomDto;
+import kr.co.jk.util.Utils;
 
 @Controller
 public class RoomController {

@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.co.pension.dao.DefaultDao;
-import kr.co.pension.dto.RoomDto;
+import kr.co.jk.dao.DefaultDao;
+import kr.co.jk.dto.RoomDto;
 
 @RestController // @ResponseBody + @Controller  => 값만 리턴해주는 매핑메소드
 public class DefaultController {

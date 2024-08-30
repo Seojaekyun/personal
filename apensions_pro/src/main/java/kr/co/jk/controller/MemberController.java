@@ -3,10 +3,6 @@ package kr.co.jk.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.mail.Session;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,12 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.pension.dao.MemberDao;
-import kr.co.pension.dto.InquiryDto;
-import kr.co.pension.dto.MemberDto;
-import kr.co.pension.dto.ReserveDto;
-import kr.co.pension.dto.TourDto;
-import kr.co.pension.util.Utils;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import kr.co.jk.dao.MemberDao;
+import kr.co.jk.dto.InquiryDto;
+import kr.co.jk.dto.MemberDto;
+import kr.co.jk.dto.ReserveDto;
+import kr.co.jk.dto.TourDto;
+import kr.co.jk.util.Utils;
 
 @Controller
 public class MemberController {

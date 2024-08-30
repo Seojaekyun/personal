@@ -48,7 +48,7 @@
 	}
 	
 	function chgImg(my) {
-		document.getElementById("maxImg").src="../resources/room/"+my;
+		document.getElementById("maxImg").src="../static/resources/room/"+my;
 	}
 </script>
 </head>
@@ -115,9 +115,9 @@
 		<tr id="img">
 			<td> 객실사진 </td>
 			<td colspan="3" align="center">
-				<img src="../resources/room/${rdto.imgs[0]}" width="400" height="260" id="maxImg"> <hr>
+				<img src="../static/resources/room/${rdto.imgs[0]}" width="400" height="260" id="maxImg"> <hr>
 				<c:forEach items="${rdto.imgs}" var="img">
-				<img src="../resources/room/${img}" width="50" height="30" onclick="chgImg('${img}')">
+				<img src="../static/resources/room/${img}" width="50" height="30" onclick="chgImg('${img}')">
 				</c:forEach>
 			</td>
 		</tr>

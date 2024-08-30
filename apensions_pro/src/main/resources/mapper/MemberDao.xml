@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.jk.dao.MemberDao">
+	<select id="dupCheck" resultType="String">
+		select count(*) from member where userid=#{param}
+	</select>
+	<insert id="memberOk" parameterType="kr.co.jk.dto.MemberDto">
+		insert into member(userid,name,pwd,email,phone,writeday) values(#{userid},#{name},#{pwd},#{email},#{phone},now())
+	</insert>
+	<select id="loginOk" parameterType="kr.co.jk.dto.MemberDto" resultType="kr.co.jk.dto.MemberDto">
+		select userid, name, state from member where userid=#{userid} and pwd=#{pwd} and (state=0 or state=1 or state=2 or state=4)
+	</select>
+	<select id="useridSearch" resultType="String">
+		select userid from member where name=#{name} and email=#{email}
+	</select>
+	<select id="pwdSearch" resultType="String">
+		select pwd from member where name=#{name} and email=#{email} and userid=#{userid}
+	</select>
+	<select id="reMember" resultType="String">
+		update member set state=5 where userid=#{param} pwd=#{pwd}
+	</select>
+	<select id="memberView" resultType="kr.co.jk.dto.MemberDto">
+		select * from member where userid=#{param}
+   </select>
+   <update id="emailEdit">
+		update member set email=#{param1} where userid=#{param2}
+   </update>
+   <update id="phoneEdit">
+		update member set phone=#{param1} where userid=#{param2}
+   </update>
+   <select id="isPwd" resultType="Boolean">
+		select count(*) from member where pwd=#{param1} and userid=#{param2}
+   </select>
+   <update id="pwdChg">
+		update member set pwd=#{param1} where userid=#{param2}
+   </update>
+   <select id="getInquirys" resultType="kr.co.jk.dto.InquiryDto">
+		select * from inquiry where userid=#{param} order by id desc
+   </select>
+   <select id="getMembers"  resultType="kr.co.jk.dto.MemberDto">
+   		select * from member
+   	</select>
+   	<select id="getMembers2" resultType="HashMap">
+		select * from member
+	</select>
+	<update id="outMember">
+		update member set state=2 where userid=#{param}
+	</update>
+	<update id="clsMember">
+		update member set state=4 where userid=#{param}
+	</update>
+	<select id="reserveList" resultType="kr.co.jk.dto.ReserveDto">
+		select * from reserve where userid=#{param}
+	</select>
+	<update id="cancelRe">
+		update reserve set state=#{param1} where id=#{param2}
+	</update>
+	<select id="getGongji" resultType="kr.co.jk.dto.GongjiDto">
+		select * from gongji order by state desc , id desc limit 5
+	</select>
+	<select id="getBoard" resultType="kr.co.jk.dto.BoardDto">
+		select * from board order by id desc limit 5
+	</select>
+	<select id="getTour" resultType="kr.co.jk.dto.TourDto">
+		select * from tour order by id desc limit 5
+	</select>
+</mapper>

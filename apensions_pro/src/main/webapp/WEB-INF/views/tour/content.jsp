@@ -54,7 +54,7 @@
     <div> ${tdto.title} : ${tdto.readnum} <span id="rnum">(조회수)</span></div>
     <div id="imgs">
 		<c:forEach items="${timg}" var="img">
-		<img src="../resources/tour/${img}" width="150">
+		<img src="../static/resources/tour/${img}" width="150">
 		</c:forEach>
 	</div>
 	<div id="content"> ${tdto.content} </div>

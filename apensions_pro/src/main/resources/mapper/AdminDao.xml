@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.jk.dao.AdminDao">
+	<select id="list" resultType="kr.co.jk.dto.RoomDto">
+		select * from room order by price asc
+	</select>
+	<insert id="writeOk" parameterType="kr.co.jk.dto.RoomDto">
+		insert into room(title,min,max,price,content,rimg,writeday)
+		values(#{title},#{min},#{max},#{price},#{content},#{rimg},now())
+	</insert>
+	<select id="content" resultType="kr.co.jk.dto.RoomDto">
+		select * from room where id=#{param}
+	</select>
+	<delete id="delete">
+		delete from room where id=#{param}
+	</delete>
+	<select id="getRimg" resultType="String">
+		select rimg from room where id=#{param}
+	</select>
+	<update id="updateOk" parameterType="kr.co.jk.dto.RoomDto">
+		update room set
+		title=#{title}, rimg=#{rimg}, max=#{max}, min=#{min},
+		price=#{price}, content=#{content} 
+		where id=#{id}
+	</update>
+	<select id="getInquirys" resultType="kr.co.jk.dto.InquiryDto">
+		select * from inquiry order by id desc 
+	</select>
+	<update id="inquiryOk" parameterType="kr.co.jk.dto.InquiryDto">
+		update inquiry set answer=#{answer}, state=1 where id=#{id}
+	</update>
+	<select id="memberList" resultType="HashMap">
+		select * from member where userid !='admin'
+	</select>
+	<update id="memberUp" parameterType="kr.co.jk.dto.MemberDto">
+		update member set state=#{state} where id=#{id}
+	</update>
+	<select id="reserveList" resultType="kr.co.jk.dto.ReserveDto">
+		select * from reserve order by id desc
+	</select>
+</mapper>
+
+
+

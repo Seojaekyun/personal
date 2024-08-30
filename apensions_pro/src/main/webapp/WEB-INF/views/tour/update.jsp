@@ -142,7 +142,7 @@
 			삭제하실 사진을 체크해주세요 <p>
 			<c:forEach items="${timg}" var="img">
 			<input type="checkbox" value="${img}" class="imgList">
-			<img src="../resources/tour/${img}" width="60" height="40">
+			<img src="../static/resources/tour/${img}" width="60" height="40">
 			</c:forEach>
 		</div>
 		<div>

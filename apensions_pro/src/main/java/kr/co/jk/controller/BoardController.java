@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import kr.co.pension.dao.BoardDao;
-import kr.co.pension.dto.BoardDto;
+import kr.co.jk.dao.BoardDao;
+import kr.co.jk.dto.BoardDto;
 
 @Controller
 public class BoardController {

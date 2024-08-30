@@ -49,7 +49,7 @@
 </head>
 <body>
 <section>
-	<div id="image"> <img src="../resources/main.jpg" width="1200" height="400"> </div>
+	<div id="image"> <img src="../static/resources/main.jpg" width="1200" height="400"> </div>
 	<div id="community">
 		<div class="comm">
 			<div align="center" style="font-size:20px;margin-top:5px;margin-bottom:5px;"> 공지사항 </div>
