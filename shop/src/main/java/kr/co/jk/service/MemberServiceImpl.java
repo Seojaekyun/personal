@@ -188,4 +188,30 @@ public class MemberServiceImpl implements MemberService{
 		return "redirect:/member/cartView";
 	}
 	
+	@Override
+	public int[] chgSu(HttpServletRequest request,HttpSession session) {
+		if(session.getAttribute("userid")==null) {
+			return null;
+		}
+		else {
+			int su=Integer.parseInt(request.getParameter("su"));
+			String pcode=request.getParameter("pcode");
+			String userid=session.getAttribute("userid").toString();
+			mapper.chgSu(su,pcode,userid);
+			
+			HashMap map=mapper.getProduct(pcode);
+			
+			int price=Integer.parseInt(map.get("price").toString());
+			int halin=Integer.parseInt(map.get("halin").toString());
+			int juk=Integer.parseInt(map.get("juk").toString());
+			
+			int[] tot=new int[3];
+			tot[0]=(int)(price-(price*halin/100.0))*su;
+			tot[1]=(int)(price*juk/100.0)*su;
+			tot[2]=Integer.parseInt(map.get("baeprice").toString());
+			
+			return tot;
+		}
+	}
+	
 }

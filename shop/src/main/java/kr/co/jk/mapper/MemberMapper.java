@@ -14,5 +14,6 @@ public interface MemberMapper {
 	HashMap getProduct(String pcode);
 	ArrayList<HashMap> getProductAll(String userid);
 	void cartDel(String pcode, String userid);
+	void chgSu(int su, String pcode, String userid);
 
 }
