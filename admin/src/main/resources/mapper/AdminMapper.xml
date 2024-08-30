@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.jk.mapper.AdminMapper">
+	<select id="getDae" resultType="kr.co.jk.dto.DaeDto">
+		select * from dae order by code asc
+	</select>
+	<select id="getCompany" resultType="kr.co.jk.dto.CompanyDto">
+		select * from company order by code asc
+	</select>
+	<select id="getJung" resultType="kr.co.jk.dto.JungDto">
+		select * from jung where daecode=#{daecode} order by code asc
+	</select>
+	<select id="getSo" resultType="kr.co.jk.dto.SoDto">
+		select * from so where daejung=#{daejung} order by code asc
+	</select>
+	<select id="genPcode" resultType="Integer">
+		select ifnull(max(right(pcode, 3)), 0)+1
+		from product where pcode like concat(#{pcode}, '%')
+	</select>
+	<insert id="productAddOk" parameterType="kr.co.jk.dto.ProductDto">
+		insert into product(pcode, pimg, dimg, title, price, halin, su, baeprice, baeday, juk, writeday)
+		values(#{pcode}, #{pimg}, #{dimg}, #{title}, #{price}, #{halin}, #{su}, #{baeprice}, #{baeday}, #{juk}, now())
+	</insert>
+</mapper>

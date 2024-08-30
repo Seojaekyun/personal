@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.jk.mapper.ProductMapper">
+	<select id="productList" resultType="kr.co.jk.dto.ProductDto">
+		select * from product where pcode like concat(#{pcode},'%') order by ${str} limit #{index}, 20
+	</select>
+	<select id="getDaeName" resultType="String">
+		select name from dae where code=#{code}
+	</select>
+	<select id="getJungName" resultType="String">
+		select name from jung where code=#{code} and daecode=#{daecode}
+	</select>
+	<select id="getSoName" resultType="String">
+		select name from so  where code=#{code} and daejung=#{daejung}
+	</select>
+	<select id="getPtot" resultType="Integer">
+		select ceil(count(*)/20) from product where pcode like concat(#{pcode},'%')
+	</select>
+	<select id="productContent" resultType="kr.co.jk.dto.ProductDto">
+		select * from product where pcode=#{pcode}
+	</select>
+	<insert id="jjimOk">
+		insert into jjim(pcode,userid,writeday) values(#{pcode},#{userid},now())
+	</insert>
+	<delete id="jjimDel">
+		delete from jjim where pcode=#{pcode} and userid=#{userid}
+	</delete>
+	<select id="jjimIs">
+		select count(*) from jjim where userid=#{userid} and pcode=#{pcode}
+	</select>
+	<insert id="addCart">
+		insert into cart(pcode,su,userid,writeday) values(#{pcode},#{su},#{userid},now())
+	</insert>
+	<select id="isCart" resultType="Boolean">
+		select count(*) from cart where userid=#{userid} and pcode=#{pcode}
+	</select>
+	<select id="upCart">
+		update cart set su=su+${su} where userid=#{userid} and pcode=#{pcode}
+	</select>
+	
+	
+</mapper>

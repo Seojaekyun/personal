@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.jk.mapper.MemberMapper">
+	<select id="useridCheck" resultType="String">
+		select count(*) from member where userid=#{userid}
+	</select>
+	<insert id="memberOk" parameterType="kr.co.jk.dto.MemberDto">
+		insert into member(userid,pwd,name,email,phone,writeday)
+		values(#{userid},#{pwd},#{name},#{email},#{phone},now())
+	</insert>
+	<select id="getProduct" resultType="HashMap">
+		select * from product where pcode=#{pcode}
+	</select>
+	<select id="getProductAll" resultType="HashMap">
+		select product.* , cart.su as csu from product inner join cart
+		on product.pcode=cart.pcode and userid=#{userid}
+  </select>
+	
+</mapper>
