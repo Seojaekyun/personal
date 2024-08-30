@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.co.jk.dto.MemberDto;
 import kr.co.jk.service.MemberService;
@@ -39,6 +40,11 @@ public class MemberController {
 	@RequestMapping("/member/cartView")
     public String cartView(HttpSession session, HttpServletRequest request, Model model) {
 		return service.cartView(session,request,model);
+	}
+	
+	@RequestMapping("/member/cartDel")
+    public String cartDel(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		return service.cartDel(session,request,response);
 	}
 	
 

@@ -6,7 +6,6 @@ import java.util.HashMap;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.jk.dto.MemberDto;
-import kr.co.jk.dto.ProductDto;
 
 @Mapper
 public interface MemberMapper {
@@ -14,5 +13,6 @@ public interface MemberMapper {
 	void memberOk(MemberDto mdto);
 	HashMap getProduct(String pcode);
 	ArrayList<HashMap> getProductAll(String userid);
+	void cartDel(String pcode, String userid);
 
 }

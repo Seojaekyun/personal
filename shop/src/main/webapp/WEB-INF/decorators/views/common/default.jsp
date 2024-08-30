@@ -106,8 +106,6 @@
 		display: none;
 		font-size: 15px;
 		border: solid 1px black;
-		border-radius: 10px;
-		
 	}
 	nav #daeMenu > li {   /* 대분류 메뉴 */
 		list-style-type: none;
@@ -125,7 +123,7 @@
 		top: 0px;
 		padding-left: 0px;
 		background: white;
-		outline: solid 1px black;
+		border: solid 1px black;
 	}
 	nav #daeMenu > li .jungMenu > li {
 		list-style-type: none;
@@ -139,7 +137,7 @@
 		top: 0px;
 		padding-left: 0px;
 		background: white;
-		outline: solid 1px black;
+		border: solid 1px black;
 	}
 	nav #daeMenu > li .jungMenu > li .soMenu > li {
 		list-style-type: none;
