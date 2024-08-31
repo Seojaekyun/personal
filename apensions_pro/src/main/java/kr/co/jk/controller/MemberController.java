@@ -25,7 +25,6 @@ public class MemberController {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	// 아래의 두개의 매핑은 독립시켜서 다른 컨트롤러에 담아도 된다..
 	@RequestMapping("/")
 	public String home() {
 		return "redirect:/main/index";
@@ -155,14 +154,12 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/psForm")
-	public String psForm()
-	{
+	public String psForm() {
 		return "/member/psForm";
 	}
 	
 	@RequestMapping("/member/pwdSearch")
-	public String pwdSearch(MemberDto mdto, Model model)
-	{
+	public String pwdSearch(MemberDto mdto, Model model) {
 		MemberDao mdao=sqlSession.getMapper(MemberDao.class);
 		String pwd=mdao.pwdSearch(mdto);
 		
@@ -170,99 +167,94 @@ public class MemberController {
 		return "/member/pwdSearch";
 	}
 	
-	@RequestMapping("/member/reMem")
-	public String reMem() {
-		return "/member/reMem";
+	@RequestMapping("/member/reForm")
+	public String reForm() {
+		return "/member/reForm";
 	}
 	
 	@RequestMapping("/member/reMember")
 	public String reMember(MemberDto mdto, Model model) {
-		MemberDao mdao=sqlSession.getMapper(MemberDao.class);
-		String userid=mdao.useridSearch(mdto);
+		MemberDao mdao = sqlSession.getMapper(MemberDao.class);
 		
-		model.addAttribute("userid",userid);
+		int updateCount = mdao.reMember(mdto); // 업데이트 실행
+		System.out.println("Update count: " + updateCount); // 디버깅 로그
+		
+		if (updateCount > 0) {
+			model.addAttribute("msg", "업데이트 성공!");
+		}
+		else {
+			model.addAttribute("err", "업데이트에 실패했습니다.");
+		}
 		
 		return "/member/reMember";
 	}
 	
 	@RequestMapping("/member/memberView")
-    public String memberView(HttpSession session, Model model)
-    {
-    	if(session.getAttribute("userid")==null)
-    	{
-    		return "redirect:/member/login";
-    	}
-    	else
-    	{
-    		String userid=session.getAttribute("userid").toString();
-    		
-    		MemberDao mdao=sqlSession.getMapper(MemberDao.class);
-    		MemberDto mdto=mdao.memberView(userid);
-    		
-    		model.addAttribute("mdto",mdto);
-    		
-    		return "/member/memberView";
-    	}
-    }
+	public String memberView(HttpSession session, Model model) {
+		if(session.getAttribute("userid")==null) {
+			return "redirect:/member/login";
+		}
+		else {
+			String userid=session.getAttribute("userid").toString();
+			
+			MemberDao mdao=sqlSession.getMapper(MemberDao.class);
+			MemberDto mdto=mdao.memberView(userid);
+			
+			model.addAttribute("mdto",mdto);
+			
+			return "/member/memberView";
+		}
+	}
 	
 	@RequestMapping("/member/emailEdit")
-    public String emailEdit(HttpServletRequest request, HttpSession session)
-    {
+	public String emailEdit(HttpServletRequest request, HttpSession session) {
 		String email=request.getParameter("email");
-    	String userid=session.getAttribute("userid").toString();
-    	
-    	MemberDao mdao=sqlSession.getMapper(MemberDao.class);
-    	mdao.emailEdit(email, userid);
-    	
-    	return "redirect:/member/memberView";
-    }
+		String userid=session.getAttribute("userid").toString();
+		
+		MemberDao mdao=sqlSession.getMapper(MemberDao.class);
+		mdao.emailEdit(email, userid);
+		
+		return "redirect:/member/memberView";
+	}
 	
 	@RequestMapping("/member/phoneEdit")
-    public String phoneEdit(HttpServletRequest request, HttpSession session)
-    {
-    	String userid=session.getAttribute("userid").toString();
-    	String phone=request.getParameter("phone");
-    	
-    	MemberDao mdao=sqlSession.getMapper(MemberDao.class);
-    	mdao.phoneEdit(phone,userid);
-    	
-    	return "redirect:/member/memberView";
-    }
+	public String phoneEdit(HttpServletRequest request, HttpSession session) {
+		String userid=session.getAttribute("userid").toString();
+		String phone=request.getParameter("phone");
+		
+		MemberDao mdao=sqlSession.getMapper(MemberDao.class);
+		mdao.phoneEdit(phone,userid);
+		
+		return "redirect:/member/memberView";
+	}
 	
 	@RequestMapping("/member/pwdChg")
-    public String pwdChg(HttpServletRequest request, HttpSession session)
-    {
-    	String oldPwd=request.getParameter("oldPwd");
-    	String pwd=request.getParameter("pwd");
-    	String userid=session.getAttribute("userid").toString();
-    	
-    	MemberDao mdao=sqlSession.getMapper(MemberDao.class);
-    	if(mdao.isPwd(oldPwd, userid))
-    	{
-    		mdao.pwdChg(pwd,userid);
-    		return "redirect:/member/memberView";
-    	}
-    	else
-    	{
-    		return "redirect:/member/memberView?err=1";
-    	}
-    }
+	public String pwdChg(HttpServletRequest request, HttpSession session) {
+		String oldPwd=request.getParameter("oldPwd");
+		String pwd=request.getParameter("pwd");
+		String userid=session.getAttribute("userid").toString();
+		
+		MemberDao mdao=sqlSession.getMapper(MemberDao.class);
+		if(mdao.isPwd(oldPwd, userid)) {
+			mdao.pwdChg(pwd,userid);
+			return "redirect:/member/memberView";
+		}
+		else {
+			return "redirect:/member/memberView?err=1";
+		}
+	}
 	
 	@RequestMapping("/member/myWrite")
-	public String myWrite(HttpSession session, Model model)
-	{
-		if(session.getAttribute("userid")!=null)
-		{
+	public String myWrite(HttpSession session, Model model) {
+		if(session.getAttribute("userid")!=null) {
 			String userid=session.getAttribute("userid").toString();
 			MemberDao mdao=sqlSession.getMapper(MemberDao.class);
 			
 			ArrayList<InquiryDto> ilist=mdao.getInquirys(userid);
 			
-			for(int i=0;i<ilist.size();i++)
-			{
+			for(int i=0;i<ilist.size();i++) {
 				InquiryDto idto=ilist.get(i);
-				switch(idto.getTitle())
-				{
+				switch(idto.getTitle()) {
 					case 0: idto.setTitle2("펜션예약 관련문의"); break;
 					case 1: idto.setTitle2("입/퇴실 관련문의"); break;
 					case 2: idto.setTitle2("주변맛집 관련문의"); break;
@@ -271,26 +263,23 @@ public class MemberController {
 					default: idto.setTitle2("");
 				}
 				
-				if(idto.getState()==0)
-    	    	{
-    	    		idto.setAnswer("답변 대기중");
-    	    	}
-				else
-				{
+				if(idto.getState()==0) {
+					idto.setAnswer("답변 대기중");
+				}
+				else {
 					String answer=idto.getAnswer().replace("\r\n", "<br>");
-	    	    	idto.setAnswer(answer);
+					idto.setAnswer(answer);
 				}
 				
 				String content=idto.getContent().replace("\r\n", "<br>");
-    	    	idto.setContent(content);
+				idto.setContent(content);
 			}
 			
 			model.addAttribute("ilist", ilist);
 			
 			return "/member/myWrite";
 		}
-		else
-		{
+		else {
 			return "redirect:/member/login";
 		}
 	}
@@ -298,12 +287,9 @@ public class MemberController {
 	@RequestMapping("/member/mapEx")
 	public String mapEx(Model model) {
 		MemberDao mdao=sqlSession.getMapper(MemberDao.class);
-//		ArrayList<MemberDto> mdto=mdao.getMembers();
-//		model.addAttribute("mlist", mlist);
-		
+	
 		ArrayList<HashMap> mapAll=mdao.getMembers2();
-        model.addAttribute("mapAll",mapAll);
-		
+		model.addAttribute("mapAll",mapAll);
 		return "/member/mapEx";
 	}
 	
@@ -345,7 +331,7 @@ public class MemberController {
 		return "/member/reserveList";
     }
 	
-	@RequestMapping("/member/cancelRe")
+	@RequestMapping("/adminRoom/cancelRe")
     public String cancelRe(HttpServletRequest request) {
 		System.out.println("cancelRe");
 		String id=request.getParameter("id");
@@ -354,8 +340,7 @@ public class MemberController {
 		MemberDao mdao=sqlSession.getMapper(MemberDao.class);
 		mdao.cancelRe(state,id);
 		
-		return "redirect:/member/reserveList";
+		return "redirect:/adminRoom/reserveList";
     }
+	
 }
-
-

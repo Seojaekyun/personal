@@ -10,16 +10,18 @@
    #section form {
      text-align:center;
    }
-   #section input[type=text] {
-     width:330px;
+   #section input[type=text], [type=password] {
+     width:230px;
      height:30px;
      border:1px solid green;
+     border-radius: 5px;
      outline:none;
    }
    #section input[type=submit] {
-     width:336px;
+     width:236px;
      height:34px;
      border:1px solid green;
+     border-radius: 5px;
      background:green;
      color:white;
      font-size:15px;
