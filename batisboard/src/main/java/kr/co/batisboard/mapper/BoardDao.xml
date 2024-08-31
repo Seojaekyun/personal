@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.batisboard.BoardDao">
+    <select id="loginOk" resultType="boolean">
+        select count(*) from member where uid=#{uid} and pwd=#{pwd}
+    </select>
+    <select id="uidChk" resultType="int">
+        select count(*) from member where uid=#{param}
+    </select>
+    <insert id="memberOk" parameterType="kr.co.batisboard.BoardDto">
+        insert into member(uid, name, pwd, email, phone, inday) values(#{uid}, #{name}, #{pwd}, #{email}, #{phone}, now())
+    </insert>
+    <select id="list" resultType="kr.co.batisboard.BoardDto">
+        select * from pageboard2 order by id desc limit #{param1}, #{param2}
+    </select>
+    <select id="getChong" resultType="int">
+        select ceil(count(*)/#{param1}) from pageboard2
+    </select>
+    <insert id="writeOk" parameterType="kr.co.batisboard.BoardDto">
+        insert into pageboard2(title, name, pwd, content, writeday, rimg) values(#{title}, #{name}, #{pwd}, #{content}, now(), #{rimg)
+    </insert>
+    <update id="rnum">
+        update pageboard2 set rnum=rnum+1 where id=#{param1}
+    </update>
+    <select id="content" resultType="kr.co.batisboard.BoardDto">
+        select * from pageboard2 where id=#{param1}
+    </select>
+    <select id="dat" resultType="kr.co.batisboard.DatDto">
+        select * from dat where bid=#{id} order by id desc
+    </select>
+    <select id="update" resultType="kr.co.batisboard.BoardDto">
+        select * from pageboard2 where id=#{param1}
+    </select>
+    <update id="updateOk" parameterType="kr.co.batisboard.BoardDto">
+        update pageboard2 set name=#{name}, title=#{title}, content=#{content} where id=#{id}
+    </update>
+    <select id="isPwd" resultType="boolean">
+        select count(*) from pageboard2 where id=#{param1} and pwd=#{param2}
+    </select>
+    <delete id="delete" parameterType="kr.co.batisboard.BoardDto">
+        delete from pageboard2 where id=#{id}
+    </delete>
+    <insert id="datOk" parameterType="kr.co.batisboard.DatDto">
+        insert into dat(bid, nick, pwd, content, writeday) values(#{bid}, #{nick}, #{pwd}, #{content}, now())
+    </insert>
+    <select id="datUp" resultType="kr.co.batisboard.DatDto">
+        select * from dat where id=#{param1}
+    </select>
+    <select id="isdatPwd" resultType="boolean">
+        select count(*) from dat where id=#{param1} and pwd=#{param2}
+    </select>
+    <update id="datupOk" parameterType="kr.co.batisboard.DatDto">
+        update dat set nick=#{nick}, content=#{content} where id=#{id}
+    </update>
+    <delete id="datDel" parameterType="kr.co.batisboard.DatDto">
+        delete from dat where id=#{id}
+    </delete>
+</mapper>
