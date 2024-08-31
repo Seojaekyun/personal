@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,6 +43,7 @@
 </style> 
 </head>
 <body> <!-- board/update.jsp -->
+
 <section>
 	<form method="post" action="updateOk" name="uform">
 	<input type="hidden" name="id" value="${bdto.id}">
@@ -51,7 +51,8 @@
 		<div><input type="text" name="title" placeholder="제 목" value="${bdto.title}"></div>
 		<div><textarea name="content" placeholder="내 용">${bdto.content}</textarea></div>
 		<div><input type="submit" value="수정하기"></div>
-    </form>
+	</form>
 </section>
+
 </body>
 </html>

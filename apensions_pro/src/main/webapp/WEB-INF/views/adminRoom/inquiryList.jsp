@@ -36,7 +36,8 @@
 	}
 </style>
 </head>
-<body>  
+<body>
+  
 <section>
 	<h3 align="center">문의 사항</h3>
 	<a href="../main/index">돌아가기</a>
@@ -59,5 +60,6 @@
 	</form>
 	</c:forEach>
 </section>
+
 </body>
 </html>

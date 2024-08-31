@@ -12,9 +12,10 @@
 	}
 </style>
 </head>
-<body>  <!-- adminRoom/list.jsp -->
+<body> <!-- adminRoom/list.jsp -->
+
 <section>
-    <table width="700" align="center">
+	<table width="700" align="center">
 	<caption><h3> 객실 현황 </h3></caption>
 		<tr>
 			<td> 객실명 </td>
@@ -39,5 +40,6 @@
 		</tr>
 	</table>
 </section>
+
 </body>
 </html>

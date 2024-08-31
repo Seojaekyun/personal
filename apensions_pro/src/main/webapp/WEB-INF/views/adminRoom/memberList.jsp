@@ -32,6 +32,7 @@
 </style>
 </head>
 <body>
+
 <section>
 	<table width="800" align="center">
 		<caption> <h3> 회원 현황 </h3></caption>
@@ -95,6 +96,7 @@
 		</c:forEach>
 	</table>
 </section>
+
 </body>
 </html>
 

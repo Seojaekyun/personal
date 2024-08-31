@@ -31,7 +31,8 @@
    }
   </style>
 </head>
-<body>  <!-- adminRoom/reserveList.jsp -->
+<body> <!-- adminRoom/reserveList.jsp -->
+
 <section>
 	<table width="900" align="center">
 		<caption> <h3> 예약 현황 </h3> </caption>
@@ -73,5 +74,6 @@
 		</c:forEach>
 	</table>
 </section>
+
 </body>
 </html>

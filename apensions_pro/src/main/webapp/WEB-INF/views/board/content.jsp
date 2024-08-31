@@ -41,6 +41,7 @@
 </style>
 </head>
 <body> <!-- board/content.jsp -->
+
 <section>
 	<h3> 게시판 내용 </h3>
 	<div> ${writer} </div>
@@ -58,5 +59,6 @@
 		</c:if>
 	</div>
 </section>
+
 </body>
 </html>
