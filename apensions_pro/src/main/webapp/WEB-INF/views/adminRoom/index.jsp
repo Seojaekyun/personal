@@ -23,10 +23,3 @@
 	</section>
 </body>
 </html>
-
-
-
-
-
-
-
