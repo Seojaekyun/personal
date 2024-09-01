@@ -336,8 +336,8 @@
 		</ul>
 	</nav>
 	</c:if>
- 
- <sitemesh:write property="body"/>
+	 
+<sitemesh:write property="body"/>
 	
 	<footer>
 		<table width="1000" align="center">
