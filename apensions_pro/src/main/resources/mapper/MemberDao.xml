@@ -16,9 +16,9 @@
 	<select id="pwdSearch" resultType="String">
 		select pwd from member where name=#{name} and email=#{email} and userid=#{userid}
 	</select>
-	<select id="reMember" resultType="String">
-		update member set state=5 where userid=#{param} pwd=#{pwd}
-	</select>
+	<update id="reMember" parameterType="kr.co.jk.dto.MemberDto">
+		UPDATE member SET state = 5 WHERE userid = #{userid} AND pwd = #{pwd}
+	</update>
 	<select id="memberView" resultType="kr.co.jk.dto.MemberDto">
 		select * from member where userid=#{param}
    </select>

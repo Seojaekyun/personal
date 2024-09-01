@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,6 +43,7 @@
 </style>
 </head>
 <body> <!-- board/write.jsp -->
+
 <section>
 	<form method="post" action="writeOk">
 		<h3> 회원게시판 글쓰기 </h3>
@@ -52,5 +52,6 @@
 		<div><input type="submit" value="글 등록"></div>
 	</form>
 </section>
+
 </body>
 </html>

@@ -15,13 +15,13 @@
 	}
 </style>
 
-<script>
-
-</script>
-
 </head>
 <body>
 
+<script>
+
+</script>
+  
 	<section>
 		<div id="image"><img src="../static/resources/Alogo4.png" height="600"></div>
 	</section>

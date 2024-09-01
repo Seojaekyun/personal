@@ -1,7 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,6 +56,7 @@
 </style>
 </head>
 <body> <!-- board/list.jsp -->
+
 <section>
 	<table width="800" align="center">
 		<caption> <h3> 회원 게시판 </h3> </caption>
@@ -82,5 +81,6 @@
 		</c:if>
 	</table>
 </section>
+
 </body>
 </html>

@@ -105,26 +105,22 @@
 		}
 	}
 
-	window.onload=function()
-  {
-  	document.getElementById("txt").focus();
-  }
-  function useridSearch()
-  {
-  	son=open("usForm","","width=400,height=300");
-  	son.moveTo(200,200);
-  }
-  function pwdSearch()
-  {
-  	son=open("psForm","","width=400,height=370");
-  	son.moveTo(200,200);
-  }
-  function pwdSearch()
-  {
-  	son=open("reForm","","width=400,height=370");
-  	son.moveTo(200,200);
-  }
-  </script>
+	window.onload=function() {
+		document.getElementById("txt").focus();
+	}
+	function useridSearch() {
+		son=open("usForm","","width=300,height=300");
+		son.moveTo(800,200);
+	}
+	function pwdSearch() {
+		son=open("psForm","","width=300,height=370");
+		son.moveTo(800,200);
+	}
+	function reMember() {
+		son=open("reForm","","width=300,height=300");
+		son.moveTo(800,200);
+  	}
+</script>
 </head>
 <body>  
 <section>
@@ -146,7 +142,7 @@
     <div>
        <span id="btn" onclick="useridSearch()"> 아이디 찾기 | </span> 
        <span id="btn" onclick="pwdSearch()"> 비밀번호 찾기 | </span>
-       <span id="btn" onclick="reMem()"> 복구신청 </span>
+       <span id="btn" onclick="reMember()"> 복구신청 </span>
     </div>
   </section>
 </body>

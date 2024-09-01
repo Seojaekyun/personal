@@ -36,7 +36,8 @@
 	}
 </style>
 </head>
-<body>  
+<body>
+  
 <section>
 	<h3 align="center">문의 사항</h3>
 	<a href="../main/index">돌아가기</a>
@@ -46,7 +47,7 @@
 	<table width="1000" align="center">
 		<tr>
 			<td rowspan="2" width="140" align="center"> ${idto.title2} </td>
-			<td width="750" height="100"> <div id="inTxt"> ${idto.content} </div> </td>
+			<td width="750" height="100"><div id="inTxt"> ${idto.content} </div></td>
 			<td rowspan="2" width="100" align="center">
 				${idto.writeday}<br>
 				<input type="submit" value="답변">
@@ -59,5 +60,6 @@
 	</form>
 	</c:forEach>
 </section>
+
 </body>
 </html>

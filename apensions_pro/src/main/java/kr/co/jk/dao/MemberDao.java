@@ -16,7 +16,6 @@ import kr.co.jk.dto.TourDto;
 public interface MemberDao {
    public String dupCheck(String userid);
    public void memberOk(MemberDto mdto);
-   //public int loginOk(MemberDto mdto);
    public MemberDto loginOk(MemberDto mdto);
    public String useridSearch(MemberDto mdto);
    public String pwdSearch(MemberDto mdto);
@@ -36,5 +35,6 @@ public interface MemberDao {
    public ArrayList<GongjiDto> getGongji();
    public ArrayList<BoardDto> getBoard();
    public ArrayList<TourDto> getTour();
+   public int reMember(MemberDto mdto);
 
 }

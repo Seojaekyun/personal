@@ -36,14 +36,15 @@
 	}
 </style>
 <script>
-    function vform() {
-    	document.getElementById("vform").style.display="block";
-    }
+	function vform() {
+		document.getElementById("vform").style.display="block";
+	}
 </script>
 </head>
 <body> <!-- inquiry/write.jsp -->
-    <section>
-      <c:if test="${userid==null}"> 
+
+<section>
+	<c:if test="${userid==null}"> 
       <div> <span onclick="vform()"> 비회원 문의 확인하기 </span> </div>
       <c:if test="${err!=null}">
        <div style="font-size:11px;color:red;"> 문의번호가 일치하지 않습니다 </div>

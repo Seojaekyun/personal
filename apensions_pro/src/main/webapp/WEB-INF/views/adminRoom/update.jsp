@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>      
 <!DOCTYPE html>
 <html>
@@ -78,22 +77,16 @@
 		var len=document.getElementsByClassName("file").length;
 		
 		if(len<10) {
-			//var inner=document.getElementById("one").cloneNode(true); 
-			//document.getElementById("outer").appendChild(inner);
 			var one=document.getElementById("one");
 			var inner=one.cloneNode(true);  // p태그를 복사했다
 			var outer=document.getElementById("outer"); // td태그
 			outer.appendChild(inner); // td태그에 복사한 p태그를 추가
 			
-			// 추가된 class="file"의 name을 지정
 			document.getElementsByClassName("file")[len].name="fname"+len; // name을 다르게 주기위해
 			document.getElementsByClassName("file")[len].value="";
-			// 새로 추가될때 cloneNode에 값이 있을경우
 			document.getElementsByClassName("img")[len].innerHTML="";
 			
-			// class="label"의 for속성을 "fileUp"+len
 			document.getElementsByClassName("label")[len].setAttribute("for","fileUp"+len);
-			// class="file"의 id속성 "fileUp"+len
 			document.getElementsByClassName("file")[len].id="fileUp"+len;
 			
 		}
@@ -108,10 +101,8 @@
 	
 	function miniView(my) {
 		var n=parseInt(my.name.substring(5));	// fname0  fname111
-		//alert(n);
 		for( var image of event.target.files ) {
 			var reader=new FileReader();
-			// class="img"인 요소에 그림을 넣기
 			reader.onload=function() {
 				var new1=document.createElement("img");
 				new1.setAttribute("src",event.target.result);
@@ -146,16 +137,17 @@
 				safeimg=safeimg+imgList[i].value+"/";
 			}
 		}
-		//alert(delimg+"\n"+safeimg);
-		// delimg, safeimg를 서버에 전송
+		
 		document.uform.delimg.value=delimg;
 		document.uform.safeimg.value=safeimg;
-		// 유효성검사를 넣어도 되요
+		
 		return true;
 	}
+	
 </script>
 </head>
-<body> <!-- adminRoom/update.jsp --> 
+<body> <!-- adminRoom/update.jsp -->
+ 
 <section> 
 	<form name="uform" method="post" action="updateOk" onsubmit="return check()" enctype="multipart/form-data">
 	<input type="hidden" name="delimg">
@@ -237,6 +229,6 @@
 	</table>
     </form> 
 </section>
-<!-- <input id="abc" type="checkbox"> <label for="abc">여기를 클릭하세요</label> -->
+
 </body>
 </html>
