@@ -22,7 +22,7 @@ public class Utils {
 	public static void getRooms(HttpServletRequest request) throws Exception {
 		Class.forName("org.mariadb.jdbc.Driver"); // 라이브러리를 찾아라
 		String db="jdbc:mariadb://localhost:3306/pension";
-		Connection conn=DriverManager.getConnection(db,"root","0531");
+		Connection conn=DriverManager.getConnection(db,"root","1234");
 		
 		String sql="select title, id from room order by price asc";
 		
@@ -66,7 +66,7 @@ public class Utils {
 		// DB연결
 		Class.forName("org.mariadb.jdbc.Driver"); // 라이브러리를 찾아라
 		String db="jdbc:mariadb://localhost:3306/pension";
-		Connection conn=DriverManager.getConnection(db,"root","0531");
+		Connection conn=DriverManager.getConnection(db,"root","1234");
 		
 		String sql="select count(*) as cnt from reserve where inday <= ?  and outday > ? and rid=?";
 		PreparedStatement pstmt=conn.prepareStatement(sql);
