@@ -45,4 +45,24 @@ public class MainController {
 		return service.getSo(request);
 	}
 	
+	@RequestMapping("/main/category")
+	public String category() {
+		return "/main/category";
+	}
+	
+	@RequestMapping("/main/spinner")
+	public String spinner() {
+		return "/main/spinner";
+	}
+	
+	@RequestMapping("/main/this")
+	public String this1() {
+		return "/main/this";
+	}
+	
+	@RequestMapping("/main/this2")
+	public String this2() {
+		return "/main/this2";
+	}
+	
 }
