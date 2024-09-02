@@ -77,6 +77,30 @@
 		}
 	}
 	
+	function addCart(pcode) {
+		var chk=new XMLHttpRequest();
+		chk.onload=function() {
+			//alert(chk.responseText);
+			if(confirm("장바구니로 이동하시겠습니까?")) {
+				location="cartView";
+			}
+		}
+		
+		chk.open("get","addCart?pcode="+pcode);
+		chk.send();
+	}
+	
+	function selDel() {
+		var subChk=document.getElementsByClassName("subChk");
+		var pcode="";
+		for(i=0;i<subChk.length;i++) {
+			if(subChk[i].checked)
+				pcode=pcode+subChk[i].value+"/";
+		}
+		
+		location="jjimDel?pcode="+pcode;
+	}
+	
 </script>    
 </head>
 <body>
@@ -99,13 +123,15 @@
 			</td>
 			<td width="120" align="right">￦<fmt:formatNumber value="${pdto.halinPrice}" type="number"/></td>
 			<td width="100" align="center" style="line-height:24px">
-				<input type="button" value="장바구니"><br><input type="button" value="삭제">
+				<input type="button" value="장바구니" onclick="addCart('${pdto.pcode}')">
+				<br><input type="button" value="삭제" onclick="location='jjimDel?pcode=${pdto.pcode}'">
 			</td>
 		</tr>
 		</c:forEach>
 		<tr>
 			<td colspan="6">
-				<input type="checkbox" id="mainChk" onclick="mainClick(this)"> 전체선택 <input type="button" value="선택삭제">
+				<input type="checkbox" id="mainChk" onclick="mainClick(this)"> 전체선택
+				<input type="button" value="선택삭제" onclick="selDel()">
 			</td>
 		</tr>
 	</table>

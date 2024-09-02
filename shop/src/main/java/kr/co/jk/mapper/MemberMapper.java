@@ -17,5 +17,8 @@ public interface MemberMapper {
 	void cartDel(String pcode, String userid);
 	void chgSu(int su, String pcode, String userid);
 	ArrayList<ProductDto> jjimList(String userid);
+	void addCart(String userid, String pcode);
+	boolean isCart(String pcode, String userid);
+	void jjimDel(String userid, String pcode);
 
 }

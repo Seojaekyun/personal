@@ -203,9 +203,9 @@ public class ProductServiceImpl implements ProductService {
 		}
 		else {
 			jImg="jjim1.png";
-			model.addAttribute("jImg",jImg);
 		}
 		
+		model.addAttribute("jImg",jImg);
 		return "product/productContent";
 	}
 	

@@ -252,4 +252,31 @@ public class MemberServiceImpl implements MemberService{
 		}
 	}
 	
+	@Override
+	public String addCart(HttpServletRequest request, HttpSession session) {
+		try {
+		String userid=session.getAttribute("userid").toString();
+		String pcode=request.getParameter("pcode");
+		
+		if(!mapper.isCart(pcode, userid))
+			mapper.addCart(userid, pcode);
+		
+		return "0";
+		}
+		catch(Exception e) {
+			return "1";
+		}
+	}
+	
+	@Override
+	public String jjimDel(HttpServletRequest request, HttpSession session) {
+		 String userid=session.getAttribute("userid").toString();
+		 String[] pcodes=request.getParameter("pcode").split("/");
+		 for(int i=0;i<pcodes.length;i++) {
+			 mapper.jjimDel(userid, pcodes[i]);
+		 }
+		 
+		 return "redirect:/member/jjimList";
+	}
+	
 }

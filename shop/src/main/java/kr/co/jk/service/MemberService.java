@@ -15,5 +15,7 @@ public interface MemberService {
 	String cartDel(HttpSession session, HttpServletRequest request, HttpServletResponse response);
 	int[] chgSu(HttpServletRequest request, HttpSession session, HttpServletResponse response);
 	String jjimList(HttpSession session, Model model);
+	String addCart(HttpServletRequest request, HttpSession session);
+	String jjimDel(HttpServletRequest request, HttpSession session);
 	
 }

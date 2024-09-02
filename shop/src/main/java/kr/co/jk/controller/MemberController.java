@@ -12,6 +12,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.co.jk.dto.MemberDto;
 import kr.co.jk.service.MemberService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class MemberController {
@@ -56,6 +59,17 @@ public class MemberController {
     public String jjimList(HttpSession session, Model model) {
 		return service.jjimList(session, model);
 	}
+	
+	@GetMapping("/member/addCart")
+	public @ResponseBody String addCart(HttpServletRequest request, HttpSession session) {
+		return service.addCart(request, session);
+	}
+	
+	@GetMapping("/member/jjimDel")
+    public String jjimDel(HttpServletRequest request, HttpSession session) {
+    	return service.jjimDel(request, session);
+    }
+	
 	
 
 }
