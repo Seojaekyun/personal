@@ -12,8 +12,14 @@
 		select * from product where pcode=#{pcode}
 	</select>
 	<select id="getProductAll" resultType="HashMap">
-		select product.* , cart.su as csu from product inner join cart
-		on product.pcode=cart.pcode and userid=#{userid}
-  </select>
+		select product.* , cart.su as csu ,datediff(now(),cart.writeday) as days
+		from product inner join cart on product.pcode=cart.pcode and userid=#{userid}
+	</select>
+	<delete id="cartDel">
+		delete from cart where pcode=#{pcode} and userid=#{userid}
+	</delete>
+	<update id="chgSu">
+		update cart set su=#{su} where userid=#{userid} and pcode=#{pcode}
+	</update>
 	
 </mapper>
