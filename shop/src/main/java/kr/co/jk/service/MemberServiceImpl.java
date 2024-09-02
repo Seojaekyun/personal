@@ -189,13 +189,15 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public int[] chgSu(HttpServletRequest request,HttpSession session) {
+	public int[] chgSu(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		String pcode=request.getParameter("pcode");
+		int su=Integer.parseInt(request.getParameter("su"));
 		if(session.getAttribute("userid")==null) {
+			Cookie cookie=WebUtils.getCookie(request, "pcode");
+			
 			return null;
 		}
 		else {
-			int su=Integer.parseInt(request.getParameter("su"));
-			String pcode=request.getParameter("pcode");
 			String userid=session.getAttribute("userid").toString();
 			mapper.chgSu(su,pcode,userid);
 			

@@ -48,8 +48,8 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/chgSu")
-    public @ResponseBody int[] chgSu(HttpServletRequest request, HttpSession session) {
-		return service.chgSu(request,session);
+    public @ResponseBody int[] chgSu(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		return service.chgSu(request, session, response);
 	}
 	
 

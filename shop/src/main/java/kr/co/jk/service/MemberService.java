@@ -13,5 +13,6 @@ public interface MemberService {
 	String memberOk(MemberDto mdto);
 	String cartView(HttpSession session, HttpServletRequest request, Model model);
 	String cartDel(HttpSession session, HttpServletRequest request, HttpServletResponse response);
-	int[] chgSu(HttpServletRequest request, HttpSession session);
+	int[] chgSu(HttpServletRequest request, HttpSession session, HttpServletResponse response);
+	
 }

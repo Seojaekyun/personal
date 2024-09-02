@@ -10,7 +10,7 @@
 	main {
 		width:1100px;
 		margin:auto;
-		font-family:'GmarketSansMedium';
+		font-family:'hahmlet';
 	}
 	main table {
 		margin-top:50px;     
@@ -35,6 +35,11 @@
 		width:20px;
 		outline:none;
 		text-align:center;
+	}
+	#delone {
+		display: table-cell;
+		cursor: pointer;
+		vertical-align: top;
 	}
 </style>
 <script src="https://code.jquery.com/jquery-latest.js"></script>
@@ -175,7 +180,7 @@
 
 <main>
 	<table width="1100" align="center">
-		<caption><h2> 장바구니 ${pMapAll.size() } </h2></caption>
+		<caption><h2> 장바구니 </h2></caption>
 			<c:set var="cnum" value="0"/>
 		<c:forEach items="${pMapAll}" var="map">
 		<c:set var="str" value=""/>
@@ -188,8 +193,8 @@
 			<td width="100" align="center"> <img src="../static/product/${map.pimg}" height="80" width="80"> </td>
 			<td align="left"> ${map.title} </td>
 			<td width="140"> ${map.baeEx} </td>
-			<td width="110" align="right"> <span class="hp"><fmt:formatNumber value="${map.halinprice}" type="number"/></span>원 </td>
-			<td width="110" align="right"> <span class="jp"><fmt:formatNumber value="${map.jukprice}" type="number"/></span>원 </td>
+			<td width="110" align="right"> <span class="hp"> ￦<fmt:formatNumber value="${map.halinprice}" type="number"/></span></td>
+			<td width="110" align="right"> <span class="jp"> ￦<fmt:formatNumber value="${map.jukprice}" type="number"/></span></td>
 			<td width="80" align="right">
 				<input type="text" name="su" value="${map.csu}" class="su" >
 			</td>
@@ -198,9 +203,12 @@
 					<span class="bp">무료배송</span>
 				</c:if>
 				<c:if test="${map.baeprice!=0}">
-					<span class="bp"><fmt:formatNumber value="${map.baeprice}" type="number"/></span>원
+					<span class="bp"> ￦<fmt:formatNumber value="${map.baeprice}" type="number"/></span>원
 				</c:if>
-				<br> <input type="button" value="삭제" onclick="location='cartDel?pcode=${map.pcode}'">
+				
+			</td>
+			<td>
+				<span id="delone" onclick="location='cartDel?pcode=${map.pcode}'"> ⓧ </span>
 			</td>
 		</tr>
 		</c:forEach>
@@ -212,21 +220,19 @@
 				<input type="checkbox" ${mchk} id="mainChk" onclick="mainClick(this)">
 			</td>
 			<td height="40" colspan="7">
-				전체선택  <input type="button" value="선택상품 삭제" onclick="selDel()">
+				전체선택  <input type="button" value="선택삭제" onclick="selDel()">
 			</td>
 		</tr>
 		<tr>
 			<td colspan="8" align="center">
-				총상품금액
-				<span id="hpTot"><fmt:formatNumber value="${halinpriceTot}" type="number"/></span>원
-				+ 배송비
-				<span id="bpTot"><fmt:formatNumber value="${baepriceTot}" type="number"/></span>원 = 총결제금액
-				<span id="hpbpTot"><fmt:formatNumber value="${halinpriceTot+baepriceTot}" type="number"/></span>원
-				(적립예정 : <span id="jpTot"><fmt:formatNumber value="${jukpriceTot}" type="number"/></span>원)
+				총상품금액 ￦<span id="hpTot"><fmt:formatNumber value="${halinpriceTot}" type="number"/></span>
+				+ 배송비 ￦<span id="bpTot"><fmt:formatNumber value="${baepriceTot}" type="number"/></span>
+				= 총결제금액 ￦<span id="hpbpTot"><fmt:formatNumber value="${halinpriceTot+baepriceTot}" type="number"/></span>
+				(적립예정 : ￦<span id="jpTot"><fmt:formatNumber value="${jukpriceTot}" type="number"/></span>)
 			</td>
 		</tr>
 	</table>
 </main>
- 
+
 </body>
 </html>

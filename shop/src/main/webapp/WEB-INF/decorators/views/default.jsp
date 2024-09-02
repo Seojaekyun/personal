@@ -180,6 +180,20 @@
 	}
 </style>
 <script>
+	var h=40;
+	function hideX() {
+		ss=setInterval(function() {
+			h--;
+			document.getElementById("first").style.height=h+"px";
+			document.getElementById("ads").style.height=h+"px";
+			
+			if(h==0) {
+				document.getElementById("ads").style.display="none";
+				clearInterval(ss);
+			}
+		},10);
+	}
+
 	function xCheck(val) {
 		if(val.length==0) {
 			document.getElementById("xx").style.visibility="hidden";
@@ -320,7 +334,7 @@
 	<div id="ads">
 		<div id="first">
 			<div id="left"> 회원가입 후 첫 주문시 100만원! </div>
-			<div id="right"> ⓧ </div>
+			<div id="right"><span onclick="hideX()" style="cursor:pointer"> ⓧ </span></div>
 		</div>
 	</div>
 	<header>
@@ -334,7 +348,7 @@
 		</div>
 		<div id="member">
 			<a href="../member/cartView">
-				<img src="../static/main/cart.png" valign="middle" width="22">(0) |
+				<img src="../static/main/cart.png" valign="middle" width="22">(${pMapAll.size()} ) |
 			</a>
 			<c:if test="${userid == null}">
 			<a href="../member/member">회원가입</a> | 
