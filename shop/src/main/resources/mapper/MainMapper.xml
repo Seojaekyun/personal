@@ -10,6 +10,9 @@
 	<select id="getSo" resultType="kr.co.jk.dto.SoDto">
 		select * from so where daejung=#{daejung} order by code asc
 	</select>
+	<select id="getCartNum" resultType="String">
+		select count(*) from cart where userid=#{userid}
+	</select>
 	
 	
 </mapper>

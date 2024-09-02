@@ -119,9 +119,9 @@
 		}
 	}
 	
-	window.onload=function() {
+	/* window.onload=function() {
 		document.getElementById("txt").focus();
-	}
+	} */
 	
 	function useridSearch() {
 		son=open("usForm","","width=400,height=300");

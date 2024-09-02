@@ -79,7 +79,25 @@
 		width: 350px;
 		height: 70px;
 		line-height: 70px;
-		float: right;
+		float:left;
+		text-align:right;
+	}
+	header #member #myMenu {
+		position:relative;
+		display:inline-block;
+	}
+	header #member #myMenuList {
+		padding-left:0px;
+		position:absolute;
+		left: -20px;
+		top: 10px;
+		visibility:hidden;
+	}
+	header #member #myMenuList li {
+		list-style-type:none;
+		height:28px;
+		width:100px;
+		text-align: center;
 	}
 	nav {
 		width: 1100px;
@@ -163,6 +181,7 @@
 		width: 1100px;
 		height: 150px;
 		margin: auto;
+		
 	}
 	header a {
 		text-decoration: none;
@@ -318,6 +337,28 @@
 		}
 	}
 	
+	window.onload=function() {
+		var chk=new XMLHttpRequest();
+		chk.onload=function() {
+			document.getElementById("cartNum").innerText=chk.responseText;
+		}
+		
+		chk.open("get","../main/cartNum");
+		chk.send();
+		
+		<c:if test="${order!=null}">
+			document.getElementsByClassName("order")[${order-1}].style.color="#FF007F";
+		</c:if>
+	}
+	
+	function myMenuView() {
+		document.getElementById("myMenuList").style.visibility="visible";
+	}
+	
+	function myMenuHide() {
+		document.getElementById("myMenuList").style.visibility="hidden";
+	}
+	
 	function viewSrc() {
 		document.getElementById("src").innerText=document.getElementsByTagName("html")[0].innerHTML;
 	}
@@ -348,7 +389,7 @@
 		</div>
 		<div id="member">
 			<a href="../member/cartView">
-				<img src="../static/main/cart.png" valign="middle" width="22">(${pMapAll.size()} ) |
+				<img src="../static/main/cart.png" valign="middle" width="22">(<span id="cartNum"></span>) |
 			</a>
 			<c:if test="${userid == null}">
 			<a href="../member/member">회원가입</a> | 
@@ -356,7 +397,16 @@
 			</c:if>
 			<c:if test="${userid != null}">
 			${name}님 | 
-			나의메뉴 | 
+			<span id="myMenu" onmouseover="myMenuView()" onmouseout="myMenuHide()"> 나의메뉴
+				<ul id="myMenuList">
+					<li><a href="../member/jjimList"> 찜리스트 </a></li>
+					<li> 회원정보 </li>
+					<li> 주문목록 </li>
+					<li> 배송지관리 </li>
+					<li> 나의상품평 </li>
+					<li> 나의 문의 </li>
+				</ul>
+			</span> | 
 			<a href="../login/logout"> 로그아웃 </a> | 
 			</c:if>
 			고객센터
@@ -381,7 +431,7 @@
 	<sitemesh:write property="body"/>
 	
 	<footer>
-		<img src="../static/main/footer.png">
+		<img id="clogo" src="../static/main/clogo.png">
 	</footer>
 </body>
 </html>

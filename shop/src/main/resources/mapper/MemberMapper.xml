@@ -21,5 +21,9 @@
 	<update id="chgSu">
 		update cart set su=#{su} where userid=#{userid} and pcode=#{pcode}
 	</update>
+	<select id="jjimList" resultType="kr.co.jk.dto.ProductDto">
+		select p.* from product as p inner join jjim as j
+		on p.pcode=j.pcode and j.userid=#{userid}
+	</select>
 	
 </mapper>

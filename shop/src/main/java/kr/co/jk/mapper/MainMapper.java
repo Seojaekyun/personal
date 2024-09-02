@@ -13,5 +13,6 @@ public interface MainMapper {
 	ArrayList<DaeDto> getDae();
 	ArrayList<JungDto> getJung(String daecode);
 	ArrayList<SoDto> getSo(String daejung);
+	String getCartNum(String userid);
 
 }

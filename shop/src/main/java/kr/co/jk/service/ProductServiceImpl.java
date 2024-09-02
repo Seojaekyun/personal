@@ -233,6 +233,7 @@ public class ProductServiceImpl implements ProductService {
 	public String addCart(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
 		String pcode=request.getParameter("pcode");
 		int su=Integer.parseInt(request.getParameter("su"));
+		String cartNum=null;
 		
 		try {
 			if(session.getAttribute("userid")==null) {
@@ -241,8 +242,9 @@ public class ProductServiceImpl implements ProductService {
 				String newPro=pcode+"-"+su+"/";
 				
 				String newPcode=null;
-				if(cookie==null) {
+				if(cookie==null || cookie.getValue().equals("")) {
 					newPcode=newPro;
+					cartNum="1";
 				}
 				else {
 					String getPcode=cookie.getValue();
@@ -269,6 +271,7 @@ public class ProductServiceImpl implements ProductService {
 					}
 					else {
 						newPcode=getPcode+newPro;
+						cartNum=(pcodes.length+1)+"";
 					}
 				}
 				
@@ -289,12 +292,14 @@ public class ProductServiceImpl implements ProductService {
 				else {
 					mapper.addCart(pcode,su,userid);
 				}
+				
+				cartNum=mapper.getCartNum(userid);
 			}
 			
-			return "0";
+			return "cartNum";
 		}
 		catch(Exception e) {
-			return "1";
+			return "-1";
 		}
 	}
 	

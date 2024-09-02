@@ -38,7 +38,7 @@ public class LoginServiceImpl implements LoginService{
 			// pcode쿠키변수에 있는 상품과 수량을 cart테이블에 저장하기
 			Cookie cookie=WebUtils.getCookie(request, "pcode");
 			
-			if(cookie != null) {
+			if(cookie != null && !cookie.getValue().equals("")) {
 				String[] pcodes=cookie.getValue().split("/");  // 상품코드-수량/상품코드-수량/상품코드-수량/
 				
 				for(int i=0;i<pcodes.length;i++) {

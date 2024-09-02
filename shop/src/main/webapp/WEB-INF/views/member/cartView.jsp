@@ -151,7 +151,13 @@
 			
 			document.getElementsByClassName("hp")[index].innerText=comma(data[0]);
 			document.getElementsByClassName("jp")[index].innerText=comma(data[1]);
-			document.getElementsByClassName("bp")[index].innerText=comma(data[2]);
+			
+			var imsi;
+			if(data[2]==0)
+				imsi="무료배송";
+			else
+				imsi=comma(data[2]);
+			document.getElementsByClassName("bp")[index].innerText=imsi;
 			
 			totalCal();
 		}

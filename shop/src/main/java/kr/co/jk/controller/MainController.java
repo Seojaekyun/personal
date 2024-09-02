@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import kr.co.jk.dto.DaeDto;
 import kr.co.jk.dto.JungDto;
 import kr.co.jk.dto.SoDto;
@@ -53,6 +54,11 @@ public class MainController {
 	@RequestMapping("/main/spinner")
 	public String spinner() {
 		return "/main/spinner";
+	}
+	
+	@RequestMapping("/main/cartNum")
+	public @ResponseBody String cartNum(HttpServletRequest request, HttpSession session) {
+		return service.cartNum(request, session);
 	}
 	
 	@RequestMapping("/main/this")

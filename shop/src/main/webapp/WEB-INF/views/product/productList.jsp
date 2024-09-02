@@ -81,10 +81,9 @@
 	}
 </style>
 <script>
-	window.onload=function() {
+	/* window.onload=function() {
 		document.getElementsByClassName("order")[${order-1}].style.color="#FF007F";
-		
-	}
+	} */
 </script>
 
 </head>

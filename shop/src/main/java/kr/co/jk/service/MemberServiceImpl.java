@@ -51,11 +51,11 @@ public class MemberServiceImpl implements MemberService{
 			//  상품코드1-수량/상품코드2-수량/상품코드3-수량/
 			Cookie cookie=WebUtils.getCookie(request, "pcode");
 			
-			if(cookie!=null) {
+			if(cookie!=null&&!cookie.getValue().equals("")) {
 				String[] pcodes=cookie.getValue().split("/");
 				
 				pMapAll=new ArrayList<HashMap>();
-				for(int i=0;i<pcodes.length;i++) {
+				for(int i=pcodes.length-1;i>=0;i--) {
 					String pcode=pcodes[i].substring(0,12);
 					int su=Integer.parseInt( pcodes[i].substring(13) );
 					
@@ -194,25 +194,61 @@ public class MemberServiceImpl implements MemberService{
 		int su=Integer.parseInt(request.getParameter("su"));
 		if(session.getAttribute("userid")==null) {
 			Cookie cookie=WebUtils.getCookie(request, "pcode");
+			String[] pcodes=cookie.getValue().split("/");
+			for(int i=0;i<pcodes.length;i++) {
+				if(pcodes[i].indexOf(pcode)!=-1) {
+					pcodes[i]=pcode+"-"+su;
+				}
+			}
 			
-			return null;
+			String newPcode="";
+			for(int i=0;i<pcodes.length;i++) {
+				newPcode=newPcode+pcodes[i]+"/";
+			}
+			
+			Cookie newCookie=new Cookie("pcode", newPcode);
+			newCookie.setMaxAge(3600);
+			newCookie.setPath("/");
+			response.addCookie(newCookie);
 		}
 		else {
 			String userid=session.getAttribute("userid").toString();
 			mapper.chgSu(su,pcode,userid);
+		}
+		
+		HashMap map=mapper.getProduct(pcode);
+		
+		int price=Integer.parseInt(map.get("price").toString());
+		int halin=Integer.parseInt(map.get("halin").toString());
+		int juk=Integer.parseInt(map.get("juk").toString());
+		
+		int[] tot=new int[3];
+		tot[0]=(int)(price-(price*halin/100.0))*su;
+		tot[1]=(int)(price*juk/100.0)*su;
+		tot[2]=Integer.parseInt(map.get("baeprice").toString());
+		
+		return tot;
+	}
+	
+	@Override
+	public String jjimList(HttpSession session, Model model) {
+		if(session.getAttribute("userid")==null) {
+			return "redirect:/login/login";
+		}
+		else {
+			String userid=session.getAttribute("userid").toString();
+			ArrayList<ProductDto> plist=mapper.jjimList(userid);
+			for(int i=0;i<plist.size();i++) {
+				int price=plist.get(i).getPrice();
+				int halin=plist.get(i).getHalin();
+				
+				int halinPrice=price-(int)(price*halin/100.0);
+				
+				plist.get(i).setHalinPrice(halinPrice);
+			}
 			
-			HashMap map=mapper.getProduct(pcode);
-			
-			int price=Integer.parseInt(map.get("price").toString());
-			int halin=Integer.parseInt(map.get("halin").toString());
-			int juk=Integer.parseInt(map.get("juk").toString());
-			
-			int[] tot=new int[3];
-			tot[0]=(int)(price-(price*halin/100.0))*su;
-			tot[1]=(int)(price*juk/100.0)*su;
-			tot[2]=Integer.parseInt(map.get("baeprice").toString());
-			
-			return tot;
+			model.addAttribute("plist", plist);
+			return "/member/jjimList";
 		}
 	}
 	

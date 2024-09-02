@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import kr.co.jk.dto.DaeDto;
 import kr.co.jk.dto.JungDto;
 import kr.co.jk.dto.SoDto;
@@ -42,6 +45,27 @@ public class MainServiceImpl implements MainService{
 		String daejung=String.format("%04d", imsi);
 		
 		return mapper.getSo(daejung);
+	}
+	
+	@Override
+	public String cartNum(HttpServletRequest request, HttpSession session) {
+		String cnum=null;
+		if(session.getAttribute("userid")==null) {
+			Cookie cookie=WebUtils.getCookie(request, "pcode");
+			if(cookie!=null&&!cookie.getValue().equals("")) {
+				String[] pcodes=cookie.getValue().split("/");
+				cnum=pcodes.length+"";
+			}
+			else {
+				cnum="0";
+			}
+		}
+		else {
+			String userid=session.getAttribute("userid").toString();
+			cnum=mapper.getCartNum(userid);
+		}
+		
+		return cnum;
 	}
 	
 	

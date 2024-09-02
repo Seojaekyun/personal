@@ -52,5 +52,10 @@ public class MemberController {
 		return service.chgSu(request, session, response);
 	}
 	
+	@RequestMapping("/member/jjimList")
+    public String jjimList(HttpSession session, Model model) {
+		return service.jjimList(session, model);
+	}
+	
 
 }
