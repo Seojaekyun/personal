@@ -37,6 +37,22 @@
 	<select id="upCart">
 		update cart set su=su+${su} where userid=#{userid} and pcode=#{pcode}
 	</select>
+	<select id="getCartNum" resultType="String">
+		select count(*) from cart where userid=#{userid}
+	</select>
+	<select id="getMember" resultType="kr.co.jk.dto.MemberDto">
+		select * from member where userid=#{userid}
+	</select>
+	<select id="getBaesong" resultType="kr.co.jk.dto.BaesongDto">
+		select * from baesong where userid=#{userid} and gibon=1
+	</select>
+	<insert id="jusoWriteOk" parameterType="kr.co.jk.dto.BaesongDto">
+		insert into baesong(userid,name,zip,juso,jusoEtc,phone,gibon,req)
+		values(#{userid},#{name},#{zip},#{juso},#{jusoEtc},#{phone},#{gibon},#{req})
+	</insert>
+	<select id="jusoList" resultType="kr.co.jk.dto.BaesongDto">
+		select * from baesong where userid=#{userid}
+	</select>
 	
 	
 </mapper>

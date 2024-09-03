@@ -53,7 +53,7 @@
 		main #first #right #pstar {
 			clear: both;
 			font-size: 12px;
-			margin-top: 0px;
+			margin-top: 0;
 			padding-bottom: 8px;
 			border-bottom: 1px solid purple;
 			font-family: 'GmarketSansMedium';
@@ -62,7 +62,7 @@
 			font-size: 22px;
 			font-family: 'GmarketSansMedium';
 			color: #CB1400;
-			margin-top: 0px;
+			margin-top: 0;
 			padding-bottom: 8px;
 			border-bottom: 1px solid purple;
 		}
@@ -73,7 +73,7 @@
 			color: green;
 			font-size: 18px;
 			font-family: 'GmarketSansMedium';
-			margin-top: 0px;
+			margin-top: 0;
 			padding-bottom: 8px;
 			border-bottom: 1px solid purple;
 		}
@@ -149,7 +149,7 @@
 					var su2 = ui.value;
 					var jsprice = price * su2; 
 					var jshalinprice = (price - (price * halin / 100)) * su2;
-					var jsjukprice = ((price) * (juk / 100)) * su2;
+					var jsjukprice = (price * juk / 100) * su2;
 					$("#input1").text(comma(jsprice));
 					document.getElementById("input2").innerText = comma(jshalinprice);
 					document.getElementById("input3").innerText = comma(jsjukprice);
@@ -198,12 +198,12 @@
 		}
 	</script>
 </head>
-<body> <!-- product/productContent.jsp -->
+<body>
 	<main>
 		<form name="gform" method="post" action="gumae">
+			<input type="hidden" name="pcode" value="${pdto.pcode}">
 			<section id="first">
 				<div id="left"> 
-					<div style="height: 40px;"></div>
 					<img src="../static/product/${pdto.pimg}" width="470" height="400"> 
 				</div>
 				<div id="right">
@@ -215,27 +215,27 @@
 							</a>
 						</div>    
 					</div>
-					<div style="letter-spacing: -3px" id="pstar"> 
+					<div id="pstar"> 
 						<c:forEach begin="1" end="5">
 							<img src="../static/pro/star1.png" width="10">
 						</c:forEach>
-						<span style="letter-spacing: 0px"> ${pdto.review}개 상품평 </span>
+						<span>${pdto.review}개 상품평</span>
 					</div>  
 					<div id="phalin"> 
-						<c:if test="${pdto.halin!=0}">
-							${pdto.halin}%  <s id="input1"><fmt:formatNumber value="${pdto.price}" type="number"/></s>
+						<c:if test="${pdto.halin != 0}">
+							${pdto.halin}% <s id="input1"><fmt:formatNumber value="${pdto.price}" type="number"/></s>
 						</c:if>  
 					</div>
 					<div id="pprice"><span id="input2"><fmt:formatNumber value="${pdto.halinPrice}" type="number"/></span>원</div>
 					<div id="pbaeprice">
-						<c:if test="${pdto.baeprice==0}">무료배송</c:if>
-						<c:if test="${pdto.baeprice!=0}">배송비 <fmt:formatNumber value="${pdto.baeprice}" type="number"/>원</c:if>
+						<c:if test="${pdto.baeprice == 0}">무료배송</c:if>
+						<c:if test="${pdto.baeprice != 0}">배송비 <fmt:formatNumber value="${pdto.baeprice}" type="number"/>원</c:if>
 					</div>
 					<div id="pbaeEx">${pdto.baeEx}</div>
 					<div id="pjuk">적립예정: <span id="input3"><fmt:formatNumber value="${pdto.jukPrice}" type="number"/></span>원</div>
 					<div id="pbutton">
 						<input type="text" name="su" value="1" readonly id="su"> 
-						<input type="button" onclick="addCart()" value="장바구니" id="btn" valign="middle"> 
+						<input type="button" onclick="addCart()" value="장바구니" id="btn"> 
 						<input type="submit" value="바로구매" id="submit">
 						<div id="confirm">
 							<div>장바구니로 이동하시겠습니까?</div> 
