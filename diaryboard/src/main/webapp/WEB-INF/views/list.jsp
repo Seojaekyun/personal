@@ -92,8 +92,8 @@
 	function change(my) {
 		my.submit();
 	}
-	window.onload = function() {
-		document.sjk.rec.value = ${rec};
+	window.onload=function() {
+		document.sjk.rec.value=${rec};
 	}
 </script>
 </head>
