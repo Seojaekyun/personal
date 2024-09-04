@@ -10,17 +10,21 @@
 <title>딴지의 여행기</title>
 <style>
 	body {
-		margin: auto;
+		margin: 0;
 		font-family: 'Diphylleia', sans-serif;
 		background-color: #e0f7e9;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100vh;
 	}
 	.cont {
 		width: 300px;
 		background: white;
-		margin: 50px auto;
 		padding: 20px;
 		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 		border-radius: 8px;
+		text-align: center;
 	}
 	table {
 		width: 100%;
@@ -82,36 +86,38 @@
 </style>
 </head>
 <body>
-	<div class="cont" align="center">
-	<h1>딴지의 여행기</h1>
-	<h3>허락된 사람만 들어갈 수 있어요</h3>
-	<form method="post" action="loginOk">
-		<table>
-			<tr>
-				<td colspan="2" style="text-align: right;">
-					<a href="member"><input type="button" value="가입하기"></a>
-				</td>
-			</tr>
-			<thead>
-			<tr>
-				<td width="50"><div>ID</div></td>
-				<td class="log"><input type="text" id="lgin" name="uid"></td>
-			</tr>
-			<tr>
-				<td width="50"><div>PW</div></td>
-				<td class="log"><input type="password" id="lgin" name="pwd" value='123456789'></td>
-			</tr>
-			<c:if test="${not empty param.err }">
-			<tr><td colspan="2">
-				<span class="errmsg" style="color: red">정보를 확인하세요.</span>
-			</td></tr>
-			</c:if>
-			<tr>
-				<td colspan="2"><input type="submit" value="입장하기"></td>
-			</tr>
-			</thead>
-		</table>
-	</form>
+	<div class="cont">
+		<h1>딴지의 여행기</h1>
+		<h3>허락된 사람만 들어갈 수 있어요</h3>
+		<form method="post" action="loginOk">
+			<table>
+				<tr>
+					<td colspan="2" style="text-align: right;">
+						<a href="member"><input type="button" value="가입하기"></a>
+					</td>
+				</tr>
+				<thead>
+					<tr>
+						<td width="50"><div>ID</div></td>
+						<td class="log"><input type="text" id="lgin" name="uid"></td>
+					</tr>
+					<tr>
+						<td width="50"><div>PW</div></td>
+						<td class="log"><input type="password" id="lgin" name="pwd" value='123456789'></td>
+					</tr>
+					<c:if test="${not empty param.err }">
+					<tr>
+						<td colspan="2">
+							<span class="errmsg" style="color: red">정보를 확인하세요.</span>
+						</td>
+					</tr>
+					</c:if>
+					<tr>
+						<td colspan="2"><input type="submit" value="입장하기"></td>
+					</tr>
+				</thead>
+			</table>
+		</form>
 	</div>
 </body>
 </html>

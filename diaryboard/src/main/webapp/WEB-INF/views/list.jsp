@@ -10,42 +10,36 @@
 <title>여행 후기</title>
 <style>
 	body {
-		margin: auto;
+		margin: 0;
 		font-family: 'Diphylleia', sans-serif;
-		background-color: #e0f7e9;
-	}
-	#sett {
-		display: inline-block;
+		background-color: #e8f1f9;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: 100vh;
 	}
 	.cont {
 		width: 850px;
 		background: white;
-		margin: 50px auto;
 		padding: 20px;
 		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 		border-radius: 8px;
 	}
 	table {
 		width: 100%;
-		border: 1px solid #ddd;
 		border-collapse: collapse;
 		background: #f4fff9;
+		margin-top: 20px;
 	}
-	tr {
-		border: 1px solid #ddd;
-		height: 35px;
-	}
-	td {
+	th, td {
 		border: 1px solid #ddd;
 		text-align: center;
 		padding: 8px;
 	}
-	thead tr {
+	thead th {
 		background: #d0f0df;
-	}
-	thead td {
-		font-weight: bold;
 		color: #3c763d;
+		font-weight: bold;
 	}
 	caption {
 		margin-bottom: 15px;
@@ -55,33 +49,40 @@
 	h3 {
 		margin: 0;
 	}
-	input[type="button"],[type="submit"] {
+	.button-container {
+		text-align: right;
+		margin-top: 10px;
+	}
+	input[type="button"], input[type="submit"] {
 		background-color: #5cb85c;
 		color: white;
 		border: none;
 		padding: 5px 8px;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
 		font-size: 14px;
 		border-radius: 7px;
 		cursor: pointer;
 		transition: background-color 0.3s ease;
 	}
-	input[type="button"],[type="submit"]:hover {
+	input[type="button"]:hover, input[type="submit"]:hover {
 		background-color: #4cae4c;
 	}
 	a {
 		text-decoration: none;
+		color: #5cb85c;
 	}
-	input[type="text"] {
-		height: 24px;
-		border: 1px;
-		border-radius: 5px;
+	a:hover {
+		color: #4cae4c;
 	}
-	select {
+	input[type="text"], select {
 		height: 27px;
+		border: 1px solid #ddd;
 		border-radius: 5px;
+		padding: 5px;
+		font-size: 14px;
+	}
+	.uid-display {
+		text-align: right;
+		margin-bottom: 10px;
 	}
 	#listbtn {
 		vertical-align: middle;
@@ -91,102 +92,107 @@
 	function change(my) {
 		my.submit();
 	}
-	window.onload=function() {
-		document.sjk.rec.value=${rec };
+	window.onload = function() {
+		document.sjk.rec.value = ${rec};
 	}
 </script>
 </head>
 <body>
-	<div class="cont" align="center">
-		<div class="uid-display" align="right">
+	<div class="cont">
+		<div class="uid-display">
 			접속자 : ${name} <a href="login"><input type="button" value="로그아웃"></a>
         </div>
 		<table>
 			<caption><h3>여행 후기</h3></caption>
 			<thead>
-			<tr><td colspan="3"><form name="sform" method="post" action="list">
-				<select name="field">
-					<option value="title">제목</option>
-					<option value="name">작성자</option>
-					<option value="content">내용</option>
-				</select>
-				<input type="text" name="sword" value="${sword }">
-				<input type="submit" value="검색">
-			</form></td>
-			<td>1페이지</td>
-			<td>
-			<form method="post" action="list" name="sjk">
-				<select name="rec" onchange="change(this.form)">
-					<option value="10">10개</option>
-					<option value="20">20개</option>
-					<option value="30">30개</option>
-					<option value="50">50개</option>
-				</select>
-			</form></td></tr>
+				<tr>
+					<td colspan="3">
+						<form name="sform" method="post" action="list">
+							<select name="field">
+								<option value="title">제목</option>
+								<option value="name">작성자</option>
+								<option value="content">내용</option>
+							</select>
+							<input type="text" name="sword" value="${sword}">
+							<input type="submit" value="검색">
+						</form>
+					</td>
+					<td>1페이지</td>
+					<td>
+						<form method="post" action="list" name="sjk">
+							<select name="rec" onchange="change(this.form)">
+								<option value="10">10개</option>
+								<option value="20">20개</option>
+								<option value="30">30개</option>
+								<option value="50">50개</option>
+							</select>
+						</form>
+					</td>
+				</tr>
 			</thead>
 			<tr>
-				<td colspan="5" style="text-align: right;">
+				<td colspan="5" class="button-container">
 					<a href="write"><input type="button" value="새글"></a>
 				</td>
 			</tr>
 			<tbody>
 				<tr>
-					<td width="100">no.</td>
-					<td width="150">글쓴이</td>
-					<td width="300">제 목</td>
-					<td width="100">조회수</td>
-					<td width="150">작성일</td>
+					<th width="100">no.</th>
+					<th width="150">글쓴이</th>
+					<th width="300">제 목</th>
+					<th width="100">조회수</th>
+					<th width="150">작성일</th>
 				</tr>
-				<c:forEach items="${list }" var="bdto">
-				<tr>
-					<td>${bdto.id }</td>
-					<td>${bdto.writer }</td>
-					<td><a href="rnum?id=${bdto.id }&page=${page }&rec=${rec }">${bdto.title }</a></td>
-					<td>${bdto.rnum }</td>
-					<td>${bdto.writeday }</td>
-				</tr>
+				<c:forEach items="${list}" var="bdto">
+					<tr>
+						<td>${bdto.id}</td>
+						<td>${bdto.writer}</td>
+						<td><a href="rnum?id=${bdto.id}&page=${page}&rec=${rec}">${bdto.title}</a></td>
+						<td>${bdto.rnum}</td>
+						<td>${bdto.writeday}</td>
+					</tr>
 				</c:forEach>
 			</tbody>
 			<tr>
 				<td colspan="5" align="center">
-				<c:if test="${pstart!=1 }">
-					<a href="list?page=${pstart-1 }&rec=${rec }&field=${field }&sword=${sword }"><img id="listbtn" widht="40" height="25" src="resources/image/2.png"></a>
-				</c:if>
-				<c:if test="${pstart==1 }">
-					◁◁
-				</c:if>
-				<c:if test="${page!=1 }">
-					<a href="list?page=${page-1 }&rec=${rec }&field=${field }&sword=${sword }"><img id="listbtn" widht="40" height="25" src="resources/image/4.png"></a>
-				</c:if>
-				<c:if test="${page==1 }"> 
-					◁
-				</c:if>
-				|
-				<c:forEach var="i" begin="${pstart }" end="${pend }">
-					<c:if test="${page==i}">
-						<a href="list?page=${i }&rec=${rec }&field=${field }&sword=${sword }"
-						style="color:red; font-size:20px; font-weight:1000; display: inline-block; width: 40px; text-align: center;">
-						${i }</a>
+					<c:if test="${pstart != 1}">
+						<a href="list?page=${pstart-1}&rec=${rec}&field=${field}&sword=${sword}"><img id="listbtn" width="40" height="25" src="resources/image/2.png"></a>
 					</c:if>
-					<c:if test="${page!=i }">
-						<a href="list?page=${i }&rec=${rec }&field=${field }&sword=${sword }"
-						style="display: inline-block; width: 40px; text-align: center;">
-						${i }</a>
+					<c:if test="${pstart == 1}">
+						◁◁
 					</c:if>
-				</c:forEach>
-				|
-				<c:if test="${page!=chong }">
-					<a href="list?page=${page+1 }&rec=${rec }&field=${field }&sword=${sword }"><img id="listbtn" widht="40" height="25" src="resources/image/3.png"></a>
-				</c:if>
-				<c:if test="${page==chong }"> 
-					▷
-				</c:if>
-				<c:if test="${pend!=chong }"> 
-					<a href="list?page=${pend+1 }&rec=${rec }&field=${field }&sword=${sword }"><img id="listbtn" widht="40" height="25" src="resources/image/1.png"></a>
-				</c:if>
-				<c:if test="${pend==chong }">
-					▷▷
-				</c:if>
+					<c:if test="${page != 1}">
+						<a href="list?page=${page-1}&rec=${rec}&field=${field}&sword=${sword}"><img id="listbtn" width="40" height="25" src="resources/image/4.png"></a>
+					</c:if>
+					<c:if test="${page == 1}"> 
+						◁
+					</c:if>
+					|
+					<c:forEach var="i" begin="${pstart}" end="${pend}">
+						<c:if test="${page == i}">
+							<a href="list?page=${i}&rec=${rec}&field=${field}&sword=${sword}"
+							style="color:red; font-size:20px; font-weight:1000; display: inline-block; width: 40px; text-align: center;">
+							${i}</a>
+						</c:if>
+						<c:if test="${page != i}">
+							<a href="list?page=${i}&rec=${rec}&field=${field}&sword=${sword}"
+							style="display: inline-block; width: 40px; text-align: center;">
+							${i}</a>
+						</c:if>
+					</c:forEach>
+					|
+					<c:if test="${page != chong}">
+						<a href="list?page=${page+1}&rec=${rec}&field=${field}&sword=${sword}"><img id="listbtn" width="40" height="25" src="resources/image/3.png"></a>
+					</c:if>
+					<c:if test="${page == chong}"> 
+						▷
+					</c:if>
+					<c:if test="${pend != chong}"> 
+						<a href="list?page=${pend+1}&rec=${rec}&field=${field}&sword=${sword}"><img id="listbtn" width="40" height="25" src="resources/image/1.png"></a>
+					</c:if>
+					<c:if test="${pend == chong}">
+						▷▷
+					</c:if>
 				</td>
 			</tr>
 		</table>
