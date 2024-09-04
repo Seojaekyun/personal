@@ -43,9 +43,9 @@
 <body> <!-- gongji/content.jsp -->
 
 <section>
-	<h3> 공지사항 내용 </h3>
+	<h3> 공지사항 </h3>
 	<div> ${gdto.title} </div>
-	<div> ${gdto.readnum} <span id="rnum">(조회수)</span></div>
+	<div> 조회수 ${gdto.readnum} <span id="rnum">(조회수)</span></div>
 	<div id="content"> ${gdto.content} </div>
 	<div id="btn">
 		<a href="list"> 목록 </a>

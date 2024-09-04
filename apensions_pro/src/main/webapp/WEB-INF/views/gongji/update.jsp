@@ -52,7 +52,7 @@
 <section>
 	<form method="post" action="updateOk" name="uform">
 	<input type="hidden" name="id" value="${gdto.id}">
-		<h3> 공지사항 글수정 </h3>
+		<h3> 공지사항 수정 </h3>
 		<div><input type="text" name="title" placeholder="제 목" value="${gdto.title}"></div>
 		<div><textarea name="content" placeholder="공지사항 내용">${gdto.content}</textarea></div>
 		<div> 
@@ -60,7 +60,7 @@
 			<input type="radio" name="state" value="1"> 상시공지
 			<input type="radio" name="state" value="2"> 필수공지
 		</div>
-		<div><input type="submit" value="공지사항 등록"></div>
+		<div><input type="submit" value="수정하기"></div>
 	</form>
 </section>
 
