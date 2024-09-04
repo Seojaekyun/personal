@@ -99,7 +99,7 @@
 			</tr>
 			<tr>
 				<td width="50"><div>PW</div></td>
-				<td class="log"><input type="password" id="lgin" name="pwd"></td>
+				<td class="log"><input type="password" id="lgin" name="pwd" value='123456789'></td>
 			</tr>
 			<c:if test="${not empty param.err }">
 			<tr><td colspan="2">
