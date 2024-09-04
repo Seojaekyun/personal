@@ -16,5 +16,9 @@ public interface ProductService {
 	String jusoWriteOk(BaesongDto bdto, Model model, HttpSession session);
 	String jusoList(Model model, HttpSession session);
 	String jusoWrite(HttpServletRequest request, Model model);
+	String chgPhone(HttpServletRequest request, HttpSession sessio);
+	String jusoDel(HttpServletRequest request);
+	String jusoUpdate(HttpServletRequest request, Model model);
+	String jusoUpdateOk(BaesongDto bdto, HttpSession session);
 
 }

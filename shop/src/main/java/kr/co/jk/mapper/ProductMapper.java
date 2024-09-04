@@ -27,5 +27,11 @@ public interface ProductMapper {
 	BaesongDto getBaesong(String userid);
 	void jusoWriteOk(BaesongDto bdto);
 	ArrayList<BaesongDto> jusoList(String userid);
+	void gibonInit(String userid);
+	int getJuk(String userid);
+	void chgPhone(String userid, String mPhone);
+	void jusoDel(String id);
+	BaesongDto jusoUpdate(String id);
+	void jusoUpdateOk(BaesongDto bdto);
 
 }

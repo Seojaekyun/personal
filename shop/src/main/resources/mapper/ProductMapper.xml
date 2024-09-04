@@ -53,6 +53,24 @@
 	<select id="jusoList" resultType="kr.co.jk.dto.BaesongDto">
 		select * from baesong where userid=#{userid}
 	</select>
-	
+	<update id="gibonInit">
+		update baesong set gibon=0 where userid=#{userid}
+	</update>
+	<select id="getJuk" resultType="Integer">
+		select juk from member where userid=#{userid}
+	</select>
+	<update id="chgPhone">
+		update member set phone=#{mPhone} where userid=#{userid}
+	</update>
+	<delete id="jusoDel">
+		delete from baesong where id=#{id}
+	</delete>
+	<select id="jusoUpdate" resultType="kr.co.jk.dto.BaesongDto">
+		select * from baesong where id=#{id}
+	</select>
+	<select id="jusoUpdateOk" parameterType="kr.co.jk.dto.BaesongDto">
+		update baesong set name=#{name}, zip=#{zip}, juso=#{juso}, jusoEtc=#{jusoEtc},
+		phone=#{phone}, req=#{req}, gibon=#{gibon} where id=#{id}
+	</select>
 	
 </mapper>

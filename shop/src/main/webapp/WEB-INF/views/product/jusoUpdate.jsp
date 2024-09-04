@@ -82,20 +82,24 @@
             }
         }).open();
     }
+    
+    window.onload=function() {
+    	document.pkc.req.value=${bdto.req};
+    }
 </script>
 </head>
-<body> <!-- product/jusoWrite.jsp -->
-    <form name="pkc" method="post" action="jusoWriteOk">
-    <input type="hidden" name="tt" value="${tt}">
-        <h3>배송지 등록</h3>
-        <div><input type="text" name="name"></div>
+<body> <!-- product/jusoUpdate.jsp -->
+    <form name="pkc" method="post" action="jusoUpdateOk">
+    <input type="hidden" name="id" value="${bdto.id}">
+        <h3>배송지 수정</h3>
+        <div><input type="text" name="name" value="${bdto.name}"></div>
         <div>
             <input type="text" name="zip" readonly>
             <input type="button" value="주소검색" onclick="juso_search()">
         </div>
-        <div><input type="text" name="juso" readonly></div>
-        <div><input type="text" name="jusoEtc"></div>
-        <div><input type="text" name="phone"></div>
+        <div><input type="text" name="juso" value="${bdto.juso}" readonly></div>
+        <div><input type="text" name="jusoEtc" value="${bdto.jusoEtc}"></div>
+        <div><input type="text" name="phone" value="${bdto.phone}"></div>
         <div>
             <select name="req">
                 <option value="0">문 앞</option>
