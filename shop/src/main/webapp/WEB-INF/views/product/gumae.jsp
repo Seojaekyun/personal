@@ -158,6 +158,7 @@
 </head>
 <body>
 	<main>
+	  <form name="gform" method="post" action="gumaeOk">
 		<h2 style="border-bottom:3px solid purple">주문 / 결제</h2>
 		<section id="member">
 			<table width="1100" align="center">
@@ -180,6 +181,7 @@
 			</table>
 		</section>
 		<section id="baesong">
+			<input type="hidden" name="baeId" value="${bdto.id}">
 			<table width="1100" align="center">
 				<caption>
 					<h3 align="left">
@@ -215,6 +217,8 @@
 				<caption>
 					<h3 align="left">구매 상품 정보</h3>
 					<c:forEach items="${plist}" var="pdto">
+					<input type="hidden" name="pcodes" value="${pdto.pcode}" class="pcode">
+					<input type="hidden" name="sues" value="${pdto.su}" class="su">
 						<tr>
 							<td colspan="2" bgcolor="#eeeeee">${pdto.baeEx}</td>
 						</tr>
@@ -270,27 +274,27 @@
 			<h3 align="left">결제 수단</h3>
 			<div id="sudanFirst">
 				<div>
-					<input type="radio" name="sudan" class="sudan" checked onclick="viewSub(0)"> 신용/체크카드
+					<input type="radio" name="sudan" class="sudan" value="0" checked onclick="viewSub(0)"> 신용/체크카드
 					<div class="sub" id="fsub">
 						<select name="card">
-							<option>선 택</option>
-							<option>신한카드</option>
-							<option>농협카드</option>
-							<option>우리카드</option>
-							<option>국민카드</option>
-							<option>하나카드</option>
+							<option value="0">선 택</option>
+							<option value="1">신한카드</option>
+							<option value="2">농협카드</option>
+							<option value="3">우리카드</option>
+							<option value="4">국민카드</option>
+							<option value="5">하나카드</option>
 						</select>
 						<select name="halbu">
-							<option>일시불</option>
-							<option>2개월</option>
-							<option>3개월</option>
-							<option>6개월</option>
-							<option>12개월</option>
+							<option value="1">일시불</option>
+							<option value="2">2개월</option>
+							<option value="3">3개월</option>
+							<option value="6">6개월</option>
+							<option value="12">12개월</option>
 						</select>
 					</div>
 				</div>
 				<div>
-					<input type="radio" name="sudan" class="sudan" onclick="viewSub(1)"> 쿠페이머니
+					<input type="radio" name="sudan" class="sudan" value="1" onclick="viewSub(1)"> 쿠페이머니
 					<div class="sub">0원</div>
 				</div>
 			</div>
@@ -300,58 +304,62 @@
 					<span id="up" onclick="up()">▲</span>
 				</div>
 				<div class="subMain">
-					<input type="radio" name="sudan" class="sudan" onclick="viewSub(2)"> 계좌이체
+					<input type="radio" name="sudan" class="sudan" value="2" onclick="viewSub(2)"> 계좌이체
 					<div class="sub">
 						<select name="bank">
-							<option>선 택</option>
-							<option>신한은행</option>
-							<option>농협은행</option>
-							<option>우리은행</option>
-							<option>국민은행</option>
-							<option>하나은행</option>
+							<option value="0">선 택</option>
+							<option value="1">신한은행</option>
+							<option value="2">농협은행</option>
+							<option value="3">우리은행</option>
+							<option value="4">국민은행</option>
+							<option value="5">하나은행</option>
 						</select>
 					</div>
 				</div>
 				<div class="subMain">
-					<input type="radio" name="sudan" class="sudan" onclick="viewSub(3)"> 법인카드
+					<input type="radio" name="sudan" class="sudan" value="3" onclick="viewSub(3)"> 법인카드
 					<div class="sub">
 						<select name="lcard">
-							<option>선 택</option>
-							<option>신한카드</option>
-							<option>농협카드</option>
-							<option>우리카드</option>
-							<option>국민카드</option>
-							<option>하나카드</option>
+							<option value="0">선 택</option>
+							<option value="1">신한카드</option>
+							<option value="2">농협카드</option>
+							<option value="3">우리카드</option>
+							<option value="4">국민카드</option>
+							<option value="5">하나카드</option>
 						</select>
 					</div>
 				</div>
 				<div class="subMain">
-					<input type="radio" name="sudan" class="sudan" onclick="viewSub(4)"> 휴대폰
+					<input type="radio" name="sudan" class="sudan" value="4" onclick="viewSub(4)"> 휴대폰
 					<div class="sub">
 						<select name="tong">
-							<option>선 택</option>
-							<option>SKT</option>
-							<option>KT</option>
-							<option>LG</option>
-							<option>별정통신</option>
+							<option value="0">선 택</option>
+							<option value="1">SKT</option>
+							<option value="2">KT</option>
+							<option value="3">LG</option>
+							<option value="4">알뜰폰</option>
 						</select>
 					</div>
 				</div>
 				<div class="subMain">
-					<input type="radio" name="sudan" class="sudan" onclick="viewSub(5)"> 무통장입금
+					<input type="radio" name="sudan" class="sudan" value="5" onclick="viewSub(5)"> 무통장입금
 					<div class="sub">
 						<select name="nbank">
-							<option>선 택</option>
-							<option>신한은행</option>
-							<option>농협은행</option>
-							<option>우리은행</option>
-							<option>국민은행</option>
-							<option>하나은행</option>
+							<option value="0">선 택</option>
+							<option value="1">신한은행</option>
+							<option value="2">농협은행</option>
+							<option value="3">우리은행</option>
+							<option value="4">국민은행</option>
+							<option value="5">하나은행</option>
 						</select>
 					</div>
 				</div>
 			</div>
 		</section>
+		<section>
+			<input type="submit" value="상품 구매">
+		</section>
+		</form>
 	</main>
 </body>
 </html>

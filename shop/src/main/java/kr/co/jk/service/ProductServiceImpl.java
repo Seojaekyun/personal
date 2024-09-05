@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.co.jk.dto.BaesongDto;
+import kr.co.jk.dto.GumaeDto;
 import kr.co.jk.dto.ProductDto;
 import kr.co.jk.mapper.ProductMapper;
 import kr.co.jk.utils.MyUtil;
@@ -417,7 +418,8 @@ public class ProductServiceImpl implements ProductService {
 		else { // 처음입력
 			bdto.setGibon(1);
 			mapper.jusoWriteOk(bdto);
-			
+			int id=mapper.getBaeId(userid);
+			model.addAttribute("id",id);
 			model.addAttribute("bname", bdto.getName());
 			model.addAttribute("bjuso", bdto.getJuso()+" "+bdto.getJusoEtc());
 			model.addAttribute("bphone",bdto.getPhone());
@@ -499,7 +501,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		model.addAttribute("bdto", mapper.jusoUpdate(id));
 		
-		return null;
+		return "/product/jusoUpdate";
 	}
 
 	@Override
@@ -512,6 +514,38 @@ public class ProductServiceImpl implements ProductService {
 		mapper.jusoUpdateOk(bdto);
 		
 		return "redirect:/product/jusoList";
+	}
+
+	@Override
+	public String gumaeOk(GumaeDto gdto, HttpSession session) {
+		String userid=session.getAttribute("userid").toString();
+		gdto.setUserid(userid);
+		// 주문코드
+		LocalDate today=LocalDate.now();
+		int y=today.getYear();
+		int m=today.getMonthValue();
+		int d=today.getDayOfMonth();
+		String m2=String.format("%02d", m);
+		String d2=String.format("%02d", d);
+		
+		String jumuncode="j"+y+m2+d2;
+		
+		int imsi=mapper.getJumuncode(jumuncode);
+		jumuncode=jumuncode+String.format("%03d", imsi);
+		
+		gdto.setJumuncode(jumuncode);
+		
+		String[] pcodes=gdto.getPcodes();
+		int[] sues=gdto.getSues();
+				
+		for(int i=0;i<pcodes.length;i++) {
+			gdto.setPcode(pcodes[i]);
+			gdto.setSu(sues[i]);
+			
+			mapper.gumaeOk(gdto);
+		}
+		
+		return "redirect:/product/gumaeView";
 	}
 	
 }

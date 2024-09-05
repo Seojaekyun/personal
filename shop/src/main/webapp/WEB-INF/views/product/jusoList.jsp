@@ -60,14 +60,16 @@
 		opener.document.getElementById("bjuso").innerText = document.getElementsByClassName("bjuso")[n].innerText;
 		opener.document.getElementById("bphone").innerText = document.getElementsByClassName("bphone")[n].innerText;
 		opener.document.getElementById("breq").innerText = document.getElementsByClassName("breq")[n].innerText;
-		
+		opener.document.gform.baeId.value=document.getElementsByClassName("id")[n].value;
 		// 주소변경후
+		alert(opener.document.gform.baeId.value);
 		close();
 	}
 </script>
 </head>
 <body>
 	<c:forEach items="${blist}" var="bdto" varStatus="sts">
+		<input type="hidden" name="id" value="${bdto.id}" class="id">
 		<div class="baeJuso">
 			<div class="bname">${bdto.name}</div>
 			<c:if test="${bdto.gibon == 1}">

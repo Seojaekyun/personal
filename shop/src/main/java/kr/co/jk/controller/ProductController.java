@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.co.jk.dto.BaesongDto;
+import kr.co.jk.dto.GumaeDto;
 import kr.co.jk.service.ProductService;
 
 @Controller
@@ -81,5 +82,10 @@ public class ProductController {
 	public String jusoUpdateOk(BaesongDto bdto, HttpSession session) {
 		// 보안관련으로 세션을 보낼수도 있다
 		return service.jusoUpdateOk(bdto, session);
+	}
+	
+	@RequestMapping("/product/gumaeOk")
+	public String gumaeOk(GumaeDto gdto, HttpSession session) {
+		return service.gumaeOk(gdto, session);
 	}
 }

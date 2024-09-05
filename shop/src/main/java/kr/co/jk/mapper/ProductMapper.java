@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.jk.dto.BaesongDto;
+import kr.co.jk.dto.GumaeDto;
 import kr.co.jk.dto.MemberDto;
 import kr.co.jk.dto.ProductDto;
 
@@ -33,5 +34,8 @@ public interface ProductMapper {
 	void jusoDel(String id);
 	BaesongDto jusoUpdate(String id);
 	void jusoUpdateOk(BaesongDto bdto);
+	int getBaeId(String userid);
+	int getJumuncode(String jumuncode);
+	void gumaeOk(GumaeDto gdto);
 
 }

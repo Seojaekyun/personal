@@ -72,5 +72,16 @@
 		update baesong set name=#{name}, zip=#{zip}, juso=#{juso}, jusoEtc=#{jusoEtc},
 		phone=#{phone}, req=#{req}, gibon=#{gibon} where id=#{id}
 	</select>
+	<select id="getBaeId" resultType="Integer">
+		select id from baesong where userid=#{userid} order by id desc limit 1
+	</select>
+	<select id="getJumuncode" resultType="Integer">
+		select ifnull(max(right(jumuncode,3)) ,0)+1 from gumae
+		where jumuncode like concat(#{jumuncode} ,'%')
+	</select>
+	<insert id="gumaeOk" parameterType="kr.co.jk.dto.GumaeDto">
+		insert into gumae(baeId, su, useJuk, chongPrice, sudan, card, halbu, bank, lcard, tong, nbank, userid, pcode, jumuncode, writeday)
+		values(#{baeId}, #{su}, #{useJuk}, #{chongPrice}, #{sudan}, #{card}, #{halbu}, #{bank}, #{lcard}, #{tong}, #{nbank}, #{userid}, #{pcode}, #{jumuncode}, now())
+	</insert>
 	
 </mapper>
