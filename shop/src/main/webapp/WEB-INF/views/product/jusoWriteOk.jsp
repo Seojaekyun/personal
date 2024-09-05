@@ -10,6 +10,7 @@
 		opener.document.getElementById("bjuso").innerText="${bjuso}";
 		opener.document.getElementById("bphone").innerText="${bphone}";
 		opener.document.getElementById("breq").innerText="${breq}";
+		opener.document.gform.baeId.value=${id};
 		
 		opener.document.getElementById("fbtn").setAttribute("onclick","jusoChange()");
 		opener.document.getElementById("fbtn").value="배송지변경";

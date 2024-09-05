@@ -89,15 +89,27 @@
 	header #member #myMenuList {
 		padding-left:0px;
 		position:absolute;
-		left: -20px;
-		top: 10px;
+		left:-19px;
+		top:30px;
 		visibility:hidden;
+		border:1px solid purple;
 	}
 	header #member #myMenuList li {
 		list-style-type:none;
 		height:28px;
+		line-height:28px;
 		width:100px;
 		text-align: center;
+		cursor:pointer;
+	}
+	header #member #myMenuList li:hover {
+		background:#FFF5FF;
+	}
+	header #member #myMenuList li:first-child {
+		/* border-top:1px solid black; */
+	}
+	header #member #myMenuList li:last-child {
+		/* border-bottom:1px solid black; */
 	}
 	nav {
 		width: 1100px;

@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.co.jk.dto.BaesongDto;
+import kr.co.jk.dto.GumaeDto;
 import kr.co.jk.service.ProductService;
 
 @Controller
@@ -56,7 +57,40 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/product/jusoList")
-	public String jusoList(Model model, HttpSession session) {
+	public String jusoList(HttpServletRequest request, Model model, HttpSession session) {
+		System.out.println(request.getHeader("referer"));
+		
 		return service.jusoList(model, session);
+	}
+	
+	@RequestMapping("/product/chgPhone")
+	public @ResponseBody String chgPhone(HttpServletRequest request, HttpSession session) {
+		return service.chgPhone(request, session);
+	}
+	
+	@RequestMapping("/product/jusoDel")
+	public String jusoDel(HttpServletRequest request) {
+		return service.jusoDel(request);
+	}
+	
+	@RequestMapping("/product/jusoUpdate")
+	public String jusoUpdate(HttpServletRequest request, Model model) {
+		return service.jusoUpdate(request, model);
+	}
+	
+	@RequestMapping("/product/jusoUpdateOk")
+	public String jusoUpdateOk(BaesongDto bdto, HttpSession session) {
+		// 보안관련으로 세션을 보낼수도 있다
+		return service.jusoUpdateOk(bdto, session);
+	}
+	
+	@RequestMapping("/product/gumaeOk")
+	public String gumaeOk(GumaeDto gdto, HttpSession session) {
+		return service.gumaeOk(gdto, session);
+	}
+	
+	@RequestMapping("/product/gumaeView")
+	public String gumaeView(HttpServletRequest request, Model model) {
+		return service.gumaeView(request, model);
 	}
 }

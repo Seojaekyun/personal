@@ -53,6 +53,55 @@
 	<select id="jusoList" resultType="kr.co.jk.dto.BaesongDto">
 		select * from baesong where userid=#{userid}
 	</select>
-	
+	<update id="gibonInit">
+		update baesong set gibon=0 where userid=#{userid}
+	</update>
+	<select id="getJuk" resultType="Integer">
+		select juk from member where userid=#{userid}
+	</select>
+	<update id="chgPhone">
+		update member set phone=#{mPhone} where userid=#{userid}
+	</update>
+	<delete id="jusoDel">
+		delete from baesong where id=#{id}
+	</delete>
+	<select id="jusoUpdate" resultType="kr.co.jk.dto.BaesongDto">
+		select * from baesong where id=#{id}
+	</select>
+	<select id="jusoUpdateOk" parameterType="kr.co.jk.dto.BaesongDto">
+		update baesong set name=#{name}, zip=#{zip}, juso=#{juso}, jusoEtc=#{jusoEtc},
+		phone=#{phone}, req=#{req}, gibon=#{gibon} where id=#{id}
+	</select>
+	<select id="getBaeId" resultType="Integer">
+		select id from baesong where userid=#{userid} order by id desc limit 1
+	</select>
+	<select id="getJumuncode" resultType="Integer">
+		select ifnull(max(right(jumuncode,3)) ,0)+1 from gumae
+		where jumuncode like concat(#{jumuncode} ,'%')
+	</select>
+	<insert id="gumaeOk" parameterType="kr.co.jk.dto.GumaeDto">
+		insert into gumae(baeId, su, useJuk, chongPrice, sudan, card, halbu, bank, lcard, tong, nbank, userid, pcode, jumuncode, writeday)
+		values(#{baeId}, #{su}, #{useJuk}, #{chongPrice}, #{sudan}, #{card}, #{halbu}, #{bank}, #{lcard}, #{tong}, #{nbank}, #{userid}, #{pcode}, #{jumuncode}, now())
+	</insert>
+	<delete id="cartDel">
+		delete from cart where userid=#{userid} and pcode=#{pcode}
+	</delete>
+	<update id="chgProduct">
+		update product set su=su-#{su}, pansu=pansu+#{su} where pcode=#{pcode}
+  </update>
+  <update id="chgJuk">
+		update member set juk=juk-#{useJuk} where userid=#{userid}
+	</update>
+	<select id="gumaeView" resultType="kr.co.jk.dto.GumaeDto">
+		select * from gumae where jumuncode=#{jumuncode}
+	</select>
+	<select id="gumaeView2" resultType="HashMap">
+		select p.title, p.pimg, p.baeday, p.price, p.halin,b.name,b.phone,
+		b.juso, b.req, g.useJuk, g.su from
+		gumae as g inner join product as p  on g.pcode=p.pcode
+		inner join baesong as b on g.baeId=b.id
+		where g.jumuncode=#{jumuncode};
+	</select>
+  
 	
 </mapper>

@@ -1,10 +1,12 @@
 package kr.co.jk.mapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.jk.dto.BaesongDto;
+import kr.co.jk.dto.GumaeDto;
 import kr.co.jk.dto.MemberDto;
 import kr.co.jk.dto.ProductDto;
 
@@ -27,5 +29,18 @@ public interface ProductMapper {
 	BaesongDto getBaesong(String userid);
 	void jusoWriteOk(BaesongDto bdto);
 	ArrayList<BaesongDto> jusoList(String userid);
+	void gibonInit(String userid);
+	int getJuk(String userid);
+	void chgPhone(String userid, String mPhone);
+	void jusoDel(String id);
+	BaesongDto jusoUpdate(String id);
+	void jusoUpdateOk(BaesongDto bdto);
+	int getBaeId(String userid);
+	int getJumuncode(String jumuncode);
+	void gumaeOk(GumaeDto gdto);
+	void cartDel(String userid, String pcode);
+	void chgProduct(String pcode, int su);
+	ArrayList<GumaeDto> gumaeView(String jumuncode);
+	ArrayList<HashMap> gumaeView2(String jumuncode);
 
 }

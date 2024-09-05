@@ -14,6 +14,7 @@ public class SitemeshConfig extends ConfigurableSiteMeshFilter {
 		builder.addExcludedPath("/main/this2");
 		builder.addExcludedPath("/product/jusoWrite");
 		builder.addExcludedPath("/product/jusoList");
+		builder.addExcludedPath("/product/jusoUpdate");
 		
 		System.out.println("site");
 	}
