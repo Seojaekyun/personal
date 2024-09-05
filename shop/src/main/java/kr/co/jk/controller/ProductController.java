@@ -88,4 +88,9 @@ public class ProductController {
 	public String gumaeOk(GumaeDto gdto, HttpSession session) {
 		return service.gumaeOk(gdto, session);
 	}
+	
+	@RequestMapping("/product/gumaeView")
+	public String gumaeView(HttpServletRequest request, Model model) {
+		return service.gumaeView(request, model);
+	}
 }

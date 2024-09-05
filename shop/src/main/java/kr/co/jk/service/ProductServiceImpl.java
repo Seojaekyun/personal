@@ -3,6 +3,7 @@ package kr.co.jk.service;
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -543,9 +544,41 @@ public class ProductServiceImpl implements ProductService {
 			gdto.setSu(sues[i]);
 			
 			mapper.gumaeOk(gdto);
+			
+			mapper.cartDel(userid, pcodes[i]); // 구매상품은 장바구니 삭제
+			mapper.chgProduct(pcodes[i], sues[i]);
 		}
 		
-		return "redirect:/product/gumaeView";
+		return "redirect:/product/gumaeView?="+jumuncode;
+	}
+
+	@Override
+	public String gumaeView(HttpServletRequest request, Model model) {
+		String jumuncode=request.getParameter("jumuncode");
+		
+		ArrayList<GumaeDto> glist=mapper.gumaeView(jumuncode);
+		ArrayList<ProductDto> plist=new ArrayList<ProductDto>();
+		ArrayList<BaesongDto> blist=new ArrayList<BaesongDto>();
+		
+		for(int i=0;i<glist.size();i++) {
+			GumaeDto gdto=glist.get(i);
+			ProductDto pdto=mapper.productContent(gdto.getPcode());
+			plist.add(pdto);
+			
+			BaesongDto bdto=mapper.jusoUpdate(gdto.getBaeId()+"");
+			blist.add(bdto);
+		}
+		
+		return "/product/gumaeView";
+	}
+	
+	@Override
+	public String gumaeView2(HttpServletRequest request, Model model) {
+		String jumuncode=request.getParameter("jumuncode");
+		
+		ArrayList<HashMap> mapAll=mapper.gumaeView2(jumuncode);
+		
+		return "/product/gumaeView";
 	}
 	
 }

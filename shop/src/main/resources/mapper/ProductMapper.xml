@@ -83,5 +83,25 @@
 		insert into gumae(baeId, su, useJuk, chongPrice, sudan, card, halbu, bank, lcard, tong, nbank, userid, pcode, jumuncode, writeday)
 		values(#{baeId}, #{su}, #{useJuk}, #{chongPrice}, #{sudan}, #{card}, #{halbu}, #{bank}, #{lcard}, #{tong}, #{nbank}, #{userid}, #{pcode}, #{jumuncode}, now())
 	</insert>
+	<delete id="cartDel">
+		delete from cart where userid=#{userid} and pcode=#{pcode}
+	</delete>
+	<update id="chgProduct">
+		update product set su=su-#{su}, pansu=pansu+#{su} where pcode=#{pcode}
+  </update>
+  <update id="chgJuk">
+		update member set juk=juk-#{useJuk} where userid=#{userid}
+	</update>
+	<select id="gumaeView" resultType="kr.co.jk.dto.GumaeDto">
+		select * from gumae where jumuncode=#{jumuncode}
+	</select>
+	<select id="gumaeView2" resultType="HashMap">
+		select p.title, p.pimg, p.baeday, p.price, p.halin,b.name,b.phone,
+		b.juso, b.req, g.useJuk, g.su from
+		gumae as g inner join product as p  on g.pcode=p.pcode
+		inner join baesong as b on g.baeId=b.id
+		where g.jumuncode=#{jumuncode};
+	</select>
+  
 	
 </mapper>

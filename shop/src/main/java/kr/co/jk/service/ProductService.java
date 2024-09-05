@@ -22,5 +22,7 @@ public interface ProductService {
 	String jusoUpdate(HttpServletRequest request, Model model);
 	String jusoUpdateOk(BaesongDto bdto, HttpSession session);
 	String gumaeOk(GumaeDto gdto, HttpSession session);
+	String gumaeView(HttpServletRequest request, Model model);
+	String gumaeView2(HttpServletRequest request, Model model);
 
 }

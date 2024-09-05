@@ -1,6 +1,7 @@
 package kr.co.jk.mapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -37,5 +38,9 @@ public interface ProductMapper {
 	int getBaeId(String userid);
 	int getJumuncode(String jumuncode);
 	void gumaeOk(GumaeDto gdto);
+	void cartDel(String userid, String pcode);
+	void chgProduct(String pcode, int su);
+	ArrayList<GumaeDto> gumaeView(String jumuncode);
+	ArrayList<HashMap> gumaeView2(String jumuncode);
 
 }
