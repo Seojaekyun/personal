@@ -52,19 +52,19 @@
 			<caption> <h3> 결제정보 </h3> </caption>
 			<tr>
 				<td> 주문금액 </td>
-				<td> <fmt:formatNumber value="${halinPrice}" type="number"/>원 </td>
+				<td>￦<fmt:formatNumber value="${halinPrice}" type="number"/></td>
 			</tr>
 			<tr>
 				<td> 배송비 </td>
-				<td> <fmt:formatNumber value="${cBaeprice}" type="number"/>원 </td>
+				<td>￦<fmt:formatNumber value="${cBaeprice}" type="number"/></td>
 			</tr>
 			<tr>
 				<td> 사용적립금 </td>
-				<td> <fmt:formatNumber value="${mapAll.get(0).useJuk}" type="number"/>원</td>
+				<td>￦<fmt:formatNumber value="${mapAll.get(0).useJuk}" type="number"/></td>
         </tr>
         <tr>
           <td> 총결제금액 </td>
-          <td> <fmt:formatNumber value="${halinPrice+cBaeprice}" type="number"/>원 </td>
+          <td>￦<fmt:formatNumber value="${halinPrice+cBaeprice}" type="number"/></td>
         </tr>
 		</table>
 	</div>

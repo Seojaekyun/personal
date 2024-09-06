@@ -17,5 +17,7 @@ public interface MemberService {
 	String jjimList(HttpSession session, Model model);
 	String addCart(HttpServletRequest request, HttpSession session);
 	String jjimDel(HttpServletRequest request, HttpSession session);
+	String jumunList(HttpSession session, Model model);
+	String chgState(HttpServletRequest request);
 	
 }

@@ -538,6 +538,8 @@ public class ProductServiceImpl implements ProductService {
 		
 		String[] pcodes=gdto.getPcodes();
 		int[] sues=gdto.getSues();
+		
+		mapper.chgJuk(gdto.getUseJuk(),userid);
 				
 		for(int i=0;i<pcodes.length;i++) {
 			gdto.setPcode(pcodes[i]);
@@ -549,7 +551,7 @@ public class ProductServiceImpl implements ProductService {
 			mapper.chgProduct(pcodes[i], sues[i]);
 		}
 		
-		return "redirect:/product/gumaeView?="+jumuncode;
+		return "redirect:/product/gumaeView?jumuncode="+jumuncode;
 	}
 
 	@Override
@@ -591,10 +593,10 @@ public class ProductServiceImpl implements ProductService {
 			mapAll.get(i).put("price", price);
 			
 			int su=Integer.parseInt(map.get("su").toString());			
-			halinPrice=halinPrice+price;
+			halinPrice=halinPrice+(price*su);
 			cBaeprice=cBaeprice+Integer.parseInt(map.get("baeprice").toString());
 			
-			switch(Integer.parseInt(map.get("breq").toString())) {
+			switch(Integer.parseInt(map.get("req").toString())) {
 			    case 0: breq="문 앞"; break;
 			    case 1: breq="직접 수령, 부재시 문 앞"; break;
 			    case 2: breq="경비실에 맡겨주세요."; break;

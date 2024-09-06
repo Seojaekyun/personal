@@ -1,5 +1,6 @@
 package kr.co.jk.service;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -277,6 +278,44 @@ public class MemberServiceImpl implements MemberService{
 		 }
 		 
 		 return "redirect:/member/jjimList";
+	}
+
+	@Override
+	public String jumunList(HttpSession session, Model model) {
+		String userid=session.getAttribute("userid").toString();
+		ArrayList<HashMap> mapAll=mapper.jumunList(userid);
+		
+		for(int i=0;i<mapAll.size();i++) {
+			String state=mapAll.get(i).get("state").toString();
+			String stateMsg=null;
+			switch(state) {
+				case "0": stateMsg="결제완료"; break;
+				case "1": stateMsg="상품준비중"; break;
+				case "2": stateMsg="배송중"; break;
+				case "3": stateMsg="배송완료"; break;
+				case "4": stateMsg="취소완료"; break;
+				case "5": stateMsg="반품신청"; break;
+				case "6": stateMsg="반품완료"; break;
+				case "7": stateMsg="교환신청"; break;
+				case "8": stateMsg="교환완료"; break;
+				default:
+			}
+			
+			mapAll.get(i).put("stateMsg", stateMsg);
+		}
+		System.out.println(mapAll);
+		model.addAttribute("mapAll", mapAll);
+		return "/member/jumunList";
+	}
+
+	@Override
+	public String chgState(HttpServletRequest request) {
+		String state=request.getParameter("state");
+		String id=request.getParameter("id");
+		System.out.println(id);
+		mapper.chgState(state, id);
+		
+		return "redirect:/member/jumunList";
 	}
 	
 }

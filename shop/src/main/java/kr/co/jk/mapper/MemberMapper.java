@@ -20,5 +20,7 @@ public interface MemberMapper {
 	void addCart(String userid, String pcode);
 	boolean isCart(String pcode, String userid);
 	void jjimDel(String userid, String pcode);
+	ArrayList<HashMap> jumunList(String userid);
+	void chgState(String state, String id);
 
 }

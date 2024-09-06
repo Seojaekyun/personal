@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,5 +100,41 @@ public class AdminController {
 		
 		return "redirect:/product/productList";
 	}
-
+	
+	@RequestMapping("/gumae/gumaeAll")
+	public String gumaeAll(Model model) {
+		ArrayList<HashMap> mapAll=mapper.gumaeAll();
+		
+		for(int i=0;i<mapAll.size();i++) {
+			String state=mapAll.get(i).get("state").toString();
+			String stateMsg=null;
+			switch(state) {
+			   case "0": stateMsg="결제완료"; break;
+			   case "1": stateMsg="상품준비중"; break;
+			   case "2": stateMsg="배송중"; break;
+			   case "3": stateMsg="배송완료"; break;
+			   case "4": stateMsg="취소완료"; break;
+			   case "5": stateMsg="반품신청"; break;
+			   case "6": stateMsg="반품완료"; break;
+			   case "7": stateMsg="교환신청"; break;
+			   case "8": stateMsg="교환완료"; break;
+			   default: stateMsg="문의바람";
+			}
+			
+			mapAll.get(i).put("stateMsg", stateMsg);
+		}
+		System.out.println(mapAll);
+		model.addAttribute("mapAll", mapAll);
+		return "/gumae/gumaeAll";
+	}
+	
+	@GetMapping("/gumae/chgState")
+	public String chgState(HttpServletRequest request) {
+		String state=request.getParameter("state");
+		String id=request.getParameter("id");
+		System.out.println(id);
+		mapper.chgState(state, id);
+		return "redirect:/gumae/gumaeAll";
+	}
+	
 }

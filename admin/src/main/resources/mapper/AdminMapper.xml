@@ -21,4 +21,14 @@
 		insert into product(pcode, pimg, dimg, title, price, halin, su, baeprice, baeday, juk, writeday)
 		values(#{pcode}, #{pimg}, #{dimg}, #{title}, #{price}, #{halin}, #{su}, #{baeprice}, #{baeday}, #{juk}, now())
 	</insert>
+	<select id="gumaeAll" resultType="HashMap">
+		select g.id,g.userid, g.state, p.title, p.pimg, b.zip
+		from gumae as g inner join product as p on g.pcode=p.pcode
+		inner join baesong as b on g.baeId=b.id
+		order by g.id desc;
+	</select>
+	<update id="chgState">
+		update gumae set state=#{state} where id=#{id}
+	</update>
+	
 </mapper>

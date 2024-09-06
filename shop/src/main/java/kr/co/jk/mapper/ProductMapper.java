@@ -42,5 +42,6 @@ public interface ProductMapper {
 	void chgProduct(String pcode, int su);
 	ArrayList<GumaeDto> gumaeView(String jumuncode);
 	ArrayList<HashMap> gumaeView2(String jumuncode);
+	void chgJuk(int useJuk, String userid);
 
 }
