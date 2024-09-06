@@ -35,5 +35,16 @@
 	<delete id="jjimDel">
 		delete from jjim where userid=#{userid} and pcode=#{pcode}
 	</delete>
+	<select id="jumunList" resultType="HashMap">
+		select p.title, p.pimg , b.name , b.juso , g.chongPrice,
+		g.id, g.state , g.su , g.useJuk , g.sudan ,g.writeday , g.jumuncode,
+		g.jumuncode as jumun, (select count(*) from gumae where jumuncode=jumun) as cnt
+		from gumae as g inner join product as p on g.pcode=p.pcode
+		inner join baesong as b on g.baeId=b.id
+		where g.userid=#{userid}  order by g.id desc;
+	</select>
+	<update id="chgState">
+		update gumae set state=#{state} where id=#{id}
+	</update>
 	
 </mapper>

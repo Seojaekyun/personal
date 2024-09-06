@@ -96,9 +96,8 @@
 		select * from gumae where jumuncode=#{jumuncode}
 	</select>
 	<select id="gumaeView2" resultType="HashMap">
-		select p.title, p.pimg, p.baeday, p.price, p.halin,b.name,b.phone,
-		b.juso, b.req, g.useJuk, g.su from
-		gumae as g inner join product as p  on g.pcode=p.pcode
+		select p.title, p.pimg, p.baeday, p.baeprice, p.price, p.halin,b.name,b.phone, b.req,
+		g.su  from gumae as g inner join product as p  on g.pcode=p.pcode
 		inner join baesong as b on g.baeId=b.id
 		where g.jumuncode=#{jumuncode};
 	</select>

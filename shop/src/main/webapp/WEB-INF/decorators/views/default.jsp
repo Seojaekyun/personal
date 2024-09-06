@@ -413,7 +413,7 @@
 				<ul id="myMenuList">
 					<li><a href="../member/jjimList"> 찜리스트 </a></li>
 					<li> 회원정보 </li>
-					<li> 주문목록 </li>
+					<li><a href="../member/jumunList"> 주문목록 </a></li>
 					<li> 배송지관리 </li>
 					<li> 나의상품평 </li>
 					<li> 나의 문의 </li>

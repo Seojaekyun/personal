@@ -1,6 +1,7 @@
 package kr.co.jk.mapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,11 +13,13 @@ import kr.co.jk.dto.SoDto;
 
 @Mapper
 public interface AdminMapper {
-	public ArrayList<DaeDto> getDae();
-	public ArrayList<CompanyDto> getCompany();
-	public ArrayList<JungDto> getJung(String daecode);
-	public ArrayList<SoDto> getSo(String daejung);
-	public int genPcode(String pcode);
-	public void productAddOk(ProductDto pdto);
+	ArrayList<DaeDto> getDae();
+	ArrayList<CompanyDto> getCompany();
+	ArrayList<JungDto> getJung(String daecode);
+	ArrayList<SoDto> getSo(String daejung);
+	int genPcode(String pcode);
+	void productAddOk(ProductDto pdto);
+	ArrayList<HashMap> gumaeAll();
+	void chgState(String state, String id);
 
 }
