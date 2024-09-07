@@ -538,6 +538,8 @@ public class ProductServiceImpl implements ProductService {
 		
 		String[] pcodes=gdto.getPcodes();
 		int[] sues=gdto.getSues();
+		
+		mapper.chgJuk(gdto.getUseJuk(),userid);
 				
 		for(int i=0;i<pcodes.length;i++) {
 			gdto.setPcode(pcodes[i]);
@@ -549,7 +551,7 @@ public class ProductServiceImpl implements ProductService {
 			mapper.chgProduct(pcodes[i], sues[i]);
 		}
 		
-		return "redirect:/product/gumaeView?="+jumuncode;
+		return "redirect:/product/gumaeView?jumuncode="+jumuncode;
 	}
 
 	@Override
@@ -577,6 +579,59 @@ public class ProductServiceImpl implements ProductService {
 		String jumuncode=request.getParameter("jumuncode");
 		
 		ArrayList<HashMap> mapAll=mapper.gumaeView2(jumuncode);
+		int halinPrice=0, cBaeprice=0;
+		String baeEx=null;
+		String breq=null;
+		for(int i=0;i<mapAll.size();i++) {
+			HashMap map=mapAll.get(i);
+			//price할인된 상품금액
+			int price=Integer.parseInt(map.get("price").toString());
+			int halin=Integer.parseInt(map.get("halin").toString());
+			price=(int)( price-(price*halin/100.0) );
+			//map.put("price", price); // 여기에 저장하면 뷰에 전달이 안된다
+			
+			mapAll.get(i).put("price", price);
+			
+			int su=Integer.parseInt(map.get("su").toString());			
+			halinPrice=halinPrice+(price*su);
+			cBaeprice=cBaeprice+Integer.parseInt(map.get("baeprice").toString());
+			
+			switch(Integer.parseInt(map.get("req").toString())) {
+			    case 0: breq="문 앞"; break;
+			    case 1: breq="직접 수령, 부재시 문 앞"; break;
+			    case 2: breq="경비실에 맡겨주세요."; break;
+			    case 3: breq="택배함"; break;
+			    case 4: breq="공동현관 앞"; break;
+			    default: breq="읽지 못함";
+			}
+			
+			LocalDate today=LocalDate.now();
+			int baeday=Integer.parseInt(map.get("baeday").toString());
+			LocalDate xday=today.plusDays(baeday); // baeday가 계산된 날짜객체
+			
+			String yoil=MyUtil.getYoil(xday);
+			baeEx=null;
+			if(baeday==1) {
+				baeEx="내일("+yoil+") 도착예정";
+			}
+			else if(baeday==2) {
+					baeEx="모레("+yoil+") 도착예정";
+				}
+				else {
+					int m=xday.getMonthValue();
+					int d=xday.getDayOfMonth();
+					baeEx=m+"/"+d+"("+yoil+") 도착예정";
+				}
+			
+			mapAll.get(i).put("baeEx", baeEx);
+			
+		}
+		
+		model.addAttribute("mapAll",mapAll);
+		model.addAttribute("halinPrice",halinPrice);
+		model.addAttribute("cBaeprice",cBaeprice);
+		model.addAttribute("baeEx",baeEx);
+		model.addAttribute("breq",breq);
 		
 		return "/product/gumaeView";
 	}

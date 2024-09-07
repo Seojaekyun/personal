@@ -70,6 +70,15 @@ public class MemberController {
     	return service.jjimDel(request, session);
     }
 	
+	@RequestMapping("/member/jumunList")
+	public String jumunList(HttpSession session, Model model) {
+		return service.jumunList(session,model);
+	}
+	
+	@RequestMapping("/member/chgState")
+	public String chgState(HttpServletRequest request) {
+		return service.chgState(request);
+	}
 	
 
 }
