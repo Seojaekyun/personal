@@ -36,7 +36,7 @@
 		delete from jjim where userid=#{userid} and pcode=#{pcode}
 	</delete>
 	<select id="jumunList" resultType="HashMap">
-		select p.title, p.pimg , b.name , b.juso , g.chongPrice,
+		select p.title, p.pimg, p.pcode , b.name , b.juso , g.chongPrice,
 		g.id, g.state , g.su , g.useJuk , g.sudan ,g.writeday , g.jumuncode,
 		g.jumuncode as jumun, (select count(*) from gumae where jumuncode=jumun) as cnt
 		from gumae as g inner join product as p on g.pcode=p.pcode
@@ -45,6 +45,17 @@
 	</select>
 	<update id="chgState">
 		update gumae set state=#{state} where id=#{id}
+	</update>
+	<select id="reviewWriteOk" parameterType="kr.co.jk.dto.ReviewDto">
+		insert into review(star,content,oneLine,userid,pcode,writeday)
+		values(#{star},#{content},#{oneLine},#{userid},#{pcode},now())
+	</select>
+	<select id="getReviewAvg" resultType="Double">
+		select avg(star) from review where pcode=#{pcode}
+	</select>
+	<update id="setProduct">
+		update product set star=#{star} , review=review+1
+		where pcode=#{pcode}
 	</update>
 	
 </mapper>

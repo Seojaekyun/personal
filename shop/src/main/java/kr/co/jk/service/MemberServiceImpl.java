@@ -1,6 +1,5 @@
 package kr.co.jk.service;
 
-import java.lang.ProcessBuilder.Redirect;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.co.jk.dto.MemberDto;
 import kr.co.jk.dto.ProductDto;
+import kr.co.jk.dto.ReviewDto;
 import kr.co.jk.mapper.MemberMapper;
 import kr.co.jk.utils.MyUtil;
 
@@ -314,6 +314,30 @@ public class MemberServiceImpl implements MemberService{
 		String id=request.getParameter("id");
 		System.out.println(id);
 		mapper.chgState(state, id);
+		
+		return "redirect:/member/jumunList";
+	}
+
+	@Override
+	public String reviewWrite(HttpServletRequest request, Model model) {
+		String pcode=request.getParameter("pcode");
+		model.addAttribute("pcode",pcode);
+		
+		return "/member/reviewWrite";
+	}
+
+	@Override
+	public String reviewWriteOk(ReviewDto rdto, HttpSession session) {
+		String userid=session.getAttribute("userid").toString();
+		rdto.setUserid(userid);
+		mapper.reviewWriteOk(rdto);
+		
+		
+		// product테이블에 star필드에 평균값을 다시 구해서 저장 rdto.getPcode()
+		double star=mapper.getReviewAvg(rdto.getPcode());
+		// product테이블에 review필드에 1증가
+		mapper.setProduct(star, rdto.getPcode());
+			
 		
 		return "redirect:/member/jumunList";
 	}

@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.co.jk.dto.MemberDto;
+import kr.co.jk.dto.ReviewDto;
 
 public interface MemberService {
 	String member();
@@ -19,5 +20,7 @@ public interface MemberService {
 	String jjimDel(HttpServletRequest request, HttpSession session);
 	String jumunList(HttpSession session, Model model);
 	String chgState(HttpServletRequest request);
+	String reviewWrite(HttpServletRequest request, Model model);
+	String reviewWriteOk(ReviewDto rdto, HttpSession session);
 	
 }
