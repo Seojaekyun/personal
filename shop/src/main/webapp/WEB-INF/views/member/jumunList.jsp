@@ -25,7 +25,6 @@
      padding:20px;
      margin-top:10px;
    }
- 
    .onePro #pro1 {
      display:inline-block;
      width:600px;
@@ -52,8 +51,6 @@
   <main>
     <c:set var="i" value="0"/>
     <c:forEach begin="1" end="${mapAll.size()}">
-
-      
        <c:if test="${i<mapAll.size()}">
        <c:set var="chk" value="0"/>
          <c:forEach begin="0" end="${mapAll.get(i).cnt-1}" varStatus="sts">
