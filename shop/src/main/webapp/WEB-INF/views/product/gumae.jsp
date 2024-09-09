@@ -263,7 +263,7 @@
 						보유 : <span id="myJuk"><fmt:formatNumber value="${juk}" type="number"/></span>원
 					</td>
 				</tr>
-				<tr>
+					<input type="hidden" name="chongPrice" value="${halinPrice+baePrice}">
 				<tr>
 					<td>총 결제금액</td>
 					<td><span id="chong"><fmt:formatNumber value="${halinPrice+baePrice}" type="number"/></span>원</td>

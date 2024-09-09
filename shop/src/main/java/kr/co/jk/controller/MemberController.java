@@ -11,9 +11,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.co.jk.dto.MemberDto;
+import kr.co.jk.dto.ReviewDto;
 import kr.co.jk.service.MemberService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -79,6 +79,16 @@ public class MemberController {
 	public String chgState(HttpServletRequest request) {
 		return service.chgState(request);
 	}
+	
+	@RequestMapping("/member/reviewWrite")
+    public String reviewWrite(HttpServletRequest request,Model model) {
+		return service.reviewWrite(request,model);
+	}
+    
+    @RequestMapping("/member/reviewWriteOk")
+    public String reviewWriteOk(ReviewDto rdto,HttpSession session) {
+    	return service.reviewWriteOk(rdto,session);
+    }
 	
 
 }
