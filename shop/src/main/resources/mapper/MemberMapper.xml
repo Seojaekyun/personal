@@ -37,7 +37,7 @@
 	</delete>
 	<select id="jumunList" resultType="HashMap">
 		select p.title, p.pimg, p.pcode , b.name , b.juso , g.chongPrice,
-		g.id, g.state , g.su , g.useJuk , g.sudan ,g.writeday , g.jumuncode,
+		g.id,g.isReview, g.state , g.su , g.useJuk , g.sudan ,g.writeday , g.jumuncode,
 		g.jumuncode as jumun, (select count(*) from gumae where jumuncode=jumun) as cnt
 		from gumae as g inner join product as p on g.pcode=p.pcode
 		inner join baesong as b on g.baeId=b.id
@@ -56,6 +56,9 @@
 	<update id="setProduct">
 		update product set star=#{star} , review=review+1
 		where pcode=#{pcode}
+	</update>
+	<update id="chgIsReview">
+		update gumae set isReview=1 where id=#{id}
 	</update>
 	
 </mapper>
