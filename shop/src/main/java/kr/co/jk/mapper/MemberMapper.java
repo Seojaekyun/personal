@@ -26,5 +26,6 @@ public interface MemberMapper {
 	void reviewWriteOk(ReviewDto rdto);
 	double getReviewAvg(String pcode);
 	void setProduct(double star, String pcode);
+	void chgIsReview(int gid);
 
 }

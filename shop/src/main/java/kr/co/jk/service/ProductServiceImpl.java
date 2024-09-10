@@ -210,6 +210,32 @@ public class ProductServiceImpl implements ProductService {
 		}
 		
 		model.addAttribute("jImg",jImg);
+		
+		// product테이블의 star필드의 값을 이용하여
+		// 노란별,반별,회색별의 갯수를 뷰에 전달
+		double star=pdto.getStar();
+		
+		int ystar=0,hstar=0,gstar=0;
+		
+		// 정수부분은 무조건 노란별
+		ystar=(int)star;
+		star=star-ystar; // 소수부분
+		
+		// 소수부분이 노란별인지
+		if(star>=0.8) {
+			ystar++;
+		}
+		
+		if( star<0.8 && star>=0.3) {
+			hstar++;
+		}
+		
+		gstar=5-(ystar+hstar);
+		
+		model.addAttribute("ystar",ystar);
+		model.addAttribute("hstar",hstar);
+		model.addAttribute("gstar",gstar);
+				
 		return "product/productContent";
 	}
 	

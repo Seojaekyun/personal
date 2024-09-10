@@ -321,7 +321,10 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public String reviewWrite(HttpServletRequest request, Model model) {
 		String pcode=request.getParameter("pcode");
-		model.addAttribute("pcode",pcode);
+		String id=request.getParameter("id");
+		
+		model.addAttribute("pcode", pcode);
+		model.addAttribute("id", id);
 		
 		return "/member/reviewWrite";
 	}
@@ -337,7 +340,7 @@ public class MemberServiceImpl implements MemberService{
 		double star=mapper.getReviewAvg(rdto.getPcode());
 		// product테이블에 review필드에 1증가
 		mapper.setProduct(star, rdto.getPcode());
-			
+		mapper.chgIsReview(rdto.getGid());
 		
 		return "redirect:/member/jumunList";
 	}

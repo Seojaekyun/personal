@@ -45,6 +45,7 @@
 <body> <!-- member/reviewWrite.jsp -->
 <main>
 	<form name="rform" method="post" action="reviewWriteOk">
+		<input type="hidden" name="gid" value="${id}">
 		<input type="hidden" name="star">
 		<input type="hidden" name="pcode" value="${pcode}">
 		<h3 align="center"> 리뷰 작성 </h3>
