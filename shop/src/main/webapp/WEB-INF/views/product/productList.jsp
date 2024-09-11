@@ -96,7 +96,7 @@
 			<h4 style="float:right; font-size:13px;">
 				<a href="productList?pcode=${pcode}&order=1" class="order"> 인기순 </a> | 
 				<a href="productList?pcode=${pcode}&order=2" class="order"> 가격(높은순) </a> | 
-				<a href="productList?pcode=${pcode}&order=3" class="order"> 가격)낮은순) </a> | 
+				<a href="productList?pcode=${pcode}&order=3" class="order"> 가격(낮은순) </a> | 
 				<a href="productList?pcode=${pcode}&order=4" class="order"> 평점순 </a> | 
 				<a href="productList?pcode=${pcode}&order=5" class="order"> 최신상품순 </a> 
 		</caption>
@@ -110,10 +110,18 @@
 				</c:if> 
 				<div id="phal"> ￦<fmt:formatNumber value="${pdto.halinPrice}" type="number"/></div>
 				<div> ${pdto.baeEx} </div>     
-				<div style="letter-spacing:-4px">
-				<c:forEach begin="1" end="5">
-					<img src="../static/pro/star1.png" width="10">
-				</c:forEach>
+				<div style="letter-spacing:-4px;font-size:12px">
+					<%-- ${pdto.ystar} : ${pdto.hstar} : ${pdto.gstar} --%>
+					<c:forEach begin="1" end="${pdto.ystar}">
+						<img src="../static/pro/star1.png" width="10">
+					</c:forEach>
+					<c:if test="${pdto.hstar==1}">
+						<img src="../static/pro/star3.png" width="10">
+					</c:if>
+					<c:forEach begin="1" end="${pdto.gstar}">
+						<img src="../static/pro/star2.png" width="10">
+					</c:forEach>
+					&nbsp;<span style="letter-spacing:0px;font-size:12px"> (${pdto.review}) </span>
 				</div>
 				<c:if test="${pdto.juk!=0}"> <!-- 적립금이 있다면 -->   
 				<div>
