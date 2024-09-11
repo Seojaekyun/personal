@@ -9,4 +9,7 @@ public class ProductDto {
 	private String pcode, pimg, dimg, title, writeday, review;
 	
 	private String baeEx;
+
+	private int ystar, hstar, gstar;
+	
 }
