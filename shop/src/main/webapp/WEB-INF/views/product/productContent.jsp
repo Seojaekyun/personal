@@ -164,10 +164,44 @@
 		
 	}
 	main #third {
-		height: 200px;
+		<c:if test="${rlist.size()==0}">
+			height:100px;
+		</c:if>
+		<c:if test="${rlist.size()!=0}">
+			margin-bottom:50px;
+		</c:if>
+	}
+	main #third .myReview {
+		width:1084px;
+		height:150px;
+		border:1px solid purple;
+		border-radius: 10px;
+		margin-top:14px;
+		overflow:auto;
+		padding:8px;
 	}
 	main #fourth {
 		height: 200px;
+		position: relative;
+	}
+	main #fourth #qwform {
+		width:600px;
+		height:100px;
+		/* border:1px solid purple; */
+		position:absolute;
+		left:0px;
+		top:30px;
+		background:white;
+		text-align:center;
+		visibility:hidden;
+	}
+	main #fourth #qwform textarea {
+		width:590px;
+		height:80px;
+	}
+	main #fourth #qwform input {
+		width:600px;
+		height:36px;
 	}
 	main #fifth {
 	
@@ -250,6 +284,23 @@
 	}
 	
 	window.onscroll=scrollMove;
+	
+	function chgStyle(n) {
+		var inMenu=document.getElementsByClassName("inMenu");
+		
+		for(i=0;i<inMenu.length;i++) {
+			inMenu[i].parentNode.style.background="white";
+			inMenu[i].style.color="black";
+		}
+		
+		inMenu[n].parentNode.style.background="purple";
+		inMenu[n].style.color="white";
+	}
+	
+	// 상품문의 폼생성
+	function questWrite() {
+		document.getElementById("qwform").style.visibility="visible";
+	}
 </script>
 </head>
 <body>
@@ -321,11 +372,61 @@
 		</section>
 		
 		<section id="third">
-			<h3 class="cmenu" id="menu2"> 상품평 </h3>
+			<div  class="imsi" id="menu2"></div>
+      <h3 class="cmenu"> 상품평 </h3>
+      <div id=""> 
+        <c:forEach begin="1" end="${ystar}">
+           <img src="../static/pro/star1.png" width="10">
+        </c:forEach>
+        <c:if test="${hstar==1}">
+           <img src="../static/pro/star3.png" width="10">
+        </c:if>
+        <c:forEach begin="1" end="${gstar}">
+           <img src="../static/pro/star2.png" width="10">
+        </c:forEach> 
+        (상품평:${rlist.size()}개) 
+      </div>
+      
+     <c:forEach items="${rlist}" var="rdto">
+      <div class="myReview">
+        <div>
+          <%-- <div id="mleft" style="float:left"> 
+            ${rdto.user} (${rdto.writeday})
+          </div> --%>
+          <div id="mright" style="float:right">
+           <c:if test="${rdto.userid==userid}">
+             <a href="reviewDel?id=${rdto.id}&pcode=${rdto.pcode}"> 삭제 </a>
+           </c:if>
+            신고하기
+          </div>
+        </div>
+        <div>
+          <c:forEach begin="1" end="${rdto.star}">
+           <img src="../static/pro/star1.png" width="10">
+          </c:forEach>
+          <c:forEach begin="1" end="${5-rdto.star}">
+           <img src="../static/pro/star2.png" width="10">
+          </c:forEach> 
+        </div>
+        <div id="mleft" style="float:left"> 
+            ${rdto.user} (${rdto.writeday})
+          </div>
+        <div>${rdto.oneLine}</div>
+        <div>${rdto.content}</div>
+      </div>
+     </c:forEach>
 		</section>
 		
 		<section id="fourth">
-			<h3 class="cmenu" id="menu3"> 상품문의 </h3>
+			<div id="qwform"> <!-- 상품문의 폼 -->
+				<form method="post" action="questWriteOk">
+					<input type="hidden" name="pcode" value="${pdto.pcode}">
+					<textarea name="content"></textarea>
+					<input type="submit" value="문의하기">
+				</form>
+			</div>
+			<div  class="imsi" id="menu3"></div>
+			<h3 class="cmenu"> 상품문의 <input type="button" value="문의하기" onclick="questWrite()"> </h3>
 		</section>
 		
 		<section id="fifth">

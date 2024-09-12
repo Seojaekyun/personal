@@ -93,4 +93,14 @@ public class ProductController {
 	public String gumaeView(HttpServletRequest request, Model model) {
 		return service.gumaeView2(request, model);
 	}
+	
+	@RequestMapping("/product/reviewDel")
+	public String reviewDel(HttpServletRequest request) {
+		return service.reviewDel(request);
+	}
+	
+	@RequestMapping("/product/questWriteOk")
+	public String questWriteOk(HttpServletRequest request, HttpSession session) {
+		return service.questWriteOk(request, session);
+	}
 }

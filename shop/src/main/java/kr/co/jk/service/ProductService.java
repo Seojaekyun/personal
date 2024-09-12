@@ -24,5 +24,7 @@ public interface ProductService {
 	String gumaeOk(GumaeDto gdto, HttpSession session);
 	String gumaeView(HttpServletRequest request, Model model);
 	String gumaeView2(HttpServletRequest request, Model model);
+	String reviewDel(HttpServletRequest request);
+	String questWriteOk(HttpServletRequest request, HttpSession session);
 
 }
