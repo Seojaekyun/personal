@@ -19,6 +19,7 @@ import jakarta.servlet.http.HttpSession;
 import kr.co.jk.dto.BaesongDto;
 import kr.co.jk.dto.GumaeDto;
 import kr.co.jk.dto.ProductDto;
+import kr.co.jk.dto.ReviewDto;
 import kr.co.jk.mapper.ProductMapper;
 import kr.co.jk.utils.MyUtil;
 
@@ -254,6 +255,14 @@ public class ProductServiceImpl implements ProductService {
 		model.addAttribute("ystar",ystar);
 		model.addAttribute("hstar",hstar);
 		model.addAttribute("gstar",gstar);
+		
+		ArrayList<ReviewDto> rlist=mapper.getReview(pcode);
+		for(int i=0;i<rlist.size();i++)	{
+			String content=rlist.get(i).getContent().replace("\r\n","<br>");
+			rlist.get(i).setContent(content);
+		}
+		
+		model.addAttribute("rlist",rlist);
 				
 		return "product/productContent";
 	}
@@ -679,6 +688,28 @@ public class ProductServiceImpl implements ProductService {
 		model.addAttribute("breq",breq);
 		
 		return "/product/gumaeView";
+	}
+
+	@Override
+	public String reviewDel(HttpServletRequest request) {
+		String id=request.getParameter("id");
+		String pcode=request.getParameter("pcode");
+		
+		mapper.reviewDel(pcode);
+		
+		return "redirect:/product/productContent?pcode="+pcode;
+	}
+
+	@Override
+	public String questWriteOk(HttpServletRequest request, HttpSession session) {
+		String pcode=request.getParameter("pcode");
+		String userid=session.getAttribute("userid").toString();
+		String content=request.getParameter("content");
+		
+		int ref=mapper.getRef(pcode);
+		mapper.questWriteOk(pcode, userid, content, ref);
+		
+		return "redirect:/product/productContent?pcode="+pcode;
 	}
 	
 }

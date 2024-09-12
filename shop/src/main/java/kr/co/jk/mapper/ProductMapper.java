@@ -9,6 +9,7 @@ import kr.co.jk.dto.BaesongDto;
 import kr.co.jk.dto.GumaeDto;
 import kr.co.jk.dto.MemberDto;
 import kr.co.jk.dto.ProductDto;
+import kr.co.jk.dto.ReviewDto;
 
 @Mapper
 public interface ProductMapper {
@@ -43,5 +44,9 @@ public interface ProductMapper {
 	ArrayList<GumaeDto> gumaeView(String jumuncode);
 	ArrayList<HashMap> gumaeView2(String jumuncode);
 	void chgJuk(int useJuk, String userid);
+	ArrayList<ReviewDto> getReview(String pcode);
+	void reviewDel(String pcode);
+	int getRef(String pcode);
+	void questWriteOk(String pcode, String userid, String content, int ref);
 
 }

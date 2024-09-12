@@ -101,6 +101,17 @@
 		inner join baesong as b on g.baeId=b.id
 		where g.jumuncode=#{jumuncode};
 	</select>
+	<select id="getReview" resultType="kr.co.jk.dto.ReviewDto">
+		select * , concat(left(userid, 4), '***') as user from review where pcode=#{pcode}
+	</select>
+	<!-- select lpad(substring(userid,7), char_length(userid),"*") from member; -->
+	<select id="getRef" resultType="Integer">
+		select ifnull( max(ref) ,0 )+1 from proQna where pcode=#{pcode}
+	</select>
+	<insert id="questWriteOk">
+		insert into proQna(userid,pcode,content,ref,qna,writeday)
+		values(#{userid},#{pcode},#{content},#{ref},0,now())
+	</insert>
   
-	
+  
 </mapper>
