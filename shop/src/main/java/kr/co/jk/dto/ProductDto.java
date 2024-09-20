@@ -12,4 +12,6 @@ public class ProductDto {
 
 	private int ystar, hstar, gstar;
 	
+	private int sales;
+	private String salesDay;
 }

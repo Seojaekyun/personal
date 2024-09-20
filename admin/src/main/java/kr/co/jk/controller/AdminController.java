@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import jakarta.servlet.http.HttpServletRequest;
 import kr.co.jk.dto.JungDto;
+import kr.co.jk.dto.ProQnaDto;
 import kr.co.jk.dto.ProductDto;
 import kr.co.jk.dto.SoDto;
 import kr.co.jk.mapper.AdminMapper;
@@ -135,6 +136,21 @@ public class AdminController {
 		System.out.println(id);
 		mapper.chgState(state, id);
 		return "redirect:/gumae/gumaeAll";
+	}
+	
+	@RequestMapping("/qna/qnaList")
+	public String qnaList(Model model) {
+		ArrayList<ProQnaDto> plist=mapper.qnaList();
+		model.addAttribute("plist", plist);
+		return "/qna/qnaList";
+	}
+	
+	@RequestMapping("qna/writeAnswerOk")
+	public String writeAnswerOk(ProQnaDto pdto) {
+		pdto.setUserid("admin");
+		mapper.writeAnswerOk(pdto);
+		
+		return "redirect:/qna/qnaList";
 	}
 	
 }

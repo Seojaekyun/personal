@@ -106,12 +106,14 @@
 	</select>
 	<!-- select lpad(substring(userid,7), char_length(userid),"*") from member; -->
 	<select id="getRef" resultType="Integer">
-		select ifnull( max(ref) ,0 )+1 from proQna where pcode=#{pcode}
+		select ifnull( max(ref) ,0 )+1 from proQna
 	</select>
 	<insert id="questWriteOk">
 		insert into proQna(userid,pcode,content,ref,qna,writeday)
 		values(#{userid},#{pcode},#{content},#{ref},0,now())
 	</insert>
-  
+	<select id="questAll" resultType="kr.co.jk.dto.ProQnaDto">
+		select * from proQna where pcode=#{pcode} order by ref desc, qna asc
+	</select>
   
 </mapper>

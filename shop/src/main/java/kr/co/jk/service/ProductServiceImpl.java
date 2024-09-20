@@ -1,6 +1,5 @@
 package kr.co.jk.service;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.util.WebUtils;
 
 import jakarta.servlet.http.Cookie;
@@ -20,6 +18,7 @@ import kr.co.jk.dto.BaesongDto;
 import kr.co.jk.dto.GumaeDto;
 import kr.co.jk.dto.ProductDto;
 import kr.co.jk.dto.ReviewDto;
+import kr.co.jk.dto.ProQnaDto;
 import kr.co.jk.mapper.ProductMapper;
 import kr.co.jk.utils.MyUtil;
 
@@ -263,6 +262,9 @@ public class ProductServiceImpl implements ProductService {
 		}
 		
 		model.addAttribute("rlist",rlist);
+		
+		ArrayList<ProQnaDto> plist=mapper.questAll(pcode);
+		model.addAttribute("plist",plist);
 				
 		return "product/productContent";
 	}

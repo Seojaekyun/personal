@@ -30,5 +30,14 @@
 	<update id="chgState">
 		update gumae set state=#{state} where id=#{id}
 	</update>
+	<select id="qnaList" resultType="kr.co.jk.dto.ProQnaDto">
+		select p1.*,p2.title from proQna as p1 inner join product as p2
+		on p1.pcode=p2.pcode order by ref desc , qna asc
+	</select>
+	<insert id="writeAnswerOk" parameterType="kr.co.jk.dto.ProQnaDto">
+		insert into proQna(userid,pcode,content,writeday,qna,ref)
+		values(#{userid},#{pcode},#{content},now(),1,#{ref})
+	</insert>
+	
 	
 </mapper>
