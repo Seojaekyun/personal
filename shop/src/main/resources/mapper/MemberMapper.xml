@@ -1,64 +1,239 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.co.jk.mapper.MemberMapper">
-	<select id="useridCheck" resultType="String">
-		select count(*) from member where userid=#{userid}
-	</select>
-	<insert id="memberOk" parameterType="kr.co.jk.dto.MemberDto">
-		insert into member(userid,pwd,name,email,phone,writeday)
-		values(#{userid},#{pwd},#{name},#{email},#{phone},now())
-	</insert>
-	<select id="getProduct" resultType="HashMap">
-		select * from product where pcode=#{pcode}
-	</select>
-	<select id="getProductAll" resultType="HashMap">
-		select product.* , cart.su as csu ,datediff(now(),cart.writeday) as days
-		from product inner join cart on product.pcode=cart.pcode and userid=#{userid}
-	</select>
-	<delete id="cartDel">
-		delete from cart where pcode=#{pcode} and userid=#{userid}
-	</delete>
-	<update id="chgSu">
-		update cart set su=#{su} where userid=#{userid} and pcode=#{pcode}
-	</update>
-	<select id="jjimList" resultType="kr.co.jk.dto.ProductDto">
-		select p.* from product as p inner join jjim as j
-		on p.pcode=j.pcode and j.userid=#{userid}
-	</select>
-	<insert id="addCart">
-		insert into cart(pcode,userid,su,writeday)
-		values(#{pcode},#{userid},1,now())
-	</insert>
-	<select id="isCart" resultType="Boolean">
-		select count(*) from cart where useridd=#{userid} and pcode=#{pcode}
-	</select>
-	<delete id="jjimDel">
-		delete from jjim where userid=#{userid} and pcode=#{pcode}
-	</delete>
-	<select id="jumunList" resultType="HashMap">
-		select p.title, p.pimg, p.pcode , b.name , b.juso , g.chongPrice,
-		g.id,g.isReview, g.state , g.su , g.useJuk , g.sudan ,g.writeday , g.jumuncode,
-		g.jumuncode as jumun, (select count(*) from gumae where jumuncode=jumun) as cnt
-		from gumae as g inner join product as p on g.pcode=p.pcode
-		inner join baesong as b on g.baeId=b.id
-		where g.userid=#{userid}  order by g.id desc;
-	</select>
-	<update id="chgState">
-		update gumae set state=#{state} where id=#{id}
-	</update>
-	<select id="reviewWriteOk" parameterType="kr.co.jk.dto.ReviewDto">
-		insert into review(star,content,oneLine,userid,pcode,writeday)
-		values(#{star},#{content},#{oneLine},#{userid},#{pcode},now())
-	</select>
-	<select id="getReviewAvg" resultType="Double">
-		select avg(star) from review where pcode=#{pcode}
-	</select>
-	<update id="setProduct">
-		update product set star=#{star} , review=review+1
-		where pcode=#{pcode}
-	</update>
-	<update id="chgIsReview">
-		update gumae set isReview=1 where id=#{id}
-	</update>
-	
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.MemberMapper">
+  <select id="useridCheck" resultType="String">
+    select count(*) from member
+    where userid=#{userid}
+  </select>
+  
+  <insert id="memberOk" parameterType="com.example.demo.dto.MemberDto">
+    insert into member(userid,pwd,name,email,phone,writeday)
+    values(#{userid},#{pwd},#{name},#{email},#{phone},now())
+  </insert>
+  
+  <select id="getProduct" resultType="HashMap">
+    select * from product
+    where pcode=#{pcode}
+  </select>
+  
+  <select id="getProductAll" resultType="HashMap">
+    select product.* , cart.su as csu ,datediff(now(),cart.writeday) as days
+    from product inner join cart
+    on product.pcode=cart.pcode
+    and userid=#{userid}
+    order by cart.id desc
+  </select>
+  
+  <delete id="cartDel">
+    delete from cart
+    where pcode=#{pcode} and userid=#{userid}
+  </delete>
+  
+  <update id="chgSu">
+    update cart set su=#{su}
+    where userid=#{userid} and pcode=#{pcode}
+  </update>
+  
+  <select id="jjimList" resultType="com.example.demo.dto.ProductDto">
+    select p.* from product as p
+    inner join jjim as j
+    on p.pcode=j.pcode and j.userid=#{userid}
+  </select>
+  
+  <insert id="addCart">
+    insert into cart(pcode,userid,su,writeday)
+    values(#{pcode},#{userid},1,now());
+  </insert>
+  
+  <select id="isCart" resultType="Boolean">
+    select count(*) from cart
+    where userid=#{userid} and pcode=#{pcode}
+  </select>
+  
+  <delete id="jjimDel">
+    delete from jjim
+    where userid=#{userid} and pcode=#{pcode}
+  </delete>
+  <!-- 
+  <select id="jumunList" resultType="HashMap">
+    select p.title, p.pimg , b.name , b.juso , g.chongPrice, 
+    g.id, g.state , g.su , g.useJuk , g.sudan ,g.writeday , g.jumuncode , count(*) as cnt
+    from gumae as g inner join product as p on g.pcode=p.pcode
+    inner join baesong as b on g.baeId=b.id
+    where g.userid=#{userid} order by g.id desc
+  </select>
+ -->
+  <select id="jumunList" resultType="HashMap">
+    select p.title, p.pimg, p.pcode , b.name , b.juso , g.chongPrice,
+    g.id,g.isReview, g.state , g.su , g.useJuk , g.sudan ,g.writeday , g.jumuncode,
+    g.jumuncode as jumun, (select count(*) from gumae where jumuncode=jumun) as cnt
+    from gumae as g inner join product as p on g.pcode=p.pcode
+    inner join baesong as b on g.baeId=b.id
+    where g.userid=#{userid} 
+    <if test="num>1">
+     and <![CDATA[ g.writeday >= date_sub(now(), interval ${num} month) ]]>
+    </if> 
+    <if test="num==1">
+     and <![CDATA[ g.writeday >= #{start}  and g.writeday <= #{end}  ]]>
+    </if>
+    order by g.id desc;
+  </select>
+     
+  <update id="chgState">
+    update gumae set state=#{state}
+    where id=#{id}
+  </update>
+  
+  <select id="reviewWriteOk" parameterType="com.example.demo.dto.ReviewDto">
+    insert into review(star,content,oneLine,userid,pcode,writeday)
+    values(#{star},#{content},#{oneLine},#{userid},#{pcode},now())
+  </select>
+  
+  <select id="getReviewAvg" resultType="Double">
+    select avg(star) from review
+    where pcode=#{pcode}
+  </select>
+  
+  <update id="setProduct">
+    update product
+    set star=#{star} , review=review+1
+    where pcode=#{pcode}
+  </update>
+  <!-- 상품평 삭제시  -->
+  <update id="setProduct2">
+    update product
+    set star=#{star} , review=review-1
+    where pcode=#{pcode}
+  </update>
+  <!-- 상품평 수정시  -->
+  <update id="setProduct3">
+    update product
+    set star=#{star}  
+    where pcode=#{pcode}
+  </update>
+  <update id="chgIsReview">
+    update gumae set isReview=1
+    where id=#{id}
+  </update>
+  
+  <select id="getJumun" resultType="HashMap">
+    select right(g.writeday,2) as writeday, p.title from gumae as g
+    inner join product as p on g.pcode=p.pcode
+    where userid=#{userid} and g.writeday like concat(#{year},"-",#{month},"%")
+    order by g.writeday asc
+  </select>
+                                             <!--   like '2024-09%' -->
+  <select id="memberView" resultType="com.example.demo.dto.MemberDto">
+    select * from member
+    where userid=#{userid}
+  </select>
+  
+  <update id="chgEmail">
+    update member set email=#{email} 
+    where userid=#{userid}
+  </update>
+  
+  <update id="chgPhone">
+    update member set phone=#{phone} 
+    where userid=#{userid}
+  </update>
+  
+  <select id="isPwd" resultType="Boolean">
+    select count(*) from member
+    where userid=#{userid} and pwd=#{pwd}
+  </select>
+  <update id="pwdChg">
+    update member set pwd=#{pwd}
+    where userid=#{userid}
+  </update>
+  
+  <select id="myBaesong" resultType="com.example.demo.dto.BaesongDto">
+    select * from baesong
+    where userid=#{userid}
+    order by gibon desc
+  </select>
+  
+  <delete id="baeDel">
+    delete from baesong
+    where id=#{id}
+  </delete>
+  
+  <select id="baeUpdate" resultType="com.example.demo.dto.BaesongDto">
+    select * from baesong
+    where id=#{id}
+  </select>
+  
+  <update id="baeUpdateOk" parameterType="com.example.demo.dto.BaesongDto">
+    update baesong
+    set name=#{name}, zip=#{zip}, juso=#{juso}, jusoEtc=#{jusoEtc}
+    , phone=#{phone}, req=#{req} , gibon=#{gibon}
+    where id=#{id}
+  </update>
+  
+  
+  <update id="setGibon">
+    update baesong 
+    set gibon=0
+    where userid=#{userid}
+  </update>
+  
+  <insert id="jusoWriteOk" parameterType="com.example.demo.dto.BaesongDto">
+    insert into baesong(userid,zip,juso,jusoEtc,phone,gibon,name,req)
+    values(#{userid},#{zip},#{juso},#{jusoEtc},#{phone},#{gibon},#{name},#{req})
+  </insert>
+  
+  <select id="myReview" resultType="HashMap">
+    select r.*, p.title from review as r
+    inner join product as p
+    on r.pcode=p.pcode
+    where userid=#{userid} 
+    order by r.id desc
+  </select>
+  <!-- 여기서 count대신 pcode를 가져오기 -->
+  <!-- 
+  <select id="isMy" resultType="Boolean">
+    select count(*) from review
+    where userid=#{userid} and id=#{id}
+  </select>
+   -->
+  <select id="isMy" resultType="String">
+    select pcode from review
+    where userid=#{userid} and id=#{id}
+  </select>
+  <select id="reviewDel">
+    delete from review
+    where id=#{id}
+  </select>
+  
+  <select id="myQna" resultType="com.example.demo.dto.ProQnaDto">
+    select p1.* , p2.title ,(select count(*) from proqna where ref=p1.ref and qna=1) as cnt
+    from proqna as p1
+    inner join product as p2 on p1.pcode=p2.pcode
+    where userid=#{userid}
+    order by id desc
+  </select>
+  
+  <delete id="qnaDel">
+    delete from proqna
+    where id=#{id}
+  </delete>
+  
+  <select id="reviewUpdate" resultType="com.example.demo.dto.ReviewDto">
+    select * from review
+    where id=#{id}
+  </select>
+  <update id="reviewUpdateOk" parameterType="com.example.demo.dto.ReviewDto">
+    update review 
+    set star=#{star}, oneLine=#{oneLine}, content=#{content}
+    where id=#{id}
+  </update>
+  
+  <select id="viewAnswer" resultType="String">
+    select content from proqna
+    where ref=#{ref} and qna=1
+  </select>
 </mapper>
+
+
+
+

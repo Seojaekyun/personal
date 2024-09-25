@@ -157,7 +157,7 @@
       <tr>
      <c:forEach items="${plist1}" var="pdto">
         
-        <td onclick="location='productContent?pcode=${pdto.pcode}'" valign="top"> 
+        <td onclick="location='../product/productContent?pcode=${pdto.pcode}'" valign="top"> 
            <div> <img src="../static/product/${pdto.pimg}" width="200" height="200"> </div> 
            <div id="ptitle"> ${pdto.title} </div>
           <c:if test="${pdto.halin!=0}"> <!-- 할인율이 0이면 의미없다 -->
