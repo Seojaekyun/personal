@@ -1,28 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.co.jk.mapper.MainMapper">
-	<select id="getDae" resultType="kr.co.jk.dto.DaeDto">
-		select * from dae order by code asc
-	</select>
-	<select id="getJung" resultType="kr.co.jk.dto.JungDto">
-		select * from jung where daecode=#{daecode} order by code asc
-	</select>
-	<select id="getSo" resultType="kr.co.jk.dto.SoDto">
-		select * from so where daejung=#{daejung} order by code asc
-	</select>
-	<select id="getCartNum" resultType="String">
-		select count(*) from cart where userid=#{userid}
-	</select>
-	<select id="getProduct1" resultType="kr.co.jk.dto.ProductDto">
-		select * from product where sales=1 order by id desc limit 4
-	</select>
-	<select id="getProduct2" resultType="kr.co.jk.dto.ProductDto">
-		select * from product where sales=1 order by id desc limit 4
-	</select>
-	<select id="getProduct3" resultType="kr.co.jk.dto.ProductDto">
-		select * from product where sales=1 order by id desc limit 4
-	</select>
-	<select id="getProduct4" resultType="kr.co.jk.dto.ProductDto">
-		select * from product where sales=1 order by id desc limit 4
-	</select>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.MainMapper">
+  
+  <select id="getDae" resultType="com.example.demo.dto.DaeDto">
+    select * from dae
+    order by code asc
+  </select>
+   <select id="getJung" resultType="com.example.demo.dto.JungDto">
+    select * from jung
+    where daecode=#{daecode}
+    order by code asc
+  </select>
+  
+  <select id="getSo" resultType="com.example.demo.dto.SoDto">
+    select * from so
+    where daejung=#{daejung}
+    order by code asc
+  </select>
+  
+  <select id="getCartNum" resultType="String">
+    select count(*)
+    from cart
+    where userid=#{userid}
+  </select>
+  
+  <select id="getProduct1" resultType="com.example.demo.dto.ProductDto">
+    select * from product where sales=1 
+    order by id desc
+    limit 4
+  </select>
+  <select id="getProduct2" resultType="com.example.demo.dto.ProductDto">
+    select * from product where sales=1 
+    order by halin desc
+    limit 4
+  </select>
+  <select id="getProduct3" resultType="com.example.demo.dto.ProductDto">
+    select * from product where sales=1 
+    order by writeday desc
+    limit 4
+  </select>
+  <select id="getProduct4" resultType="com.example.demo.dto.ProductDto">
+    select * from product where sales=1 
+    order by pansu desc
+    limit 4
+  </select>
 </mapper>
+
+
+
+
+
+

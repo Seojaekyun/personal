@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.co.jk.mapper.LoginMapper">
-	<select id="loginOk" resultType="String">
-		select name from member where userid=#{userid} and pwd=#{pwd}
-	</select>
-	<insert id="addCart">
-		insert into cart(pcode,su,userid,writeday) values(#{pcode},#{su},#{userid},now())
-	</insert>
-	<select id="isCart" resultType="Boolean">
-		select count(*) from cart where userid=#{userid} and pcode=#{pcode}
-	</select>
-	<select id="upCart">
-		update cart set su=su+${su} where userid=#{userid} and pcode=#{pcode}
-	</select>
-	
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.LoginMapper">
+  <select id="loginOk" resultType="String">
+    select name from member
+    where userid=#{userid} and pwd=#{pwd}
+  </select>
+  
+  <insert id="addCart">
+    insert into cart(pcode,su,userid,writeday)
+    values(#{pcode},#{su},#{userid},now())
+  </insert>
+  <select id="isCart" resultType="Boolean">
+    select count(*) from cart
+    where userid=#{userid} and pcode=#{pcode}
+  </select>
+  
+  <select id="upCart">
+    update cart set su=su+${su}
+    where userid=#{userid} and pcode=#{pcode}
+  </select>
 </mapper>
