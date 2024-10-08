@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.mapper.MemberMapper">
+<mapper namespace="kr.co.jk.mapper.MemberMapper">
   <select id="useridCheck" resultType="String">
     select count(*) from member
     where userid=#{userid}
   </select>
   
-  <insert id="memberOk" parameterType="com.example.demo.dto.MemberDto">
+  <insert id="memberOk" parameterType="kr.co.jk.dto.MemberDto">
     insert into member(userid,pwd,name,email,phone,writeday)
     values(#{userid},#{pwd},#{name},#{email},#{phone},now())
   </insert>
@@ -34,7 +34,7 @@
     where userid=#{userid} and pcode=#{pcode}
   </update>
   
-  <select id="jjimList" resultType="com.example.demo.dto.ProductDto">
+  <select id="jjimList" resultType="kr.co.jk.dto.ProductDto">
     select p.* from product as p
     inner join jjim as j
     on p.pcode=j.pcode and j.userid=#{userid}
@@ -84,7 +84,7 @@
     where id=#{id}
   </update>
   
-  <select id="reviewWriteOk" parameterType="com.example.demo.dto.ReviewDto">
+  <select id="reviewWriteOk" parameterType="kr.co.jk.dto.ReviewDto">
     insert into review(star,content,oneLine,userid,pcode,writeday)
     values(#{star},#{content},#{oneLine},#{userid},#{pcode},now())
   </select>
@@ -123,7 +123,7 @@
     order by g.writeday asc
   </select>
                                              <!--   like '2024-09%' -->
-  <select id="memberView" resultType="com.example.demo.dto.MemberDto">
+  <select id="memberView" resultType="kr.co.jk.dto.MemberDto">
     select * from member
     where userid=#{userid}
   </select>
@@ -147,7 +147,7 @@
     where userid=#{userid}
   </update>
   
-  <select id="myBaesong" resultType="com.example.demo.dto.BaesongDto">
+  <select id="myBaesong" resultType="kr.co.jk.dto.BaesongDto">
     select * from baesong
     where userid=#{userid}
     order by gibon desc
@@ -158,12 +158,12 @@
     where id=#{id}
   </delete>
   
-  <select id="baeUpdate" resultType="com.example.demo.dto.BaesongDto">
+  <select id="baeUpdate" resultType="kr.co.jk.dto.BaesongDto">
     select * from baesong
     where id=#{id}
   </select>
   
-  <update id="baeUpdateOk" parameterType="com.example.demo.dto.BaesongDto">
+  <update id="baeUpdateOk" parameterType="kr.co.jk.dto.BaesongDto">
     update baesong
     set name=#{name}, zip=#{zip}, juso=#{juso}, jusoEtc=#{jusoEtc}
     , phone=#{phone}, req=#{req} , gibon=#{gibon}
@@ -177,7 +177,7 @@
     where userid=#{userid}
   </update>
   
-  <insert id="jusoWriteOk" parameterType="com.example.demo.dto.BaesongDto">
+  <insert id="jusoWriteOk" parameterType="kr.co.jk.dto.BaesongDto">
     insert into baesong(userid,zip,juso,jusoEtc,phone,gibon,name,req)
     values(#{userid},#{zip},#{juso},#{jusoEtc},#{phone},#{gibon},#{name},#{req})
   </insert>
@@ -205,7 +205,7 @@
     where id=#{id}
   </select>
   
-  <select id="myQna" resultType="com.example.demo.dto.ProQnaDto">
+  <select id="myQna" resultType="kr.co.jk.dto.ProQnaDto">
     select p1.* , p2.title ,(select count(*) from proqna where ref=p1.ref and qna=1) as cnt
     from proqna as p1
     inner join product as p2 on p1.pcode=p2.pcode
@@ -218,11 +218,11 @@
     where id=#{id}
   </delete>
   
-  <select id="reviewUpdate" resultType="com.example.demo.dto.ReviewDto">
+  <select id="reviewUpdate" resultType="kr.co.jk.dto.ReviewDto">
     select * from review
     where id=#{id}
   </select>
-  <update id="reviewUpdateOk" parameterType="com.example.demo.dto.ReviewDto">
+  <update id="reviewUpdateOk" parameterType="kr.co.jk.dto.ReviewDto">
     update review 
     set star=#{star}, oneLine=#{oneLine}, content=#{content}
     where id=#{id}

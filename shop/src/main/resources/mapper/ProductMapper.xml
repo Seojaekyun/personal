@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.mapper.ProductMapper">
-  <select id="productList" resultType="com.example.demo.dto.ProductDto">
+<mapper namespace="kr.co.jk.mapper.ProductMapper">
+  <select id="productList" resultType="kr.co.jk.dto.ProductDto">
     select * from product
     where pcode like concat(#{pcode},'%')
     order by ${str} 
@@ -27,7 +27,7 @@
     where pcode like concat(#{pcode},'%')
   </select>
   
-  <select id="productContent" resultType="com.example.demo.dto.ProductDto">
+  <select id="productContent" resultType="kr.co.jk.dto.ProductDto">
     select * from product
     where pcode=#{pcode}
   </select>
@@ -68,22 +68,22 @@
     where userid=#{userid}
   </select>
   
-  <select id="getMember" resultType="com.example.demo.dto.MemberDto">
+  <select id="getMember" resultType="kr.co.jk.dto.MemberDto">
     select * from member
     where userid=#{userid}
   </select>
   
-  <select id="getBaesong" resultType="com.example.demo.dto.BaesongDto">
+  <select id="getBaesong" resultType="kr.co.jk.dto.BaesongDto">
     select * from baesong
     where userid=#{userid} and gibon=1
   </select>
   
-  <insert id="jusoWriteOk" parameterType="com.example.demo.dto.BaesongDto">
+  <insert id="jusoWriteOk" parameterType="kr.co.jk.dto.BaesongDto">
     insert into baesong(userid,name,zip,juso,jusoEtc,phone,gibon,req)
     values(#{userid},#{name},#{zip},#{juso},#{jusoEtc},#{phone},#{gibon},#{req})
   </insert>
   
-  <select id="jusoList" resultType="com.example.demo.dto.BaesongDto">
+  <select id="jusoList" resultType="kr.co.jk.dto.BaesongDto">
     select * from baesong
     where userid=#{userid}
     order by gibon desc
@@ -110,12 +110,12 @@
     where id=#{id}
   </delete>
   
-  <select id="jusoUpdate" resultType="com.example.demo.dto.BaesongDto">
+  <select id="jusoUpdate" resultType="kr.co.jk.dto.BaesongDto">
     select * from baesong
     where id=#{id}
   </select>
   
-  <update id="jusoUpdateOk" parameterType="com.example.demo.dto.BaesongDto">
+  <update id="jusoUpdateOk" parameterType="kr.co.jk.dto.BaesongDto">
      update baesong
      set name=#{name} , zip=#{zip} , juso=#{juso}
      , jusoEtc=#{jusoEtc}, phone=#{phone}
@@ -135,7 +135,7 @@
     where jumuncode like concat(#{jumuncode} , '%')
   </select>
   
-  <insert id="gumaeOk" parameterType="com.example.demo.dto.GumaeDto">
+  <insert id="gumaeOk" parameterType="kr.co.jk.dto.GumaeDto">
     insert into gumae(userid,baeId,pcode,su,useJuk,chongPrice,sudan,card,
     halbu,bank,lcard,tong,nbank,jumuncode,writeday)
     values(#{userid},#{baeId},#{pcode},#{su},#{useJuk},#{chongPrice},
@@ -159,7 +159,7 @@
     where userid=#{userid}
   </update>
   
-  <select id="gumaeView" resultType="com.example.demo.dto.GumaeDto">
+  <select id="gumaeView" resultType="kr.co.jk.dto.GumaeDto">
     select * from gumae
     where jumuncode=#{jumuncode}
   </select>
@@ -172,7 +172,7 @@
     where g.jumuncode=#{jumuncode};
   </select>
   
-  <select id="getReview" resultType="com.example.demo.dto.ReviewDto">
+  <select id="getReview" resultType="kr.co.jk.dto.ReviewDto">
     select * , concat(left(userid,4) , '***' ) as user from review
     where pcode=#{pcode}
   </select>
@@ -192,7 +192,7 @@
     values(#{userid},#{pcode},#{content},#{ref},0,now())
   </insert>
   
-  <select id="questAll" resultType="com.example.demo.dto.ProQnaDto">
+  <select id="questAll" resultType="kr.co.jk.dto.ProQnaDto">
      select * from proQna 
      where pcode=#{pcode}
      order by ref desc , qna asc
