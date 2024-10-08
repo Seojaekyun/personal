@@ -25,90 +25,72 @@ public class MainController {
 	private MainService service;
 	
 	@RequestMapping("/")
-	public String home()
-	{
+	public String home() {
 		return "redirect:/main/index";
 	}
 	
 	@RequestMapping("/main/index")
-	public String index(Model model)
-	{
+	public String index(Model model) {
 		return service.index(model);
 	}
 	
 	@RequestMapping("/main/getDae")
-	public @ResponseBody ArrayList<DaeDto> getDae()
-	{
+	public @ResponseBody ArrayList<DaeDto> getDae() {
 		return service.getDae();
 	}
 	
 	@RequestMapping("/main/getJung")
-	public @ResponseBody ArrayList<JungDto> getJung(HttpServletRequest request)
-	{
+	public @ResponseBody ArrayList<JungDto> getJung(HttpServletRequest request) {
 		return service.getJung(request);
 	}
 	
 	@RequestMapping("/main/getSo")
-	public @ResponseBody ArrayList<SoDto> getSo(HttpServletRequest request)
-	{
+	public @ResponseBody ArrayList<SoDto> getSo(HttpServletRequest request) {
 		return service.getSo(request);
 	}
 	
 	@RequestMapping("/main/category")
-	public String category()
-	{
+	public String category() {
 		return "/main/category";
 	}
 	
 	@RequestMapping("/main/spinner")
-	public String spinner()
-	{
+	public String spinner() {
 		return "/main/spinner";
 	}
 	
 	@RequestMapping("/main/cartNum")
-	public @ResponseBody String cartNum(HttpServletRequest request,HttpSession session)
-	{
+	public @ResponseBody String cartNum(HttpServletRequest request,HttpSession session) {
 		return service.cartNum(request,session);
 	}
 	
 	@RequestMapping("/main/this")
-	public String this1()
-	{
+	public String this1() {
 		return "/main/this";
 	}
 	
 	@RequestMapping("/main/this2")
-	public String this2()
-	{
+	public String this2() {
 		return "/main/this2";
 	}
 	 
 	@RequestMapping("/main/imgTest")
-	public String imgTest()
-	{
+	public String imgTest() {
 		return "/main/imgTest";
 	}
 	
 	@RequestMapping("/main/timeTest")
-	public String timeTest()
-	{
+	public String timeTest() {
 		return "/main/timeTest";
 	}
 	@RequestMapping("/main/timeTest2")
-	public String timeTest2()
-	{
+	public String timeTest2() {
 		return "/main/timeTest2";
 	}
 	@RequestMapping("/main/timeTest3")
-	public String timeTest3()
-	{
+	public String timeTest3() {
 		return "/main/timeTest3";
 	}
+	
+	
 }
-
-
-
-
-
-
