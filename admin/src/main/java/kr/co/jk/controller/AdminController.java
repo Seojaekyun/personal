@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,7 +41,7 @@ public class AdminController {
 		return "/product/productAdd";
 	}
 	
-	@RequestMapping("/product/getJung")
+	@GetMapping("/product/getJung")
 	public @ResponseBody ArrayList<JungDto> getJung(HttpServletRequest request) {
 		String daecode=request.getParameter("daecode");
 		
@@ -49,7 +50,7 @@ public class AdminController {
 		return jungAll;
 	}
 	
-	@RequestMapping("/product/getSo")
+	@GetMapping("/product/getSo")
 	public @ResponseBody ArrayList<SoDto> getSo(HttpServletRequest request) {
 		String daejung=request.getParameter("daejung");
 		
@@ -58,7 +59,7 @@ public class AdminController {
 		return soAll;
 	}
 	
-	@RequestMapping("/product/genPcode")
+	@GetMapping("/product/genPcode")
 	public @ResponseBody String genPcode(HttpServletRequest request) {
 		String pcode=request.getParameter("pcode");
 		int num=mapper.genPcode(pcode);
@@ -67,7 +68,7 @@ public class AdminController {
 		return pcode;	
 	}
 	
-	@RequestMapping("/product/productAddOk")
+	@PostMapping("/product/productAddOk")
 	public String productAddOk(ProductDto pdto, MultipartHttpServletRequest multi) throws Exception {
 		Iterator<String> imsi=multi.getFileNames();
 		
@@ -138,14 +139,14 @@ public class AdminController {
 		return "redirect:/gumae/gumaeAll";
 	}
 	
-	@RequestMapping("/qna/qnaList")
+	@GetMapping("/qna/qnaList")
 	public String qnaList(Model model) {
 		ArrayList<ProQnaDto> plist=mapper.qnaList();
 		model.addAttribute("plist", plist);
 		return "/qna/qnaList";
 	}
 	
-	@RequestMapping("qna/writeAnswerOk")
+	@PostMapping("qna/writeAnswerOk")
 	public String writeAnswerOk(ProQnaDto pdto) {
 		pdto.setUserid("admin");
 		mapper.writeAnswerOk(pdto);
