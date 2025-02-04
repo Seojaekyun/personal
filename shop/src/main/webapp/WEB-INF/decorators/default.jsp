@@ -365,7 +365,7 @@
 				   var pcode="p"+so.daejung+so.code;
 				   str=str+"<li> <a href='../product/productList?pcode="+pcode+"'> "+so.name+" </a> </li>";
 			   }	   
-			    
+			   console.log("pcode:", pcode);
 			   //document.getElementsByClassName("soMenu")[i].innerHTML=str;
 			   my.childNodes[1].innerHTML=str;
 		   }

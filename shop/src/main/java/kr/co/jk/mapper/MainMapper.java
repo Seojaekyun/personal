@@ -12,18 +12,11 @@ import kr.co.jk.dto.SoDto;
 @Mapper
 public interface MainMapper {
 	public ArrayList<DaeDto> getDae();
-
 	public ArrayList<JungDto> getJung(String daecode);
-
 	public ArrayList<SoDto> getSo(String daejung);
-
 	public String getCartNum(String userid);
-
 	public ArrayList<ProductDto> getProduct1();
-
 	public ArrayList<ProductDto> getProduct2();
-
 	public ArrayList<ProductDto> getProduct3();
-
 	public ArrayList<ProductDto> getProduct4();
 }

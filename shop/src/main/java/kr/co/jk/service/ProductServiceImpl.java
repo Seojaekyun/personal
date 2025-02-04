@@ -279,7 +279,7 @@ public class ProductServiceImpl implements ProductService {
 		model.addAttribute("gstar", gstar);
 
 		// 현재 상품에 대한 상품평 테이블의 내용을 읽어온다
-
+/*
 		ArrayList<ReviewDto> rlist = mapper.getReview(pcode);
 
 		// content필드에 <br>태그 추가
@@ -293,7 +293,7 @@ public class ProductServiceImpl implements ProductService {
 		// 상품문의를 읽어서 뷰에 전달
 		ArrayList<ProQnaDto> plist = mapper.questAll(pcode);
 		model.addAttribute("plist", plist);
-
+*/
 		return "/product/productContent";
 	}
 
