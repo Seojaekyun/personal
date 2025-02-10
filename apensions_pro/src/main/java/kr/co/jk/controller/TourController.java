@@ -45,6 +45,7 @@ public class TourController {
     public String writeOk(MultipartHttpServletRequest request, HttpSession session) throws Exception {
         String path = servletContext.getRealPath("/resources/tour");
         int size = 1024 * 1024 * 30;
+        System.out.println(size);
         
         List<MultipartFile> files = request.getFiles("file");
         StringBuilder timg = new StringBuilder();
@@ -142,7 +143,7 @@ public class TourController {
         String title = request.getParameter("title");
         String content = request.getParameter("content");
         String userid = (String) session.getAttribute("userid");
-        
+        System.out.println(userid);
         TourDto tdto = new TourDto();
         tdto.setId(id);
         tdto.setTimg(timg.toString().replace("null/", ""));

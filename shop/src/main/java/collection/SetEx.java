@@ -1,9 +1,7 @@
 package collection;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -21,8 +19,8 @@ public class SetEx {
 		set1.add("홍길동");
 		set1.add("배트맨");
 		set1.add("슈퍼맨");
-		set1.add("뽀로로");
-		set1.add("배트맨");
+		set2.add("뽀로로");
+		set3.add("배트맨");
 
 		System.out.println(set1.toString());
 

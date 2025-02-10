@@ -116,7 +116,7 @@ public class MainServiceImpl implements MainService {
 	public ArrayList<JungDto> getJung(HttpServletRequest request) {
 		int imsi = Integer.parseInt(request.getParameter("daecode"));
 
-		String daecode = String.format("%02d", imsi); // 2자리 만들기
+		String daecode = "%02d".formatted(imsi); // 2자리 만들기
 
 		return mapper.getJung(daecode);
 	}
@@ -124,7 +124,7 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public ArrayList<SoDto> getSo(HttpServletRequest request) {
 		int imsi = Integer.parseInt(request.getParameter("daejung"));
-		String daejung = String.format("%04d", imsi);
+		String daejung = "%04d".formatted(imsi);
 
 		return mapper.getSo(daejung);
 	}

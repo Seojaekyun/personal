@@ -1,9 +1,7 @@
 package collection;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
@@ -24,9 +22,9 @@ public class ListEx {
 
 		// add() => 데이터 추가
 		ex1.add("홍길동");
-		ex1.add("배트맨");
-		ex1.add("뽀로로");
-		ex1.add("슈퍼맨");
+		ex2.add("배트맨");
+		ex3.add("뽀로로");
+		ex4.add("슈퍼맨");
 		ex1.add("배트맨");
 
 		// size() => 데이터의 길이

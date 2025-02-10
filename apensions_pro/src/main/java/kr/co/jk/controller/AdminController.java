@@ -2,7 +2,6 @@ package kr.co.jk.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,7 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,7 +28,7 @@ public class AdminController {
     @Autowired
     private SqlSession sqlSession;
 
-    @RequestMapping("/adminRoom/index")
+    @GetMapping("/adminRoom/index")
     public String index(HttpSession session) {
         if (session.getAttribute("userid") == null || !session.getAttribute("userid").toString().equals("admin")) {
             return "redirect:/member/login";
@@ -38,10 +37,10 @@ public class AdminController {
         }
     }
 
-    @RequestMapping("/adminRoom/list")
+    @GetMapping("/adminRoom/list")
     public String list(Model model) {
         AdminDao adao = sqlSession.getMapper(AdminDao.class);
-        ArrayList<RoomDto> rlist = adao.list();
+        List<RoomDto> rlist = adao.list();
 
         // ArrayList에 요소로 저장된 dto의 값을 수정
         for (RoomDto rdto : rlist) {
@@ -54,18 +53,18 @@ public class AdminController {
         return "/adminRoom/list";
     }
 
-    @RequestMapping("/adminRoom/write")
+    @GetMapping("/adminRoom/write")
     public String write() {
         return "/adminRoom/write";
     }
 
-    @RequestMapping("/adminRoom/writeOk")
+    @GetMapping("/adminRoom/writeOk")
     public String writeOk(
-            @RequestParam("title") String title,
-            @RequestParam("min") int min,
-            @RequestParam("max") int max,
-            @RequestParam("price") int price,
-            @RequestParam("content") String content,
+            @RequestParam String title,
+            @RequestParam int min,
+            @RequestParam int max,
+            @RequestParam int price,
+            @RequestParam String content,
             @RequestParam("file") List<MultipartFile> files,
             HttpSession session) {
 
@@ -102,7 +101,7 @@ public class AdminController {
         return "redirect:/adminRoom/list";
     }
 
-    @RequestMapping("/adminRoom/content")
+    @GetMapping("/adminRoom/content")
     public String content(HttpServletRequest request, Model model) {
         String id = request.getParameter("id");
 
@@ -121,7 +120,7 @@ public class AdminController {
         return "/adminRoom/content";
     }
 
-    @RequestMapping("/adminRoom/delete")
+    @GetMapping("/adminRoom/delete")
     public String delete(HttpServletRequest request, HttpSession session) {
         String id = request.getParameter("id");
 
@@ -144,7 +143,7 @@ public class AdminController {
         return "redirect:/adminRoom/list";
     }
 
-    @RequestMapping("/adminRoom/update")
+    @GetMapping("/adminRoom/update")
     public String update(HttpServletRequest request, Model model) {
         String id = request.getParameter("id");
         AdminDao adao = sqlSession.getMapper(AdminDao.class);
@@ -156,17 +155,17 @@ public class AdminController {
         return "/adminRoom/update";
     }
 
-    @RequestMapping("/adminRoom/updateOk")
+    @GetMapping("/adminRoom/updateOk")
     public String updateOk(
-            @RequestParam("id") int id,
-            @RequestParam("title") String title,
-            @RequestParam("min") int min,
-            @RequestParam("max") int max,
-            @RequestParam("price") int price,
-            @RequestParam("content") String content,
+            @RequestParam int id,
+            @RequestParam String title,
+            @RequestParam int min,
+            @RequestParam int max,
+            @RequestParam int price,
+            @RequestParam String content,
             @RequestParam("file") List<MultipartFile> files,
-            @RequestParam("safeimg") String safeimg,
-            @RequestParam("delimg") String delimg,
+            @RequestParam String safeimg,
+            @RequestParam String delimg,
             HttpSession session) {
 
         String path = session.getServletContext().getRealPath("/resources/room");
@@ -211,7 +210,7 @@ public class AdminController {
         return "redirect:/adminRoom/content?id=" + id;
     }
 
-    @RequestMapping("/adminRoom/inquiryList")
+    @GetMapping("/adminRoom/inquiryList")
     public String inquiryList(HttpSession session, Model model) {
         if (session.getAttribute("userid") == null) {
             return "redirect:/member/login";
@@ -219,7 +218,7 @@ public class AdminController {
             String userid = session.getAttribute("userid").toString();
             if (userid.equals("admin")) {
                 AdminDao adao = sqlSession.getMapper(AdminDao.class);
-                ArrayList<InquiryDto> ilist = adao.getInquirys();
+                List<InquiryDto> ilist = adao.getInquirys();
 
                 for (InquiryDto idto : ilist) {
                     switch (idto.getTitle()) {
@@ -260,7 +259,7 @@ public class AdminController {
 
     }
 
-    @RequestMapping("/adminRoom/inquiryOk")
+    @GetMapping("/adminRoom/inquiryOk")
     public String inquiryOk(InquiryDto idto) {
         AdminDao adao = sqlSession.getMapper(AdminDao.class);
         adao.inquiryOk(idto);
@@ -268,17 +267,18 @@ public class AdminController {
         return "redirect:/adminRoom/inquiryList";
     }
 
-    @RequestMapping("/adminRoom/memberList")
+    @SuppressWarnings("rawtypes")
+	@GetMapping("/adminRoom/memberList")
     public String memberList(Model model) {
         AdminDao adao = sqlSession.getMapper(AdminDao.class);
-        ArrayList<HashMap> mapAll = adao.memberList();
+        List<HashMap> mapAll = adao.memberList();
 
         model.addAttribute("mapAll", mapAll);
 
         return "/adminRoom/memberList";
     }
 
-    @RequestMapping("/adminRoom/memberUp")
+    @GetMapping("/adminRoom/memberUp")
     public String memberUp(MemberDto mdto) {
         AdminDao adao = sqlSession.getMapper(AdminDao.class);
         adao.memberUp(mdto);
@@ -286,10 +286,10 @@ public class AdminController {
         return "redirect:/adminRoom/memberList";
     }
 
-    @RequestMapping("/adminRoom/reserveList")
+    @GetMapping("/adminRoom/reserveList")
     public String reserveList(Model model) {
         AdminDao adao = sqlSession.getMapper(AdminDao.class);
-        ArrayList<ReserveDto> rlist = adao.reserveList();
+        List<ReserveDto> rlist = adao.reserveList();
 
         model.addAttribute("rlist", rlist);
 
@@ -297,22 +297,22 @@ public class AdminController {
     }
 
     // 연습용
-    @RequestMapping("/adminRoom/chuga1")
+    @GetMapping("/adminRoom/chuga1")
     public String chuga1() {
         return "/adminRoom/chuga1";
     }
 
-    @RequestMapping("/adminRoom/chuga2")
+    @GetMapping("/adminRoom/chuga2")
     public String chuga2() {
         return "/adminRoom/chuga2";
     }
 
-    @RequestMapping("/adminRoom/chuga3")
+    @GetMapping("/adminRoom/chuga3")
     public String chuga3() {
         return "/adminRoom/chuga3";
     }
 
-    @RequestMapping("/adminRoom/chuga4")
+    @GetMapping("/adminRoom/chuga4")
     public String chuga4() {
         return "/adminRoom/chuga4";
     }

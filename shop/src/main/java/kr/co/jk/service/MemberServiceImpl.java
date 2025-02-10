@@ -1,6 +1,7 @@
 package kr.co.jk.service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -45,11 +46,12 @@ public class MemberServiceImpl implements MemberService {
 		return "../login/login";
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public String cartView(HttpSession session, HttpServletRequest request, Model model) {
 
 		// 로그인의 유무에 따라 테이블, 쿠키변수
-		ArrayList<HashMap> pMapAll = null;
+		List<HashMap> pMapAll = null;
 		if (session.getAttribute("userid") == null) {
 			// 쿠키변수에서 읽은 후 상품코드를 분리하여 가져온다..
 			// 상품코드1-수량/상품코드2-수량/상품코드3-수량/
@@ -65,7 +67,7 @@ public class MemberServiceImpl implements MemberService {
 
 					HashMap map = mapper.getProduct(pcode);
 
-					// ArrayList에 추가하기전에 장바구니의 수량을 전달
+					// List에 추가하기전에 장바구니의 수량을 전달
 					// 로그인 한 경우 csu변수에 저장=> 여기도 변경
 					// map.put("su", su);
 					map.put("csu", su);
@@ -82,7 +84,7 @@ public class MemberServiceImpl implements MemberService {
 				// csu필드의 값을 변경 => plist.get(0).put("csu","100")
 				// System.out.println( String.valueOf( pMapAll.get(0).get("csu") ));
 				// System.out.println( pMapAll.get(0).get("csu"));
-				int a = Integer.parseInt(String.valueOf(pMapAll.get(0).get("csu")));
+				Integer.parseInt(String.valueOf(pMapAll.get(0).get("csu")));
 				// System.out.println(a);
 			}
 
@@ -113,7 +115,7 @@ public class MemberServiceImpl implements MemberService {
 					baeEx = m + "/" + d + "(" + yoil + ") 도착예정";
 				}
 
-				// ArrayList<HashMap>에 baeEx넣어주기
+				// List<HashMap>에 baeEx넣어주기
 				pMapAll.get(i).put("baeEx", baeEx);
 
 				// 2. 상품금액(할인율이 적용된 금액)
@@ -212,6 +214,7 @@ public class MemberServiceImpl implements MemberService {
 		return "redirect:/member/cartView";
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public int[] chgSu(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
 		String pcode = request.getParameter("pcode");
@@ -268,7 +271,7 @@ public class MemberServiceImpl implements MemberService {
 			return "redirect:/login/login";
 		} else {
 			String userid = session.getAttribute("userid").toString();
-			ArrayList<ProductDto> plist = mapper.jjimList(userid);
+			List<ProductDto> plist = mapper.jjimList(userid);
 
 			// 할인금액
 			for (int i = 0; i < plist.size(); i++) {
@@ -315,6 +318,7 @@ public class MemberServiceImpl implements MemberService {
 		return "redirect:/member/jjimList";
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public String jumunList(HttpSession session, Model model, HttpServletRequest request) {
 		// num값 => 0:전부, 3,6,12개월 1:기간검색
@@ -327,7 +331,7 @@ public class MemberServiceImpl implements MemberService {
 
 		System.out.println(num);
 		String userid = session.getAttribute("userid").toString();
-		ArrayList<HashMap> mapAll = mapper.jumunList(userid, num, start, end);
+		List<HashMap> mapAll = mapper.jumunList(userid, num, start, end);
 
 		for (int i = 0; i < mapAll.size(); i++) {
 			// state의 값을 문자열로 변경후 저장
@@ -368,8 +372,8 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 		/*
-		 * ArrayList<HashMap<String,String[]>> mapAll2=new
-		 * ArrayList<HashMap<String,String[]>>(); String imsi="";
+		 * List<HashMap<String,String[]>> mapAll2=new
+		 * List<HashMap<String,String[]>>(); String imsi="";
 		 * 
 		 * for(int i=0;i<mapAll.size();i++) {
 		 * 
@@ -390,7 +394,7 @@ public class MemberServiceImpl implements MemberService {
 
 	/*
 	 * @Override public String jumunList2(HttpSession session, Model model) { String
-	 * userid=session.getAttribute("userid").toString(); ArrayList<HashMap>
+	 * userid=session.getAttribute("userid").toString(); List<HashMap>
 	 * mapAll=mapper.jumunList(userid);
 	 * 
 	 * for(int i=0;i<mapAll.size();i++) { // state의 값을 문자열로 변경후 저장 String
@@ -407,7 +411,7 @@ public class MemberServiceImpl implements MemberService {
 	 */
 	/*
 	 * @Override public String jumunList3(HttpSession session, Model model) { String
-	 * userid=session.getAttribute("userid").toString(); ArrayList<HashMap>
+	 * userid=session.getAttribute("userid").toString(); List<HashMap>
 	 * mapAll=mapper.jumunList(userid);
 	 * 
 	 * for(int i=0;i<mapAll.size();i++) { // state의 값을 문자열로 변경후 저장 String
@@ -459,6 +463,7 @@ public class MemberServiceImpl implements MemberService {
 		return "redirect:/member/jumunList";
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public String monthView(HttpServletRequest request, Model model, HttpSession session) {
 		int year, month;
@@ -507,8 +512,8 @@ public class MemberServiceImpl implements MemberService {
 		model.addAttribute("month", month);
 
 		String userid = session.getAttribute("userid").toString();
-		String month2 = String.format("%02d", month);
-		ArrayList<HashMap> mapAll = mapper.getJumun(year, month2, userid);
+		String month2 = "%02d".formatted(month);
+		List<HashMap> mapAll = mapper.getJumun(year, month2, userid);
 		// model.addAttribute("mapAll",mapAll);
 		String writeday = "";
 		String title = "";
@@ -602,7 +607,7 @@ public class MemberServiceImpl implements MemberService {
 		} else {
 			String userid = session.getAttribute("userid").toString();
 
-			ArrayList<BaesongDto> blist = mapper.myBaesong(userid);
+			List<BaesongDto> blist = mapper.myBaesong(userid);
 
 			// 요청사항
 			for (int i = 0; i < blist.size(); i++) {
@@ -700,13 +705,14 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public String myReview(HttpSession session, Model model) {
 		if (session.getAttribute("userid") == null) {
 			return "redirect:/login/login";
 		} else {
 			String userid = session.getAttribute("userid").toString();
-			ArrayList<HashMap> mapAll = mapper.myReview(userid);
+			List<HashMap> mapAll = mapper.myReview(userid);
 
 			for (int i = 0; i < mapAll.size(); i++) {
 				String title = mapAll.get(i).get("title").toString();
@@ -786,7 +792,7 @@ public class MemberServiceImpl implements MemberService {
 		} else {
 			String userid = session.getAttribute("userid").toString();
 
-			ArrayList<ProQnaDto> plist = mapper.myQna(userid);
+			List<ProQnaDto> plist = mapper.myQna(userid);
 			for (int i = 0; i < plist.size(); i++) {
 				String content = plist.get(i).getContent();
 				content = content.replace("\r\n", "<br>");
@@ -818,30 +824,27 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	/*
-	 * @Override public String cartDel(HttpServletRequest request, HttpSession
-	 * session, HttpServletResponse response) { String[]
-	 * pcodes=request.getParameter("pcode").split("/"); //for(int
-	 * i=0;i<pcodes.length;i++) //{ // System.out.print(pcodes[i]+" "); //}
-	 * 
-	 * if(session.getAttribute("userid")==null) { // 쿠키변수에 삭제할 pcode를 삭제 Cookie
-	 * cookie=WebUtils.getCookie(request, "pcode"); if(cookie!=null) { String
-	 * newPcode=cookie.getValue(); System.out.println(newPcode); for(int
-	 * i=0;i<pcodes.length;i++) { newPcode=newPcode.replace(pcodes[i]+"/", ""); }
-	 * System.out.println(newPcode);
-	 * 
-	 * Cookie newCookie=new Cookie("pcode",newPcode); newCookie.setMaxAge(3600);
-	 * newCookie.setPath("/"); response.addCookie(newCookie);
-	 * 
-	 * }
-	 * 
-	 * } else { String userid=session.getAttribute("userid").toString();
-	 * 
-	 * for(int i=0;i<pcodes.length;i++) { // cart테이블에서 pcode에 해당하는 레코드를 삭제
-	 * mapper.cartDel(pcodes[i],userid); } }
-	 * 
-	 * 
-	 * 
-	 * 
-	 * return "redirect:/member/cartView"; }
-	 */
+	@Override public String cartDel(HttpServletRequest request, HttpSession
+	session, HttpServletResponse response) { String[]
+	pcodes=request.getParameter("pcode").split("/"); //for(int
+	i=0;i<pcodes.length;i++) //{ // System.out.print(pcodes[i]+" "); //}
+	
+	if(session.getAttribute("userid")==null) { // 쿠키변수에 삭제할 pcode를 삭제 Cookie
+	cookie=WebUtils.getCookie(request, "pcode"); if(cookie!=null) { String
+	newPcode=cookie.getValue(); System.out.println(newPcode); for(int
+	i=0;i<pcodes.length;i++) { newPcode=newPcode.replace(pcodes[i]+"/", ""); }
+	System.out.println(newPcode);
+	
+	Cookie newCookie=new Cookie("pcode",newPcode); newCookie.setMaxAge(3600);
+	newCookie.setPath("/"); response.addCookie(newCookie);
+	
+	}
+	
+	} else { String userid=session.getAttribute("userid").toString();
+	
+	for(int i=0;i<pcodes.length;i++) { // cart테이블에서 pcode에 해당하는 레코드를 삭제
+	mapper.cartDel(pcodes[i],userid); } }
+	
+	return "redirect:/member/cartView"; }
+	*/
 }

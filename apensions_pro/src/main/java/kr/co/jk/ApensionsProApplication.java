@@ -11,9 +11,9 @@ public class ApensionsProApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApensionsProApplication.class, args);
 	}
-	
-	@Bean
-	public FilterRegistrationBean<SitemeshConfig> sitemeshbean() {
+
+    @Bean
+    FilterRegistrationBean<SitemeshConfig> sitemeshbean() {
 		FilterRegistrationBean<SitemeshConfig> bean=new FilterRegistrationBean<SitemeshConfig>();
 		bean.setFilter(new SitemeshConfig());
 		return bean;

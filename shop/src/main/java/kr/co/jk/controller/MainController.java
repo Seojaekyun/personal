@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,72 +24,72 @@ public class MainController {
 	@Qualifier("ms")
 	private MainService service;
 
-	@RequestMapping("/")
+	@GetMapping("/")
 	public String home() {
 		return "redirect:/main/index";
 	}
 
-	@RequestMapping("/main/index")
+	@GetMapping("/main/index")
 	public String index(Model model) {
 		return service.index(model);
 	}
 
-	@RequestMapping("/main/getDae")
+	@GetMapping("/main/getDae")
 	public @ResponseBody ArrayList<DaeDto> getDae() {
 		return service.getDae();
 	}
 
-	@RequestMapping("/main/getJung")
+	@GetMapping("/main/getJung")
 	public @ResponseBody ArrayList<JungDto> getJung(HttpServletRequest request) {
 		return service.getJung(request);
 	}
 
-	@RequestMapping("/main/getSo")
+	@GetMapping("/main/getSo")
 	public @ResponseBody ArrayList<SoDto> getSo(HttpServletRequest request) {
 		return service.getSo(request);
 	}
 
-	@RequestMapping("/main/category")
+	@GetMapping("/main/category")
 	public String category() {
 		return "/main/category";
 	}
 
-	@RequestMapping("/main/spinner")
+	@PostMapping("/main/spinner")
 	public String spinner() {
 		return "/main/spinner";
 	}
 
-	@RequestMapping("/main/cartNum")
+	@GetMapping("/main/cartNum")
 	public @ResponseBody String cartNum(HttpServletRequest request, HttpSession session) {
 		return service.cartNum(request, session);
 	}
 
-	@RequestMapping("/main/this")
+	@GetMapping("/main/this")
 	public String this1() {
 		return "/main/this";
 	}
 
-	@RequestMapping("/main/this2")
+	@GetMapping("/main/this2")
 	public String this2() {
 		return "/main/this2";
 	}
 
-	@RequestMapping("/main/imgTest")
+	@GetMapping("/main/imgTest")
 	public String imgTest() {
 		return "/main/imgTest";
 	}
 
-	@RequestMapping("/main/timeTest")
+	@GetMapping("/main/timeTest")
 	public String timeTest() {
 		return "/main/timeTest";
 	}
 
-	@RequestMapping("/main/timeTest2")
+	@GetMapping("/main/timeTest2")
 	public String timeTest2() {
 		return "/main/timeTest2";
 	}
 
-	@RequestMapping("/main/timeTest3")
+	@GetMapping("/main/timeTest3")
 	public String timeTest3() {
 		return "/main/timeTest3";
 	}

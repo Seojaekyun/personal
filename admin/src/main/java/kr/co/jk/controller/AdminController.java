@@ -2,19 +2,15 @@ package kr.co.jk.controller;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Iterator;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -42,19 +38,19 @@ public class AdminController {
 	}
 	
 	@GetMapping("/product/getJung")
-	public @ResponseBody ArrayList<JungDto> getJung(HttpServletRequest request) {
+	public @ResponseBody List<JungDto> getJung(HttpServletRequest request) {
 		String daecode=request.getParameter("daecode");
 		
-		ArrayList<JungDto> jungAll=mapper.getJung(daecode);
+		List<JungDto> jungAll=mapper.getJung(daecode);
 		
 		return jungAll;
 	}
 	
 	@GetMapping("/product/getSo")
-	public @ResponseBody ArrayList<SoDto> getSo(HttpServletRequest request) {
+	public @ResponseBody List<SoDto> getSo(HttpServletRequest request) {
 		String daejung=request.getParameter("daejung");
 		
-		ArrayList<SoDto> soAll=mapper.getSo(daejung);
+		List<SoDto> soAll=mapper.getSo(daejung);
 		
 		return soAll;
 	}
@@ -63,8 +59,8 @@ public class AdminController {
 	public @ResponseBody String genPcode(HttpServletRequest request) {
 		String pcode=request.getParameter("pcode");
 		int num=mapper.genPcode(pcode);
-		pcode=pcode+String.format("%03d", num);
-		
+		pcode=pcode+"%03d".formatted(num);
+		pcode=pcode+"%03d".formatted(num);
 		return pcode;	
 	}
 	
@@ -91,8 +87,8 @@ public class AdminController {
 					pimg=pimg+str.substring(str.lastIndexOf("/")+1)+"/";
 				}
 				
-				Path path=Paths.get(str);
-				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+				Path path=Path.of(str);
+				Path path=Path.of(str);
 			}
 		}
 		
@@ -103,9 +99,10 @@ public class AdminController {
 		return "redirect:/product/productList";
 	}
 	
-	@RequestMapping("/gumae/gumaeAll")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@GetMapping("/gumae/gumaeAll")
 	public String gumaeAll(Model model) {
-		ArrayList<HashMap> mapAll=mapper.gumaeAll();
+		List<HashMap> mapAll=mapper.gumaeAll();
 		
 		for(int i=0;i<mapAll.size();i++) {
 			String state=mapAll.get(i).get("state").toString();
@@ -141,7 +138,7 @@ public class AdminController {
 	
 	@GetMapping("/qna/qnaList")
 	public String qnaList(Model model) {
-		ArrayList<ProQnaDto> plist=mapper.qnaList();
+		List<ProQnaDto> plist=mapper.qnaList();
 		model.addAttribute("plist", plist);
 		return "/qna/qnaList";
 	}

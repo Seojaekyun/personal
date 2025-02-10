@@ -96,8 +96,8 @@ public class ReserveController {
 		}
 		else {
 			// 입실날짜 출력 => ????-??-??   , ????년 ??월 ??일  
-			String month2=String.format("%02d",month);
-			String day2=String.format("%02d", day);
+			String month2="%02d".formatted(month);
+			String day2="%02d".formatted(day);
 			String date=year+"-"+month2+"-"+day2;  //입실일
 			
 			ReserveDao rdao=sqlSession.getMapper(ReserveDao.class);
@@ -151,7 +151,7 @@ public class ReserveController {
 		ReserveDao rdao=sqlSession.getMapper(ReserveDao.class);
 		int num=rdao.getJumuncode(jumuncode)+1;
 		
-		jumuncode=jumuncode+String.format("%03d", num);
+		jumuncode=jumuncode+"%03d".formatted(num);
 		rdto.setJumuncode(jumuncode);
 		rdto.setUserid(session.getAttribute("userid").toString());
 		

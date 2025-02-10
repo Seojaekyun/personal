@@ -1,6 +1,10 @@
 package kr.co.jk.util;
 
 import java.io.File;
+import java.util.concurrent.ThreadLocalRandom;
+
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.springframework.util.ResourceUtils;
 
 public class MyUtils {
@@ -9,9 +13,9 @@ public class MyUtils {
 		
 		while(ff.exists()) {
 			String code="";
-			
+				int num=(int)(ThreadLocalRandom.current().nextDouble()*62);
 			for(int i=1;i<=4;i++) {
-				int num=(int)(Math.random()*62);
+				int num=(int)(ThreadLocalRandom.current().nextDouble()*62);
 				
 				if(num>=0&&num<=9) {
 					num=num+48;

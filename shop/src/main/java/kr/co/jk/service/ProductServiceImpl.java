@@ -3,6 +3,7 @@ package kr.co.jk.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,9 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.co.jk.dto.BaesongDto;
 import kr.co.jk.dto.GumaeDto;
-import kr.co.jk.dto.ProQnaDto;
 import kr.co.jk.dto.ProductDto;
-import kr.co.jk.dto.ReviewDto;
 import kr.co.jk.mapper.ProductMapper;
 import kr.co.jk.util.MyUtil;
 
@@ -37,23 +36,23 @@ public class ProductServiceImpl implements ProductService {
 		// 사용자에게 알려준다.
 
 		/*
-		 * String pos="HOME - "; if(pcode.length()==3) // p01 { String
-		 * code=pcode.substring(1); pos=pos+mapper.getDaeName(code); // HOME-대분류 } else
-		 * if(pcode.length()==5) // p0101 { String daecode=pcode.substring(1,3);
-		 * pos=pos+mapper.getDaeName(daecode); // HOME-대분류
-		 * 
-		 * String code=pcode.substring(3); pos=pos+" - "+mapper.getJungName(code,
-		 * daecode); // HOME-대분류-중분류
-		 * 
-		 * } else if(pcode.length()==7) // p010102 { String
-		 * daecode=pcode.substring(1,3); pos=pos+mapper.getDaeName(daecode); // HOME-대분류
-		 * 
-		 * String daejung=pcode.substring(1,5); String jungcode=pcode.substring(3,5);
-		 * String code=pcode.substring(5); // 소분류코드
-		 * pos=pos+" - "+mapper.getJungName(jungcode, daecode); // HOME-대분류-중분류
-		 * 
-		 * pos=pos+" - "+mapper.getSoName(code, daejung); // HOME-대분류-중분류-소분류 }
-		 */
+		String pos="HOME - "; if(pcode.length()==3) // p01 { String
+		code=pcode.substring(1); pos=pos+mapper.getDaeName(code); // HOME-대분류 } else
+		if(pcode.length()==5) // p0101 { String daecode=pcode.substring(1,3);
+		pos=pos+mapper.getDaeName(daecode); // HOME-대분류
+		
+		String code=pcode.substring(3); pos=pos+" - "+mapper.getJungName(code,
+		daecode); // HOME-대분류-중분류
+		
+		} else if(pcode.length()==7) // p010102 { String
+		daecode=pcode.substring(1,3); pos=pos+mapper.getDaeName(daecode); // HOME-대분류
+		
+		String daejung=pcode.substring(1,5); String jungcode=pcode.substring(3,5);
+		String code=pcode.substring(5); // 소분류코드
+		pos=pos+" - "+mapper.getJungName(jungcode, daecode); // HOME-대분류-중분류
+		
+		pos=pos+" - "+mapper.getSoName(code, daejung); // HOME-대분류-중분류-소분류 }
+		*/
 		String pos = "HOME";
 		String[] poses = { null, null, null }; // 대,중,소분류코드를 넣는 배열
 		for (int i = 0; i < poses.length; i++) {
@@ -113,7 +112,7 @@ public class ProductServiceImpl implements ProductService {
 
 		int index = (page - 1) * 20;
 
-		ArrayList<ProductDto> plist = mapper.productList(pcode, str, index);
+		List<ProductDto> plist = mapper.productList(pcode, str, index);
 
 		// ArrayList<ProductDto> plist=mapper.productList(pcode);
 		// index값으로 정렬되어 있다 => 배열처럼 정렬되어 있다.
@@ -555,7 +554,7 @@ public class ProductServiceImpl implements ProductService {
 	public String jusoList(Model model, HttpSession session) {
 		String userid = session.getAttribute("userid").toString();
 
-		ArrayList<BaesongDto> blist = mapper.jusoList(userid);
+		List<BaesongDto> blist = mapper.jusoList(userid);
 
 		// 요청사항 req => 문자열로 변환처리
 		for (int i = 0; i < blist.size(); i++) {
@@ -652,14 +651,14 @@ public class ProductServiceImpl implements ProductService {
 		int m = today.getMonthValue();
 		int d = today.getDayOfMonth();
 
-		String m2 = String.format("%02d", m);
-		String d2 = String.format("%02d", d);
+		String m2 = "%02d".formatted(m);
+		String d2 = "%02d".formatted(d);
 
 		String jumuncode = "j" + y + m2 + d2; // j20240905
 
 		int imsi = mapper.getJumuncode(jumuncode);
 
-		jumuncode = jumuncode + String.format("%03d", imsi); // j20240905001
+		jumuncode = jumuncode + "%03d".formatted(imsi); // j20240905001
 		// System.out.println(imsi);
 
 		gdto.setJumuncode(jumuncode);
@@ -692,11 +691,11 @@ public class ProductServiceImpl implements ProductService {
 	public String gumaeView(HttpServletRequest request, Model model) {
 		String jumuncode = request.getParameter("jumuncode");
 
-		ArrayList<GumaeDto> glist = mapper.gumaeView(jumuncode);
+		List<GumaeDto> glist = mapper.gumaeView(jumuncode);
 
 		// 배송정보, 상품정보를 glist를 이용하여 가져오기
-		ArrayList<ProductDto> plist = new ArrayList<ProductDto>();
-		ArrayList<BaesongDto> blist = new ArrayList<BaesongDto>();
+		List<ProductDto> plist = new ArrayList<ProductDto>();
+		List<BaesongDto> blist = new ArrayList<BaesongDto>();
 
 		for (int i = 0; i < glist.size(); i++) {
 			// 상품정보를 읽어서 plist에 add()
@@ -712,11 +711,12 @@ public class ProductServiceImpl implements ProductService {
 		return "/product/gumaeView";
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public String gumaeView2(HttpServletRequest request, Model model) {
 		String jumuncode = request.getParameter("jumuncode");
 
-		ArrayList<HashMap> mapAll = mapper.gumaeView2(jumuncode);
+		List<HashMap> mapAll = mapper.gumaeView2(jumuncode);
 		System.out.println(mapAll.size());
 		// 하나의 할인된 상품금액 => price => map에 저장
 		// 총상품금액(halinPrice) , 총배송비(cBaeprice), 도착예정(baeEx) , 배송요청사항(breq)

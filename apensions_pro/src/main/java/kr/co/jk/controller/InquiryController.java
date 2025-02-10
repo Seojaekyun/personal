@@ -35,15 +35,15 @@ public class InquiryController {
 		String year=today.getYear()+"";
 		year=year.substring(2);
 		int month=today.getMonthValue();
-		String month2=String.format("%02d", month);
+		String month2="%02d".formatted(month);
 		
 		int day=today.getDayOfMonth();
-		String day2=String.format("%02d", day);
+		String day2="%02d".formatted(day);
 		
 		inum="m"+year+month2+day2;
 		
 		int num=idao.getNumber(inum)+1; 
-		inum=inum+String.format("%03d",num);
+		inum=inum+"%03d".formatted(num);
     	if(session.getAttribute("userid")==null)
     	{
     		userid="guest";
