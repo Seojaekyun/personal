@@ -3,6 +3,7 @@ package kr.co.jk.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,9 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.co.jk.dto.BaesongDto;
 import kr.co.jk.dto.GumaeDto;
-import kr.co.jk.dto.ProQnaDto;
 import kr.co.jk.dto.ProductDto;
-import kr.co.jk.dto.ReviewDto;
 import kr.co.jk.mapper.ProductMapper;
 import kr.co.jk.util.MyUtil;
 
@@ -113,7 +112,7 @@ public class ProductServiceImpl implements ProductService {
 
 		int index = (page - 1) * 20;
 
-		ArrayList<ProductDto> plist = mapper.productList(pcode, str, index);
+		List<ProductDto> plist = mapper.productList(pcode, str, index);
 
 		// ArrayList<ProductDto> plist=mapper.productList(pcode);
 		// index값으로 정렬되어 있다 => 배열처럼 정렬되어 있다.
@@ -440,7 +439,7 @@ public class ProductServiceImpl implements ProductService {
 				sues[i] = Integer.parseInt(imsi[i]);
 			}
 
-			ArrayList<ProductDto> plist = new ArrayList<ProductDto>();
+			List<ProductDto> plist = new ArrayList<ProductDto>();
 			for (int i = 0; i < pcodes.length; i++) {
 				ProductDto pdto = mapper.productContent(pcodes[i]);
 				pdto.setSu(sues[i]);
@@ -555,7 +554,7 @@ public class ProductServiceImpl implements ProductService {
 	public String jusoList(Model model, HttpSession session) {
 		String userid = session.getAttribute("userid").toString();
 
-		ArrayList<BaesongDto> blist = mapper.jusoList(userid);
+		List<BaesongDto> blist = mapper.jusoList(userid);
 
 		// 요청사항 req => 문자열로 변환처리
 		for (int i = 0; i < blist.size(); i++) {
@@ -692,11 +691,11 @@ public class ProductServiceImpl implements ProductService {
 	public String gumaeView(HttpServletRequest request, Model model) {
 		String jumuncode = request.getParameter("jumuncode");
 
-		ArrayList<GumaeDto> glist = mapper.gumaeView(jumuncode);
+		List<GumaeDto> glist = mapper.gumaeView(jumuncode);
 
 		// 배송정보, 상품정보를 glist를 이용하여 가져오기
-		ArrayList<ProductDto> plist = new ArrayList<ProductDto>();
-		ArrayList<BaesongDto> blist = new ArrayList<BaesongDto>();
+		List<ProductDto> plist = new ArrayList<ProductDto>();
+		List<BaesongDto> blist = new ArrayList<BaesongDto>();
 
 		for (int i = 0; i < glist.size(); i++) {
 			// 상품정보를 읽어서 plist에 add()
@@ -712,11 +711,12 @@ public class ProductServiceImpl implements ProductService {
 		return "/product/gumaeView";
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public String gumaeView2(HttpServletRequest request, Model model) {
 		String jumuncode = request.getParameter("jumuncode");
 
-		ArrayList<HashMap> mapAll = mapper.gumaeView2(jumuncode);
+		List<HashMap> mapAll = mapper.gumaeView2(jumuncode);
 		System.out.println(mapAll.size());
 		// 하나의 할인된 상품금액 => price => map에 저장
 		// 총상품금액(halinPrice) , 총배송비(cBaeprice), 도착예정(baeEx) , 배송요청사항(breq)
