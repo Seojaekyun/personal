@@ -507,7 +507,7 @@ public class MemberServiceImpl implements MemberService {
 		model.addAttribute("month", month);
 
 		String userid = session.getAttribute("userid").toString();
-		String month2 = String.format("%02d", month);
+		String month2 = "%02d".formatted(month);
 		ArrayList<HashMap> mapAll = mapper.getJumun(year, month2, userid);
 		// model.addAttribute("mapAll",mapAll);
 		String writeday = "";

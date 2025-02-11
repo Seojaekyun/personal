@@ -652,14 +652,14 @@ public class ProductServiceImpl implements ProductService {
 		int m = today.getMonthValue();
 		int d = today.getDayOfMonth();
 
-		String m2 = String.format("%02d", m);
-		String d2 = String.format("%02d", d);
+		String m2 = "%02d".formatted(m);
+		String d2 = "%02d".formatted(d);
 
 		String jumuncode = "j" + y + m2 + d2; // j20240905
 
 		int imsi = mapper.getJumuncode(jumuncode);
 
-		jumuncode = jumuncode + String.format("%03d", imsi); // j20240905001
+		jumuncode = jumuncode + "%03d".formatted(imsi); // j20240905001
 		// System.out.println(imsi);
 
 		gdto.setJumuncode(jumuncode);

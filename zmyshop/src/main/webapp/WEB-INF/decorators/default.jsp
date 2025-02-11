@@ -494,7 +494,7 @@
 			</c:if>
 			<c:if test="${userid!=null}">
 				${name}님 |
-				<span id="myMenu" onmouseover="myMenuView()" onmouseout="myMenuHide()"> 나의메뉴 
+				<div id="myMenu" onmouseover="myMenuView()" onmouseout="myMenuHide()"> 나의메뉴 
 					<ul id="myMenuList">
 						<li> <a href="../member/jjimList"> 찜리스트 </a> </li>
 						<li> <a href="../member/memberView"> 회원정보 </a></li>
@@ -503,7 +503,7 @@
 						<li> <a href="../member/myReview"> 나의상품평 </a></li>
 						<li> <a href="../member/myQna"> 나의 문의 </a></li>
 					</ul>
-				</span> |
+				</div> |
 				<a href="../login/logout"> 로그아웃 </a> |
 			</c:if>
 			고객센터
