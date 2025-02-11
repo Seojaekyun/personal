@@ -1,7 +1,11 @@
 package kr.co.jk.mapper;
 
+<<<<<<< HEAD
 import java.util.List;
+=======
+>>>>>>> branch 'master' of https://github.com/Seojaekyun/personal.git
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -51,5 +55,9 @@ public interface ProductMapper {
 	public int getRef(String pcode);
 	public void questWriteOk(String pcode, String userid, String content, int ref);
 	public List<ProQnaDto> questAll(String pcode);
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/Seojaekyun/personal.git
 	public void questDel(String ref);
 }

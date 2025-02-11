@@ -439,7 +439,7 @@ public class ProductServiceImpl implements ProductService {
 				sues[i] = Integer.parseInt(imsi[i]);
 			}
 
-			ArrayList<ProductDto> plist = new ArrayList<ProductDto>();
+			List<ProductDto> plist = new ArrayList<ProductDto>();
 			for (int i = 0; i < pcodes.length; i++) {
 				ProductDto pdto = mapper.productContent(pcodes[i]);
 				pdto.setSu(sues[i]);

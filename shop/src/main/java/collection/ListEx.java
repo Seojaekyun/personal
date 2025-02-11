@@ -15,7 +15,7 @@ public class ListEx {
 		// Collection co=new ArrayList();
 		// List list=new ArrayList();
 
-		ArrayList<String> ex1 = new ArrayList<String>();
+		List<String> ex1 = new ArrayList<String>();
 		LinkedList<String> ex2 = new LinkedList<String>();
 		Vector<String> ex3 = new Vector<String>();
 		Stack<String> ex4 = new Stack<String>();

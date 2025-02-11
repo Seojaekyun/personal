@@ -7,8 +7,7 @@
     order by ${str} 
     limit #{index},20
   </select>
-  
-  <select id="getDaeName" resultType="String">
+    <select id="getDaeName" resultType="String">
     select name from dae 
     where code=#{code}
   </select>
@@ -20,59 +19,48 @@
     select name from so
     where code=#{code} and daejung=#{daejung}
   </select>
-  
   <select id="getChong" resultType="Integer">
     select ceil(count(*)/20) 
     from product
     where pcode like concat(#{pcode},'%')
   </select>
-  
   <select id="productContent" resultType="kr.co.jk.dto.ProductDto">
     select * from product
     where pcode=#{pcode}
   </select>
-  
   <insert id="jjimOk">
     insert into jjim(pcode,userid,writeday)
     values(#{pcode},#{userid},now())
   </insert>
-  
   <delete id="jjimDel">
     delete from jjim
     where pcode=#{pcode} and userid=#{userid}
   </delete>
-  
   <select id="isJjim" resultType="Integer">
     select count(*) from jjim
     where userid=#{userid} and pcode=#{pcode}
   </select>
-  
   <insert id="addCart">
     insert into cart(pcode,su,userid,writeday)
     values(#{pcode},#{su},#{userid},now())
   </insert>
-  
   <select id="isCart" resultType="Boolean">
     select count(*) from cart
     where userid=#{userid} and pcode=#{pcode}
   </select>
-  
   <select id="upCart">
     update cart set su=su+${su}
     where userid=#{userid} and pcode=#{pcode}
   </select>
-  
   <select id="getCartNum" resultType="String">
     select count(*)
     from cart
     where userid=#{userid}
   </select>
-  
   <select id="getMember" resultType="kr.co.jk.dto.MemberDto">
     select * from member
     where userid=#{userid}
   </select>
-  
   <select id="getBaesong" resultType="kr.co.jk.dto.BaesongDto">
     select * from baesong
     where userid=#{userid} and gibon=1

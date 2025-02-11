@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -318,7 +319,11 @@ public class MemberServiceImpl implements MemberService {
 		return "redirect:/member/jjimList";
 	}
 
+<<<<<<< HEAD
 	@SuppressWarnings({ "unchecked", "rawtypes" })
+=======
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+>>>>>>> branch 'master' of https://github.com/Seojaekyun/personal.git
 	@Override
 	public String jumunList(HttpSession session, Model model, HttpServletRequest request) {
 		// num값 => 0:전부, 3,6,12개월 1:기간검색
@@ -705,7 +710,11 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 
+<<<<<<< HEAD
 	@SuppressWarnings({ "rawtypes", "unchecked" })
+=======
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+>>>>>>> branch 'master' of https://github.com/Seojaekyun/personal.git
 	@Override
 	public String myReview(HttpSession session, Model model) {
 		if (session.getAttribute("userid") == null) {

@@ -17,10 +17,17 @@ public class SetEx {
 		SortedSet<String> set3 = new TreeSet<String>();
 
 		set1.add("홍길동");
+<<<<<<< HEAD
 		set1.add("배트맨");
 		set1.add("슈퍼맨");
 		set2.add("뽀로로");
 		set3.add("배트맨");
+=======
+		set2.add("배트맨");
+		set3.add("슈퍼맨");
+		set1.add("뽀로로");
+		set1.add("배트맨");
+>>>>>>> branch 'master' of https://github.com/Seojaekyun/personal.git
 
 		System.out.println(set1.toString());
 
