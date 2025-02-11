@@ -12,8 +12,8 @@ public class ShopApplication {
 		SpringApplication.run(ShopApplication.class, args);
 	}
 
-	@Bean
-	public FilterRegistrationBean<SitemeshConfig> sitemeshbean() {
+    @Bean
+    FilterRegistrationBean<SitemeshConfig> sitemeshbean() {
 		FilterRegistrationBean<SitemeshConfig> bean = new FilterRegistrationBean<SitemeshConfig>();
 		bean.setFilter(new SitemeshConfig());
 		return bean;
