@@ -424,7 +424,7 @@
 							<option value="1"> SKT </option>
 							<option value="2"> KT </option>
 							<option value="3"> LG </option>
-							<option value="4"> 별정통신 </option>
+							<option value="4"> 알뜰폰 </option>
 						</select>
 					</div>
 				</div>

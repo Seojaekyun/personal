@@ -10,4 +10,7 @@ public interface LoginMapper {
     String getUserid(MemberDto mdto);
     String getPwd(MemberDto mdto);
     void chgPwd(String userid,String pwd, String oldPwd);
+	boolean isCart(String pcode, String userid);
+	void upCart(String pcode, String userid, int su);
+	void addCart(String pcode, int su, String userid);
 }

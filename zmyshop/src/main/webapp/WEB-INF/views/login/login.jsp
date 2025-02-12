@@ -106,6 +106,10 @@
 	
 	<h3 align="center"> 로그인 </h3>
 	<form method="post" action="loginOk">
+		<c:if test="${su!=null}">
+		<input type="hidden" name="su" value="${su}">
+		</c:if>
+		<input type="hidden" name="pcode" value="${pcode}">
 		<div> <input type="text" name="userid" id="txt" placeholder="아이디"> </div>
 		<div>
 			<input type="password" name="pwd" id="txt" placeholder="비밀번호">

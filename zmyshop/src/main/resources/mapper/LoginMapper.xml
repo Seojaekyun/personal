@@ -13,6 +13,15 @@
 	<update id="chgPwd">
 		update member set oldPwd=#{oldPwd}, pwd=#{pwd} where userid=#{userid}
 	</update>
+	<insert id="addCart">
+		insert into cart(pcode,su,userid,writeday) values(#{pcode},#{su},#{userid},now())
+	</insert>
+	<select id="isCart" resultType="Boolean">
+		select count(*) from cart where userid=#{userid} and pcode=#{pcode}
+	</select>
+	<select id="upCart">
+		update cart set su=su+${su} where userid=#{userid} and pcode=#{pcode}
+	</select>
 	
 </mapper>
 

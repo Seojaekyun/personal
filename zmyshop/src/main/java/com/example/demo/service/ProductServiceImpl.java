@@ -271,110 +271,90 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public String gumae(HttpSession session, HttpServletRequest request, Model model) {
-		if (session.getAttribute("userid") == null) {
-			return "redirect:/login/login";
-		} else {
-			// 구매자 정보(회원)
-			String userid = session.getAttribute("userid").toString();
+		String pcode=request.getParameter("pcode");
+		String su=request.getParameter("su");
+		if(session.getAttribute("userid")==null) {
+			return "redirect:/login/login?pcode="+pcode+"&su="+su;
+		}
+		else {
+			String userid=session.getAttribute("userid").toString();
 			model.addAttribute("mdto", mapper.getMember(userid));
-
 			// 배송지 정보
-			BaesongDto bdto = mapper.getBaesong(userid);
-			if (bdto != null) {
-				String breq = null;
+			BaesongDto bdto=mapper.getBaesong(userid);
+			if (bdto!=null) {
+				String breq=null;
 				switch (bdto.getReq()) {
-				case 0:
-					breq = "문 앞";
-					break;
-				case 1:
-					breq = "직접 받고 부재시 문앞";
-					break;
-				case 2:
-					breq = "경비실";
-					break;
-				case 3:
-					breq = "택배함";
-					break;
-				case 4:
-					breq = "공동현관 앞";
-					break;
-				default:
-					breq = "읽지 못함";
+					case 0: breq="문 앞"; break;
+					case 1: breq="직접 받고 부재시 문앞"; break;
+					case 2: breq="경비실"; break;
+					case 3: breq="택배함"; break;
+					case 4: breq="공동현관 앞"; break;
+					default: breq="읽지 못함";
 				}
 				bdto.setBreq(breq);
 			}
-
+			
 			model.addAttribute("bdto", bdto);
-
-			// 구매상품정보
-			String pcode = request.getParameter("pcode");
-			String su = request.getParameter("su");
-
-			String[] pcodes = pcode.split("/");
-
-			String[] imsi = su.split("/");
-			int[] sues = new int[imsi.length];
-
-			for (int i = 0; i < imsi.length; i++) {
-				sues[i] = Integer.parseInt(imsi[i]);
+			String[] pcodes=pcode.split("/");
+			String[] imsi=su.split("/");
+			
+			int[] sues=new int[imsi.length];
+			
+			for(int i=0;i<imsi.length;i++) {
+				sues[i]=Integer.parseInt(imsi[i]);
 			}
-
-			List<ProductDto> plist = new ArrayList<ProductDto>();
-			for (int i = 0; i < pcodes.length; i++) {
-				ProductDto pdto = mapper.productContent(pcodes[i]);
+			List<ProductDto> plist=new ArrayList<ProductDto>();
+			for(int i=0;i<pcodes.length;i++) {
+				ProductDto pdto=mapper.productContent(pcodes[i]);
 				pdto.setSu(sues[i]);
-
 				// 배송예정일 => 내일(요일) 배송예정 , 모레(요일) 배송예정 , 월/일(요일) 배송예정
 				// 오늘기준으로 배송예정일의 날짜객체를 생성
-				LocalDate today = LocalDate.now(); // 오늘날짜 객체생성
+				LocalDate today=LocalDate.now(); // 오늘날짜 객체생성
 				// 오늘 기준 몇일 후의 날짜 객체
-				LocalDate xday = today.plusDays(pdto.getBaeday());
-				String yoil = MyUtil.getYoil(xday);
-
-				String baeEx = null;
-				if (pdto.getBaeday() == 1) {
-					baeEx = "내일(" + yoil + ") 도착예정"; // 내일(화) 도착예정
-				} else if (pdto.getBaeday() == 2) {
-					baeEx = "모레(" + yoil + ") 도착예정"; // 모레(수) 도착예정
-				} else {
-					int m = xday.getMonthValue();
-					int d = xday.getDayOfMonth();
-					baeEx = m + "/" + d + "(" + yoil + ") 도착예정";
+				LocalDate xday=today.plusDays(pdto.getBaeday());
+				String yoil=MyUtil.getYoil(xday);
+				String baeEx=null;
+				
+				if(pdto.getBaeday()==1) {
+					baeEx="내일("+yoil+") 도착예정"; // 내일(화) 도착예정
 				}
-
+				else if(pdto.getBaeday()==2) {
+					baeEx="모레("+yoil+") 도착예정"; // 모레(수) 도착예정
+				}
+				else {
+					int m=xday.getMonthValue();
+					int d=xday.getDayOfMonth();
+					baeEx=m+"/"+d+"("+yoil+") 도착예정";
+				}
 				pdto.setBaeEx(baeEx);
-
 				plist.add(pdto);
 			}
-
+			
 			model.addAttribute("plist", plist);
-
 			// 결제관련 금액 => 총상품금액, 배송비 , 적립예정금액
-			int halinPrice = 0;
-			int baePrice = 0;
-			int jukPrice = 0;
-
-			for (int i = 0; i < plist.size(); i++) {
-				ProductDto pdto = plist.get(i);
-				int price = pdto.getPrice(); // 상품가격
-				int halin = pdto.getHalin();
-				int su2 = pdto.getSu();
-				int bae = pdto.getBaeprice();
-				int juk = pdto.getJuk();
-				halinPrice = halinPrice + (price - (int) (price * halin / 100.0)) * su2;
-				baePrice = baePrice + bae;
-				jukPrice = jukPrice + (int) (price * juk / 100.0);
+			int halinPrice=0;
+			int baePrice=0;
+			int jukPrice=0;
+			for(int i=0;i<plist.size();i++) {
+				ProductDto pdto=plist.get(i);
+				int price=pdto.getPrice(); // 상품가격
+				int halin=pdto.getHalin();
+				int su2=pdto.getSu();
+				int bae=pdto.getBaeprice();
+				int juk=pdto.getJuk();
+				halinPrice=halinPrice+(price-(int)(price*halin/100.0))*su2;
+				int halinjuk=(price-(int)(price*halin/100.0))*su2;
+				baePrice=baePrice+bae;
+				jukPrice=jukPrice+(int)(halinjuk*juk/100.0);
 			}
+			
 			model.addAttribute("halinPrice", halinPrice);
 			model.addAttribute("baePrice", baePrice);
 			model.addAttribute("jukPrice", jukPrice);
-
 			// 사용자의 적립금을 가져와서 뷰에 전달
 			model.addAttribute("juk", mapper.getJuk(userid));
-
 			return "/product/gumae";
 		}
-
 	}
 
 	@Override
@@ -387,17 +367,14 @@ public class ProductServiceImpl implements ProductService {
 			// 들어오는 주소가 기본배송지이므로 이전의 gibon은 0으로 변경
 			mapper.gibonInit(userid);
 		}
-
-		if (bdto.getTt().equals("1")) // 배송지가 있을때 추가
-		{
+		if (bdto.getTt().equals("1")) {
 			mapper.jusoWriteOk(bdto);
 			// 추가입력
 			return "redirect:/product/jusoList";
-		} else // 처음입력
-		{
+		}
+		else {
 			bdto.setGibon(1);
 			mapper.jusoWriteOk(bdto);
-
 			// 방금입력된 주소의 id필드의 값을 알수 없다
 			int id = mapper.getBaeId(userid);
 			model.addAttribute("id", id);
@@ -406,28 +383,16 @@ public class ProductServiceImpl implements ProductService {
 			model.addAttribute("bphone", bdto.getPhone());
 			String breq = null;
 			switch (bdto.getReq()) {
-			case 0:
-				breq = "문 앞";
-				break;
-			case 1:
-				breq = "직접 받고 부재시 문앞";
-				break;
-			case 2:
-				breq = "경비실";
-				break;
-			case 3:
-				breq = "택배함";
-				break;
-			case 4:
-				breq = "공동현관 앞";
-				break;
-			default:
-				breq = "읽지 못함";
+				case 0: breq = "문 앞"; break;
+				case 1: breq = "직접 받고 부재시 문앞"; break;
+				case 2: breq = "경비실"; break;
+				case 3: breq = "택배함"; break;
+				case 4: breq = "공동현관 앞"; break;
+				default: breq = "읽지 못함";
 			}
 			model.addAttribute("breq", breq);
 			return "/product/jusoWriteOk";
 		}
-
 	}
 
 	@Override
@@ -440,37 +405,22 @@ public class ProductServiceImpl implements ProductService {
 		for (int i = 0; i < blist.size(); i++) {
 			String breq = null;
 			switch (blist.get(i).getReq()) {
-			case 0:
-				breq = "문 앞";
-				break;
-			case 1:
-				breq = "직접 받고 부재시 문앞";
-				break;
-			case 2:
-				breq = "경비실";
-				break;
-			case 3:
-				breq = "택배함";
-				break;
-			case 4:
-				breq = "공동현관 앞";
-				break;
-			default:
-				breq = "읽지 못함";
+				case 0: breq = "문 앞"; break;
+				case 1: breq = "직접 받고 부재시 문앞"; break;
+				case 2: breq = "경비실"; break;
+				case 3: breq = "택배함"; break;
+				case 4: breq = "공동현관 앞"; break;
+				default: breq = "읽지 못함";
 			}
-
 			blist.get(i).setBreq(breq);
 		}
-
 		model.addAttribute("blist", blist);
-
 		return "/product/jusoList";
 	}
 
 	@Override
 	public String jusoWrite(HttpServletRequest request, Model model) {
 		model.addAttribute("tt", request.getParameter("tt"));
-
 		return "/product/jusoWrite";
 	}
 
@@ -479,30 +429,25 @@ public class ProductServiceImpl implements ProductService {
 		try {
 			String userid = session.getAttribute("userid").toString();
 			String mPhone = request.getParameter("mPhone");
-
 			mapper.chgPhone(userid, mPhone);
-
 			return "0";
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			return "1";
 		}
-
 	}
 
 	@Override
 	public String jusoDel(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		mapper.jusoDel(id);
-
 		return "redirect:/product/jusoList";
 	}
 
 	@Override
 	public String jusoUpdate(HttpServletRequest request, Model model) {
 		String id = request.getParameter("id");
-
 		model.addAttribute("bdto", mapper.jusoUpdate(id));
-
 		return "/product/jusoUpdate";
 	}
 
@@ -514,7 +459,6 @@ public class ProductServiceImpl implements ProductService {
 		}
 
 		mapper.jusoUpdateOk(bdto);
-
 		return "redirect:/product/jusoList";
 	}
 
@@ -530,39 +474,27 @@ public class ProductServiceImpl implements ProductService {
 		int y = today.getYear();
 		int m = today.getMonthValue();
 		int d = today.getDayOfMonth();
-
 		String m2 = String.format("%02d", m);
 		String d2 = String.format("%02d", d);
-
 		String jumuncode = "j" + y + m2 + d2; // j20240905
-
 		int imsi = mapper.getJumuncode(jumuncode);
-
 		jumuncode = jumuncode + String.format("%03d", imsi); // j20240905001
 		// System.out.println(imsi);
-
 		gdto.setJumuncode(jumuncode);
-
 		// pcodes[] , sues[] 의 length가 상품의 갯수
 		String[] pcodes = gdto.getPcodes();
 		int[] sues = gdto.getSues();
-
 		// member테이블의 juk필드의 값에 useJuk값을 뺀다 => 저장
 		mapper.chgJuk(gdto.getUseJuk(), userid);
-
 		for (int i = 0; i < pcodes.length; i++) {
 			gdto.setPcode(pcodes[i]);
 			gdto.setSu(sues[i]);
-
 			mapper.gumaeOk(gdto);
-
 			// 장바구니에 있는 구매된 상품은 삭제
 			mapper.cartDel(userid, pcodes[i]);
-
 			// product테이블에 su필드의 값을 -수량 , pansu 의 값을 +수량
 			mapper.chgProduct(pcodes[i], sues[i]);
 		}
-
 		return "redirect:/product/gumaeView?jumuncode=" + jumuncode;
 	}
 
@@ -623,23 +555,12 @@ public class ProductServiceImpl implements ProductService {
 			// 배송요청사항
 
 			switch (Integer.parseInt(map.get("req").toString())) {
-			case 0:
-				breq = "문 앞";
-				break;
-			case 1:
-				breq = "직접 받고 부재시 문앞";
-				break;
-			case 2:
-				breq = "경비실";
-				break;
-			case 3:
-				breq = "택배함";
-				break;
-			case 4:
-				breq = "공동현관 앞";
-				break;
-			default:
-				breq = "읽지 못함";
+				case 0: breq = "문 앞"; break;
+				case 1: breq = "직접 받고 부재시 문앞"; break;
+				case 2: breq = "경비실"; break;
+				case 3: breq = "택배함"; break;
+				case 4: breq = "공동현관 앞"; break;
+				default: breq = "읽지 못함";
 			}
 
 			// 배송예정
@@ -651,9 +572,11 @@ public class ProductServiceImpl implements ProductService {
 			baeEx = null;
 			if (baeday == 1) {
 				baeEx = "내일(" + yoil + ") 도착예정";
-			} else if (baeday == 2) {
+			}
+			else if (baeday == 2) {
 				baeEx = "모레(" + yoil + ") 도착예정";
-			} else {
+			}
+			else {
 				int m = xday.getMonthValue();
 				int d = xday.getDayOfMonth();
 				baeEx = m + "/" + d + "(" + yoil + ") 도착예정";

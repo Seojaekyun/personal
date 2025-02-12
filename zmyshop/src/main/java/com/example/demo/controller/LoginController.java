@@ -12,6 +12,7 @@ import com.example.demo.dto.MemberDto;
 import com.example.demo.service.LoginService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -27,8 +28,8 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login/loginOk")
-	public String loginOk(MemberDto mdto, HttpSession session) {
-		return service.loginOk(mdto,session);
+	public String loginOk(MemberDto mdto, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		return service.loginOk(mdto, session, request, response);
 	}
 	
 	@GetMapping("/login/logout")

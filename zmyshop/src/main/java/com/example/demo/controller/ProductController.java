@@ -6,12 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.BaesongDto;
 import com.example.demo.dto.GumaeDto;
 import com.example.demo.service.ProductService;
 
+import org.springframework.web.bind.annotation.RequestMethod;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -43,7 +45,7 @@ public class ProductController {
 		return service.addCart(request, session, response);
 	}
 	
-	@GetMapping("/product/gumae")
+	@RequestMapping(value="/product/gumae", method = {RequestMethod.GET, RequestMethod.POST})
 	public String gumae(HttpSession session, HttpServletRequest request, Model model) {
 		return service.gumae(session, request, model);
 	}
