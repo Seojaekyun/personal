@@ -593,23 +593,12 @@ public class MemberServiceImpl implements MemberService{
 			for (int i = 0; i < blist.size(); i++) {
 				String breq = null;
 				switch (blist.get(i).getReq()) {
-				case 0:
-					breq = "문 앞";
-					break;
-				case 1:
-					breq = "직접 받고 부재시 문앞";
-					break;
-				case 2:
-					breq = "경비실";
-					break;
-				case 3:
-					breq = "택배함";
-					break;
-				case 4:
-					breq = "공동현관 앞";
-					break;
-				default:
-					breq = "읽지 못함";
+					case 0: breq="문 앞"; break;
+					case 1: breq="직접 받고 부재시 문앞"; break;
+					case 2: breq="경비실"; break;
+					case 3: breq="택배함"; break;
+					case 4: breq="공동현관 앞"; break;
+					default: breq="읽지 못함";
 				}
 
 				blist.get(i).setBreq(breq);

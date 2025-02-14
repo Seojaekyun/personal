@@ -17,20 +17,26 @@
 		margin-bottom:100px;
 		</c:if>
 	}
-	.onePro {
+	.oneJumun {
 		border:1px solid purple;
 		width:1100px;
 		padding:20px;
 		margin-top:10px;
 	}
+	.onePro {
+		border:1px solid purple;
+		width:1060px;
+		padding:20px;
+		margin-top:10px;
+	}
 	.onePro #pro1 {
 		display:inline-block;
-		width:600px;
+		width:550px;
 		margin-top:6px;
 	}
 	.onePro #pro2 {
 		display:inline-block;
-		width:200px;
+		width:180px;
 	}
 	.onePro #pro3 {
 		display:inline-block;
@@ -38,7 +44,7 @@
 	}
 	.onePro #pro4 {
 		display:inline-block;
-		width:160px;
+		width:150px;
 	}
 	.onePro #pro4 input[type=button] {
 		font-size:11px;
@@ -53,32 +59,32 @@
 	}
 	main #pkc input[type=text] {
 		width:100px;
-		height:17px;
+		height:24px;
 		border:1px solid purple;
-		vertical-align:middle;
+		border-radius: 12px;
 		font-family: 'GmarketSansMedium';
 		text-align:center;
-		padding-top:4px;
+		
 	}
 	main #pkc input[type=button] {
 		width:80px;
 		height:24px;
 		border:1px solid purple;
-		vertical-align:middle;
+		border-radius: 12px;
 		background:white;
 		color:purple;
 		font-family: 'GmarketSansMedium';
-		padding-top:4px;
+		
 	}
 	main #pkc input[type=submit] {
 		width:80px;
 		height:24px;
 		border:1px solid purple;
-		vertical-align:middle;
+		border-radius: 12px;
 		background:purple;
 		color:white;
 		font-family: 'GmarketSansMedium';
-		padding-top:4px;
+		
 	}
 	main #cal {
 		position:absolute;
@@ -215,42 +221,40 @@
 </script>
 </head>
 <body>
-	<main>  
-		<h2> 주문 목록 </h2>
-		<div align="center" id="pkc">
-			<form method="post" action="jumunList">
-				<input type="hidden" name="num" value="1">
-				<input type="button" onclick="location='monthView'" value="월별검색">
-				<input type="button" onclick="location='jumunList?num=3'" value="3개월">
-				<input type="button" onclick="location='jumunList?num=6'" value="6개월">
-				<input type="button" onclick="location='jumunList?num=12'" value="12개월">
-				<input type="text" readonly name="start" class="gigan" onclick="calView(-2,-2,0)"> -
-				<input type="text" readonly name="end" class="gigan" onclick="calView(-2,-2,1)">
-				<input type="submit" value="기간검색">
-			</form>
-			<div id="cal"></div>
-		</div>
-		<c:set var="i" value="0"/>
-		<c:forEach begin="1" end="${mapAll.size()}">
-		<c:if test="${i<mapAll.size()}">
-		<c:set var="chk" value="0"/>
+<main>  
+	<h2> 주문 목록 </h2>
+	<div align="center" id="pkc">
+		<form method="post" action="jumunList">
+			<input type="hidden" name="num" value="1">
+			<input type="button" onclick="location='monthView'" value="월별검색">
+			<input type="button" onclick="location='jumunList?num=3'" value="3개월">
+			<input type="button" onclick="location='jumunList?num=6'" value="6개월">
+			<input type="button" onclick="location='jumunList?num=12'" value="12개월">
+			<input type="text" readonly name="start" class="gigan" onclick="calView(-2,-2,0)"> -
+			<input type="text" readonly name="end" class="gigan" onclick="calView(-2,-2,1)">
+			<input type="submit" value="기간검색">
+		</form>
+		<div id="cal"></div>
+	</div>
+	<c:set var="i" value="0"/>
+	<c:forEach begin="1" end="${mapAll.size()}">
+	<c:if test="${i<mapAll.size()}">
+	<div class="oneJumun" id="left">
+		<h3> ${mapAll.get(i).writeday} </h3>
 		<c:forEach begin="0" end="${mapAll.get(i).cnt-1}" varStatus="sts">
-		<c:if test="${chk==0}">
-		<div class="onePro" id="left">
-			<h3> ${mapAll.get(i).writeday} </h3>
-			</c:if>  
+		<div class="onePro" style="border-radius: 5px;">
 			<div id="pro1">
-				<img src="../static/product/${mapAll.get(i).pimg}" width="40" height="40" valign="middle">
+				<img src="../static/product/${mapAll.get(i).pimg}" width="40" height="40" style="valign: middle;">
 				${mapAll.get(i).title}
 			</div>
 			<div id="pro2">
-				<fmt:formatNumber value="${mapAll.get(i).chongPrice}" type="number"/>원 
-				<span style="font-size:12px;"><br> 
-				(사용적립금:<fmt:formatNumber value="${mapAll.get(i).useJuk}" type="number"/>원) 
-				</span> 
+				<fmt:formatNumber value="${mapAll.get(i).chongPrice}" type="number"/>원
+				<span style="font-size:12px;"><br>
+				    (사용적립금:<fmt:formatNumber value="${mapAll.get(i).useJuk}" type="number"/>원)
+				</span>
 			</div>
 			<div id="pro3">
-				${mapAll.get(i).su}개 
+				${mapAll.get(i).su}개
 				<br>
 				<span style="font-size:15px">${mapAll.get(i).stateMsg} </span>
 			</div>
@@ -270,23 +274,23 @@
 				<c:if test="${mapAll.get(i).state==3 && mapAll.get(i).isReview==1}">
 				<input type="button" value="리뷰보기">
 				</c:if>
-				<c:if test="${mapAll.get(i).state==5}"> 
+				<c:if test="${mapAll.get(i).state==5}">
 				<input type="button" value="반품취소" id="btn" onclick="location='chgState?state=3&id=${mapAll.get(i).id}'">
 				</c:if>
-				<c:if test="${mapAll.get(i).state==7}"> 
+				<c:if test="${mapAll.get(i).state==7}">
 				<input type="button" value="교환취소" id="btn" onclick="location='chgState?state=3&id=${mapAll.get(i).id}'">
-				</c:if> 
+				</c:if>
 			</div>
-			<c:if test="${mapAll.get(i).cnt-1 != sts.index }"> 
-			<c:set var="i" value="${i+1}"/>
-			</c:if>
-			<c:set var="chk" value="1"/>
+		</div>
+	    <c:if test="${mapAll.get(i).cnt-1 != sts.index }">
+	    <c:set var="i" value="${i+1}"/>
+	    </c:if>
 		</c:forEach>
-		</div>  <!--  onePro -->
-		<div id="right"></div>
-		</c:if>
-		<c:set var="i" value="${i+1}"/>
-		</c:forEach>
-	</main>
+	</div>  <!--  oneJumun -->
+	<div id="right"></div>
+	</c:if>
+	<c:set var="i" value="${i+1}"/>
+	</c:forEach>
+</main>
 </body>
 </html>

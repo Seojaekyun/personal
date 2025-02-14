@@ -65,7 +65,7 @@
 	<div id="product">
 		<table>
 			<caption> <span id="h3"> 상품정보 </span> </caption>
-			<c:forEach items="${mapAll}" var="map"> 
+			<c:forEach items="${mapAll}" var="map">
 			<tr>
 				<td> <img src="../static/product/${map.pimg}" width="90" height="90"> </td>
 				<td> ${map.title} </td>
