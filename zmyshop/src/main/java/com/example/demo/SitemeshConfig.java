@@ -9,6 +9,8 @@ public class SitemeshConfig extends ConfigurableSiteMeshFilter{
 	protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {
 		// 제외할 폴더와 문서
 		builder.addExcludedPath("/admin/proWrite");
+		builder.addExcludedPath("/admin/panmaeList");
+		
 		builder.addExcludedPath("/member/usForm");
 		builder.addExcludedPath("/member/useridSearch");
 		builder.addExcludedPath("/member/psForm");

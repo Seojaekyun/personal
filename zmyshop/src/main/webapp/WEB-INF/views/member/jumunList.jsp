@@ -64,7 +64,6 @@
 		border-radius: 12px;
 		font-family: 'GmarketSansMedium';
 		text-align:center;
-		
 	}
 	main #pkc input[type=button] {
 		width:80px;
@@ -74,7 +73,6 @@
 		background:white;
 		color:purple;
 		font-family: 'GmarketSansMedium';
-		
 	}
 	main #pkc input[type=submit] {
 		width:80px;
@@ -83,8 +81,7 @@
 		border-radius: 12px;
 		background:purple;
 		color:white;
-		font-family: 'GmarketSansMedium';
-		
+		font-family: 'GmarketSansMedium';	
 	}
 	main #cal {
 		position:absolute;
