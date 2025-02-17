@@ -456,9 +456,13 @@
 					</div>
 					<div id="mright" style="float:right;">
 						<c:if test="${rdto.userid==userid}">
+						<a href="reviewUpdate?id=${rdto.id}&pcode=${rdto.pcode}"> 수정 </a>
+						/
 						<a href="reviewDel?id=${rdto.id}&pcode=${rdto.pcode}"> 삭제 </a>
 						</c:if>
+						<c:if test="${rdto.userid!=userid}">
 						신고하기
+						</c:if>
 					</div>
 				</div>
 				<div style="clear:both;letter-spacing:-4px">

@@ -102,7 +102,7 @@
 		baesong as b on g.baeId=b.id where g.jumuncode=#{jumuncode};
 	</select>
 	<select id="getReview" resultType="com.example.demo.dto.ReviewDto">
-		select * , concat(left(userid,4) , '***' ) as user from review where pcode=#{pcode}
+		select * , concat(left(userid,4) , '***' ) as user from review where pcode=#{pcode} order by star desc
 	</select>
 	<delete id="reviewDel">
 		delete from review where id=#{id}

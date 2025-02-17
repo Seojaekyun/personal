@@ -15,6 +15,7 @@ import com.example.demo.MyUtil;
 import com.example.demo.dto.BaesongDto;
 import com.example.demo.dto.GumaeDto;
 import com.example.demo.dto.ProductDto;
+import com.example.demo.dto.ReviewDto;
 import com.example.demo.mapper.ProductMapper;
 
 import jakarta.servlet.http.Cookie;
@@ -155,7 +156,6 @@ public class ProductServiceImpl implements ProductService {
 		
 		model.addAttribute("jImg", jImg);
 		
-		/*
 		// 현재 상품에 대한 상품평 테이블의 내용을 읽어온다
 		List<ReviewDto> rlist=mapper.getReview(pcode);
 		
@@ -167,11 +167,10 @@ public class ProductServiceImpl implements ProductService {
 		// rlist.get(i).getUserid().substring(0,4)+"***";
 		model.addAttribute("rlist", rlist);
 		
-		// 상품문의를 읽어서 뷰에 전달
+		/*// 상품문의를 읽어서 뷰에 전달
 		List<ProQnaDto> plist=mapper.questAll(pcode);
 		model.addAttribute("plist", plist);
 		*/
-		
 		return "/product/productContent";
 	}
 
