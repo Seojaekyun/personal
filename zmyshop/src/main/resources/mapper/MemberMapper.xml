@@ -59,8 +59,8 @@
 		update gumae set state=#{state} where id=#{id}
 	</update>
 	<select id="reviewWriteOk" parameterType="com.example.demo.dto.ReviewDto">
-		insert into review(star,content,oneLine,userid,pcode,writeday)
-		values(#{star},#{content},#{oneLine},#{userid},#{pcode},now())
+		insert into review(star,content,oneLine,userid,pcode,writeday,gid)
+		values(#{star},#{content},#{oneLine},#{userid},#{pcode},now(),#{gid})
 	</select>
 	<select id="getReviewAvg" resultType="Double">
 		select avg(star) from review where pcode=#{pcode}
@@ -135,9 +135,13 @@
 	<select id="isMy" resultType="String">
 		select pcode from review where userid=#{userid} and id=#{id}
 	</select>
-	<select id="reviewDel">
+	<delete id="reviewDel">
 		delete from review where id=#{id}
-	</select>
+	</delete>
+	<update id="reviewReset" parameterType="com.example.demo.dto.ReviewDto">
+		update gumae set isReview=0 where id=#{gid}
+	</update>
+	
 	<select id="myQna" resultType="com.example.demo.dto.ProQnaDto">
 		select p1.* , p2.title ,(select count(*) from proqna where ref=p1.ref and qna=1) as cnt
 		from proqna as p1 inner join product as p2 on p1.pcode=p2.pcode

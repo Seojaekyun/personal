@@ -61,7 +61,7 @@
 	<form name="rform" method="post" action="reviewUpdateOk">
 		<input type="hidden" name="id" value="${rdto.id }"> <!-- review테이블의 id -->
 		<!-- <input type="hidden" name="gid" value=""> --> <!-- gumae테이블의 id : 수정시에는 필요없음-->
-		<input type="hidden" name="star">
+		<input type="hidden" name="star" value="${rdto.star }">
 		<input type="hidden" name="pcode" value="${rdto.pcode}">
 		<h3 align="center"> 리뷰 수정하기 </h3>
 		<div>  

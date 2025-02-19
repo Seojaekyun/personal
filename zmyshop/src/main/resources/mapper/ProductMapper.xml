@@ -111,8 +111,8 @@
 		select ifnull( max(ref) ,0 )+1 from proQna
 	</select>
 	<insert id="questWriteOk">
-		insert into proQna(userid,pcode,content,ref,qna,writeday)
-		values(#{userid},#{pcode},#{content},#{ref},0,now())
+		insert into proQna(title,userid,pcode,content,ref,writeday)
+		values(#{title},#{userid},#{pcode},#{content},#{ref},now())
 	</insert>
 	<select id="questAll" resultType="com.example.demo.dto.ProQnaDto">
 		select * from proQna where pcode=#{pcode} order by ref desc , qna asc

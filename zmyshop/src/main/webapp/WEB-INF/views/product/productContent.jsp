@@ -456,9 +456,9 @@
 					</div>
 					<div id="mright" style="float:right;">
 						<c:if test="${rdto.userid==userid}">
-						<a href="reviewUpdate?id=${rdto.id}&pcode=${rdto.pcode}"> 수정 </a>
+						<a href="../member/reviewUpdate?id=${rdto.id}&pcode=${rdto.pcode}"> 수정 </a>
 						/
-						<a href="reviewDel?id=${rdto.id}&pcode=${rdto.pcode}"> 삭제 </a>
+						<a href="../member/reviewDel?id=${rdto.id}&pcode=${rdto.pcode}&gid=${rdto.gid}"> 삭제 </a>
 						</c:if>
 						<c:if test="${rdto.userid!=userid}">
 						신고하기
@@ -483,6 +483,7 @@
 		<div id="qwform"> <!-- 상품문의 폼 -->
 		<form method="post" action="questWriteOk">
 			<input type="hidden" name="pcode" value="${pdto.pcode}">
+			<input type="hidden" name="title" value="${pdto.title}">
 			<textarea name="content"></textarea> <br>
 			<input type="submit" value="문의 저장">
 		</form>

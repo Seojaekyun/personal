@@ -710,14 +710,16 @@ public class MemberServiceImpl implements MemberService{
 		else {
 			String userid = session.getAttribute("userid").toString();
 			String id = request.getParameter("id");
+			int gid = Integer.parseInt(request.getParameter("gid"));
 			String pcode = mapper.isMy(userid, id);
 			if (pcode != null) {
 				mapper.reviewDel(id);
+				mapper.reviewReset(gid);
 				// 삭제후 gumae테이블에서 해당 상품의 별점 평균을 다시 구해서 처리하기(pcode가 필요)
 				double star = mapper.getReviewAvg(pcode);
 				mapper.setProduct2(star, pcode);
 
-				return "redirect:/member/myReview";
+				return "redirect:/product/productContent?pcode="+pcode;
 			}
 			else { // 잘못된 접근일 확율이 있음
 				session.invalidate();
@@ -740,7 +742,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public String reviewUpdateOk(ReviewDto rdto, HttpSession session) {
+	public String reviewUpdateOk(ReviewDto rdto, HttpSession session, HttpServletRequest request) {
+		String pcode=request.getParameter("pcode");
 		if (session.getAttribute("userid") == null) {
 			return "redirect:/login/login";
 		}
@@ -750,7 +753,7 @@ public class MemberServiceImpl implements MemberService{
 			// review테이블에서 star값을 다시 구해서 product.star에 수정
 			double star = mapper.getReviewAvg(rdto.getPcode());
 			mapper.setProduct3(star, rdto.getPcode());
-			return "redirect:/member/myReview";
+			return "redirect:/product/productContent?pcode="+pcode;
 		}
 	}
 

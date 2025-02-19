@@ -59,6 +59,7 @@ public interface MemberMapper {
 	List<ProQnaDto> myQna(String userid);
 	void qnaDel(String id);
 	String viewAnswer(String ref);
+	void reviewReset(int gid);
 	
 	
 }

@@ -38,7 +38,7 @@ public interface MemberService {
 	String myReview(HttpSession session, Model model);
 	String reviewDel(HttpSession session, HttpServletRequest request);
 	String reviewUpdate(HttpServletRequest request, HttpSession session, Model model);
-	String reviewUpdateOk(ReviewDto rdto, HttpSession session);
+	String reviewUpdateOk(ReviewDto rdto, HttpSession session, HttpServletRequest request);
 	String myQna(HttpSession session, Model model);
 	String qnaDel(HttpServletRequest request, HttpSession session);
 	String viewAnswer(HttpServletRequest request);

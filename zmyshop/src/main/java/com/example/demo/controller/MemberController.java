@@ -173,8 +173,8 @@ public class MemberController {
 	}
 
 	@PostMapping("/member/reviewUpdateOk")
-	public String reviewUpdateOk(ReviewDto rdto, HttpSession session) {
-		return service.reviewUpdateOk(rdto, session);
+	public String reviewUpdateOk(ReviewDto rdto, HttpSession session, HttpServletRequest request) {
+		return service.reviewUpdateOk(rdto, session, request);
 	}
 
 	@GetMapping("/member/myQna")
