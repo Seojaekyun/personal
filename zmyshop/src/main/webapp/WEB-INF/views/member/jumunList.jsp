@@ -96,9 +96,8 @@
 		border-spacing:0px;
 	}
 	main #table td {
-		width:12px;
-		height:10px;
-		font-size:11px;
+		
+		font-size:24px;
 		cursor:pointer;
 		padding:2px;
 	}
@@ -138,10 +137,10 @@
 		
 		var ju=Math.ceil( (chong+yoil)/7 );
 		var calData="<table id='table' align='center' border='0'>";
-		calData=calData+"<caption style='font-size:14px'>";
-		calData=calData+" <span  onclick='calView("+y+","+(m-1)+","+n+")'> << </span>";
+		calData=calData+"<caption style='font-size:24px'>";
+		calData=calData+"<span onclick='calView("+y+","+(m-1)+","+n+")'> ◀ </span>&nbsp;";
 		calData=calData+y+"년 "+(m+1)+"월";
-		calData=calData+" <span onclick='calView("+y+","+(m+1)+","+n+")'> >> </span>";
+		calData=calData+"&nbsp;<span onclick='calView("+y+","+(m+1)+","+n+")'> ▶ </span>";
 		calData=calData+"</caption>";
 		calData=calData+"<tr>";
 		calData=calData+"<td> 일 </td>";
@@ -161,7 +160,8 @@
 					calData=calData+"<td> &nbsp; </td>";
 				}
 				else { // 년,월,일을 전달
-					calData=calData+"<td onclick='moveNalja("+y+","+m+",+"+day+","+n+")'>"+day+"</td>";
+					var displayDay = day.toString().padStart(2, "0");
+					calData=calData+"<td onclick='moveNalja("+y+","+m+",+"+day+","+n+")'>"+displayDay+"</td>";
 					// onclick="moveNalja(2024,9,9,n)"
 					day++;
 				}

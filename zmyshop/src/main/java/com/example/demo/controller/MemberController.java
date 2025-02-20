@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.BaesongDto;
@@ -70,7 +72,7 @@ public class MemberController {
 		return service.addCart(request, session);
 	}
 	
-	@GetMapping("/member/jumunList")
+	@RequestMapping(value="/member/jumunList", method = {RequestMethod.GET, RequestMethod.POST})
 	public String jumunList(HttpSession session, Model model, HttpServletRequest request) {
 		return service.jumunList(session, model, request);
 	}
