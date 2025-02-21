@@ -284,6 +284,7 @@ public class MemberController {
 		}
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@RequestMapping("/member/mapEx")
 	public String mapEx(Model model) {
 		MemberDao mdao=sqlSession.getMapper(MemberDao.class);
@@ -315,6 +316,7 @@ public class MemberController {
 		return "redirect:/main/index";
 	}
 	
+	@SuppressWarnings("unused")
 	@RequestMapping("/member/reserveList")
 	public String reserveList(HttpSession session, Model model) {
 		String userid=session.getAttribute("userid").toString();

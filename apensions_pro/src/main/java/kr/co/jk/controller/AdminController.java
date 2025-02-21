@@ -268,7 +268,8 @@ public class AdminController {
         return "redirect:/adminRoom/inquiryList";
     }
 
-    @RequestMapping("/adminRoom/memberList")
+    @SuppressWarnings("rawtypes")
+	@RequestMapping("/adminRoom/memberList")
     public String memberList(Model model) {
         AdminDao adao = sqlSession.getMapper(AdminDao.class);
         ArrayList<HashMap> mapAll = adao.memberList();

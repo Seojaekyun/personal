@@ -26,7 +26,8 @@ public interface MemberDao {
    public void pwdChg(String pwd, String userid);
    public ArrayList<InquiryDto> getInquirys(String userid);
    public ArrayList<MemberDto> getMembers();
-   public ArrayList<HashMap> getMembers2();
+   @SuppressWarnings("rawtypes")
+public ArrayList<HashMap> getMembers2();
    public void outMember(String userid);
    public void clsMember(String userid);
    public ArrayList<ReserveDto> reserveList(String userid);

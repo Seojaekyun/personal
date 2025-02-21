@@ -20,6 +20,7 @@ public interface AdminDao {
     public void updateOk(RoomDto rdto);
 	public ArrayList<InquiryDto> getInquirys();
 	public void inquiryOk(InquiryDto idto);
+	@SuppressWarnings("rawtypes")
 	public ArrayList<HashMap> memberList();
 	public void memberUp(MemberDto mdto);
 	public ArrayList<ReserveDto> reserveList();

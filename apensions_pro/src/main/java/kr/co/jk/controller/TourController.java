@@ -41,7 +41,8 @@ public class TourController {
         return "/tour/write";
     }
     
-    @RequestMapping("/tour/writeOk")
+    @SuppressWarnings("unused")
+	@RequestMapping("/tour/writeOk")
     public String writeOk(MultipartHttpServletRequest request, HttpSession session) throws Exception {
         String path = servletContext.getRealPath("/resources/tour");
         int size = 1024 * 1024 * 30;
@@ -117,7 +118,8 @@ public class TourController {
         return "/tour/update";
     }
     
-    @RequestMapping("/tour/updateOk")
+    @SuppressWarnings("unused")
+	@RequestMapping("/tour/updateOk")
     public String updateOk(MultipartHttpServletRequest request, HttpSession session) throws Exception {
         String path = servletContext.getRealPath("/resources/tour");
         List<MultipartFile> files = request.getFiles("file");
