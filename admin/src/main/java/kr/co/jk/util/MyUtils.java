@@ -3,8 +3,6 @@ package kr.co.jk.util;
 import java.io.File;
 import java.util.concurrent.ThreadLocalRandom;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 import org.springframework.util.ResourceUtils;
 
 public class MyUtils {
