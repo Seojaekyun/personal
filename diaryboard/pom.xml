@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.2</version>
+		<version>3.4.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
@@ -52,8 +52,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.mariadb.jdbc</groupId>
-			<artifactId>mariadb-java-client</artifactId>
-			<version>3.4.1</version><!--$NO-MVN-MAN-VER$-->
+			<artifactId>mariadb-java-client</artifactId><!--$NO-MVN-MAN-VER$-->
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -77,13 +76,11 @@
 		</dependency>
 		<dependency>
 			<groupId>jakarta.servlet.jsp.jstl</groupId>
-			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-			<version>3.0.2</version><!--$NO-MVN-MAN-VER$-->
+			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId><!--$NO-MVN-MAN-VER$-->
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.web</groupId>
-			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
-			<version>3.0.1</version><!--$NO-MVN-MAN-VER$-->
+			<artifactId>jakarta.servlet.jsp.jstl</artifactId><!--$NO-MVN-MAN-VER$-->
 		</dependency>
 		<dependency>
 			<groupId>org.sitemesh</groupId>
